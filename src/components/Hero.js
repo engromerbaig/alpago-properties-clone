@@ -2,6 +2,9 @@
 import { useEffect, useRef, useState } from 'react';
 import Overlay from './Overlay';
 import { OVERLAY_DATA } from '@/contsants/overlays';
+import { theme } from '@/theme';
+
+
 export default function Hero() {
   const videoRefs = useRef([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,7 +44,7 @@ export default function Hero() {
   }, [currentIndex]);
 
   return (
-    <section className="relative z-10 min-h-screen flex flex-col">
+    <section className={`relative ${theme.paddingHorizontal} ${theme.paddingVertical} z-10 h-screen flex flex-col`}>
       {/* Video Layer */}
       <div className="absolute inset-0">
         {[1, 2, 3].map((id, index) => (

@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import { theme } from '@/theme';
+
+
 
 export default function Navbar() {
   return (
-    <nav className="absolute px-4 py-6 z-50 shadow-sm w-full">
+    <nav className={`absolute ${theme.paddingHorizontal} py-6 z-50 shadow-sm w-full`}>
       {/* Background layer */}
       <div className="bg-black/30 w-full h-full absolute inset-0 -z-10" />
 

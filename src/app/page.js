@@ -7,7 +7,7 @@ import News from '@/components/News';
 // Home page component for JobSite
 export default function Home() {
   return (
-    <div className=" ">
+    <>
       {/* Hero Section */}
       <Hero />
 
@@ -22,6 +22,6 @@ export default function Home() {
 
       {/* News Section */}
       <News />
-    </div>
+    </>
   );
 }
