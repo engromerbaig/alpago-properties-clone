@@ -4,7 +4,6 @@ import Overlay from './Overlay';
 import { OVERLAY_DATA } from '@/contsants/overlays';
 import { theme } from '@/theme';
 
-
 export default function Hero() {
   const videoRefs = useRef([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,9 +43,9 @@ export default function Hero() {
   }, [currentIndex]);
 
   return (
-    <section className={`relative  ${theme.paddingVertical} z-10 h-screen flex flex-col`}>
+    <section className={`relative z-10 h-screen flex flex-col w-full ${theme.paddingVerticalMenu}`}>
       {/* Video Layer */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 w-full h-full">
         {[1, 2, 3].map((id, index) => (
           <video
             key={id}
@@ -55,26 +54,30 @@ export default function Hero() {
             muted
             preload="metadata"
             playsInline
-            className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out ${
-              currentIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
+            className="w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out"
+            style={{
+              opacity: currentIndex === index ? 1 : 0,
+              zIndex: currentIndex === index ? 10 : 0,
+            }}
             onLoadedMetadata={(e) => handleLoadedMetadata(index, e)}
           />
         ))}
       </div>
 
-      {/* Overlay */}
-      {OVERLAY_DATA.map((item, index) =>
-        index === currentIndex ? (
-          <Overlay
-            key={index}
-            {...item}
-            index={index}
-            currentIndex={currentIndex}
-            duration={videoDurations[index]}
-          />
-        ) : null
-      )}
+      {/* Content Wrapper */}
+      <div className={`relative z-20 w-full h-full flex flex-col ${theme.paddingHorizontal}`}>
+        {OVERLAY_DATA.map((item, index) =>
+          index === currentIndex ? (
+            <Overlay
+              key={index}
+              {...item}
+              index={index}
+              currentIndex={currentIndex}
+              duration={videoDurations[index]}
+            />
+          ) : null
+        )}
+      </div>
     </section>
   );
 }
