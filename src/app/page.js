@@ -7,7 +7,7 @@ import News from '@/components/News';
 // Home page component for JobSite
 export default function Home() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10 ">
+    <div className=" ">
       {/* Hero Section */}
       <Hero />
 
