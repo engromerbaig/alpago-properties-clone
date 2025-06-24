@@ -1,14 +1,14 @@
 export const OVERLAY_DATA = [
   {
-    title: 'Not Just Exceptional Experiences',
+    title: 'PURSUIT OF PERFECTION',
     number: '01',
   },
   {
-    title: 'Work With the Best',
+    title: 'EXCEPTIONAL EXPERIENCES',
     number: '02',
   },
   {
-    title: 'Innovation Meets Design',
+    title: 'PALM FLOWER',
     number: '03',
   },
 ];
