@@ -66,7 +66,7 @@ export default function Hero() {
       </div>
 
       {/* Content Wrapper */}
-      <div className={`relative z-20 w-full h-full flex flex-col ${theme.paddingHorizontal}`}>
+      <div className={`relative z-20 w-full h-full flex flex-col `}>
         {OVERLAY_DATA.map((item, index) =>
           index === currentIndex ? (
             <Overlay
