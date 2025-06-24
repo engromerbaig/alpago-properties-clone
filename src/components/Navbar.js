@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className="bg-white border-b px-4 py-3 shadow-sm">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <nav className="absolute bg-black opacity-50 border-b px-4 py-3 z-50 shadow-sm">
+      <div className=" mx-auto flex justify-between items-center">
         <Link href="/" className="text-xl font-semibold text-blue-600">JobSite</Link>
         <div className="space-x-4">
           <Link href="/" className="text-gray-700 hover:text-blue-600">Home</Link>

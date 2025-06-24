@@ -64,7 +64,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative z-20 min-h-screen flex flex-col">
       {/* Video Layer */}
       <div className="absolute inset-0">
         {[1, 2, 3].map((id, index) => (
