@@ -1,7 +1,30 @@
 @import "tailwindcss";
 
-@theme {
+/* Font face */
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('/fonts/FontsNinja.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CSS variables */
+:root {
   --color-primary: #FF0000;
   --color-secondary: #10B981;
   --color-green: #0F4D0F;
+  --font-clash: 'ClashDisplay', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Apply font using CSS variable */
+body {
+  font-family: var(--font-clash);
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .font-clash {
+    font-family: var(--font-clash);
+  }
 }
