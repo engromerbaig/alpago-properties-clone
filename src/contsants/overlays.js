@@ -1,14 +1,14 @@
 export const OVERLAY_DATA = [
   {
     title: 'PURSUIT OF PERFECTION',
-    number: '01',
+    number: '1',
   },
   {
     title: 'EXCEPTIONAL EXPERIENCES',
-    number: '02',
+    number: '2',
   },
   {
     title: 'PALM FLOWER',
-    number: '03',
+    number: '3',
   },
 ];
