@@ -2,9 +2,9 @@
 
 /* Font face */
 @font-face {
-  font-family: 'ClashDisplay';
-  src: url('/fonts/FontsNinja.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'DMSans';
+  src: url('/fonts/DMSans.woff2') format('woff2');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
@@ -14,7 +14,7 @@
   --color-primary: #FF0000;
   --color-secondary: #10B981;
   --color-green: #0F4D0F;
-  --font-clash: 'ClashDisplay', ui-sans-serif, system-ui, sans-serif;
+  --font-clash: 'DMSans', ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Apply font using CSS variable */
