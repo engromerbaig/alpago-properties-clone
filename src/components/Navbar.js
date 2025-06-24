@@ -1,15 +1,17 @@
 import Link from 'next/link';
 import { theme } from '@/theme';
+import Container from './Container';
 
 
 
 export default function Navbar() {
   return (
-    <nav className={`absolute ${theme.paddingHorizontal}  py-6 z-50 shadow-sm w-full`}>
+    <nav className={`absolute  py-6 z-50 shadow-sm w-full`}>
       {/* Background layer */}
       <div className="bg-black/30 w-full h-full absolute inset-0 -z-10" />
 
-      <div className="flex justify-between items-center relative z-10">
+      <Container>
+    <div className="flex justify-between items-center relative z-10">
         <Link href="/" className="text-xl font-semibold flex items-center">
           <img src="/logo.png" alt="JobSite Logo" className="h-12 mr-2" />
         </Link>
@@ -24,6 +26,10 @@ export default function Navbar() {
 
         </div>
       </div>
+
+      </Container>
+
+  
     </nav>
   );
 }

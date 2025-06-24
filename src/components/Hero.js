@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Overlay from './Overlay';
 import { OVERLAY_DATA } from '@/contsants/overlays';
 import { theme } from '@/theme';
+import Container from './Container';
 
 export default function Hero() {
   const videoRefs = useRef([]);
@@ -43,7 +44,7 @@ export default function Hero() {
   }, [currentIndex]);
 
   return (
-    <section className={`relative ${theme.paddingHorizontal} z-10 h-screen flex flex-col w-full ${theme.paddingVerticalMenu}`}>
+    <Container className={`relative  z-10 h-screen flex flex-col w-full ${theme.paddingVerticalMenu}`}>
       {/* Video Layer */}
       <div className="absolute inset-0 w-full h-full">
         {[1, 2, 3].map((id, index) => (
@@ -78,6 +79,6 @@ export default function Hero() {
           ) : null
         )}
       </div>
-    </section>
+    </Container>
   );
 }
