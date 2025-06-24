@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { OVERLAY_DATA } from '@/contsants/overlays';
 
 export default function Overlay({ title, number, index, currentIndex, duration }) {
   const circleRef = useRef();
@@ -60,13 +61,12 @@ export default function Overlay({ title, number, index, currentIndex, duration }
         </svg>
 
 
-   <div className="absolute inset-0 flex items-center justify-center font-light text-[100px]">
-          {number}
-        </div>
-
-<div className='absolute inset-0 flex items-center justify-center font-light text-xl top-32 '>
-  / 3
+   <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+  <span className="text-[100px] font-light leading-none">{number}</span>
+  <span className="text-xl font-light opacity-70">/ {OVERLAY_DATA.length}</span>
 </div>
+
+
 
      
       </div>
