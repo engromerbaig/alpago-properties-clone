@@ -9,6 +9,10 @@
   font-display: swap;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 /* CSS variables */
 :root {
   --color-primary: #FF0000;
