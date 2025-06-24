@@ -44,7 +44,7 @@ export default function Hero() {
   }, [currentIndex]);
 
   return (
-    <section className={`relative ${theme.paddingHorizontal} ${theme.paddingVertical} z-10 h-screen flex flex-col`}>
+    <section className={`relative  ${theme.paddingVertical} z-10 h-screen flex flex-col`}>
       {/* Video Layer */}
       <div className="absolute inset-0">
         {[1, 2, 3].map((id, index) => (
