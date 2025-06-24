@@ -1,8 +1,27 @@
+import Hero from '../components/Hero';
+import Projects from '../components/Projects';
+import Team from '../components/Team';
+import Experience from '../components/Experience';
+import News from '../components/News';
+
+// Home page component for JobSite
 export default function Home() {
   return (
-    <div className="max-w-4xl bg-primary mx-auto px-4 py-10">
-      <h1 className="text-3xl text-green font-bold mb-4">Welcome to JobSite</h1>
-      <p>This is a basic homepage for your job test project.</p>
+    <div className="max-w-4xl mx-auto px-4 py-10 bg-primary">
+      {/* Hero Section */}
+      <Hero />
+
+      {/* Projects Section */}
+      <Projects />
+
+      {/* Team Section */}
+      <Team />
+
+      {/* Experience Section */}
+      <Experience />
+
+      {/* News Section */}
+      <News />
     </div>
   );
 }
