@@ -2,10 +2,18 @@
 import { useEffect, useRef, useState } from 'react';
 import Overlay from './Overlay';
 import { OVERLAY_DATA } from '@/contsants/overlays';
-
 export default function Hero() {
   const videoRefs = useRef([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [videoDurations, setVideoDurations] = useState({});
+
+  const handleLoadedMetadata = (index, e) => {
+    const video = e.target;
+    setVideoDurations((prev) => ({
+      ...prev,
+      [index]: video.duration,
+    }));
+  };
 
   useEffect(() => {
     const currentVideo = videoRefs.current[currentIndex];
@@ -47,6 +55,7 @@ export default function Hero() {
             className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out ${
               currentIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
+            onLoadedMetadata={(e) => handleLoadedMetadata(index, e)}
           />
         ))}
       </div>
@@ -54,7 +63,13 @@ export default function Hero() {
       {/* Overlay */}
       {OVERLAY_DATA.map((item, index) =>
         index === currentIndex ? (
-          <Overlay key={index} {...item} index={index} currentIndex={currentIndex} />
+          <Overlay
+            key={index}
+            {...item}
+            index={index}
+            currentIndex={currentIndex}
+            duration={videoDurations[index]}
+          />
         ) : null
       )}
     </section>

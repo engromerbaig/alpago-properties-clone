@@ -2,25 +2,25 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-export default function Overlay({ title, number, index, currentIndex }) {
+export default function Overlay({ title, number, index, currentIndex, duration }) {
   const circleRef = useRef();
 
   useEffect(() => {
-    if (index === currentIndex) {
+    if (index === currentIndex && duration) {
       gsap.fromTo(
         circleRef.current,
-        { strokeDashoffset: 100 },
+        { strokeDashoffset: 188.4 },
         {
           strokeDashoffset: 0,
-          duration: 8, // should match your video duration
+          duration,
           ease: 'linear',
         }
       );
     }
-  }, [currentIndex, index]);
+  }, [currentIndex, index, duration]);
 
   return (
-    <div className="absolute z-20 inset-0 flex items-center justify-between px-10 py-8 text-white">
+    <div className="absolute z-20 inset-0 flex items-end justify-between px-10 pb-10 text-white">
       <h1 className="text-4xl font-bold max-w-xl">{title}</h1>
       <div className="relative w-16 h-16">
         <svg className="absolute inset-0" width="64" height="64">
