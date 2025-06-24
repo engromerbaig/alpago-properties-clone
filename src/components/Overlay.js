@@ -7,7 +7,7 @@ export default function Overlay({ title, number, index, currentIndex, duration }
 
   useEffect(() => {
     if (index === currentIndex && duration) {
-      gsap.set(circleRef.current, { strokeDashoffset: 188.4 }); // Reset before animating
+      gsap.set(circleRef.current, { strokeDashoffset: 251.2 }); // Updated
       gsap.to(circleRef.current, {
         strokeDashoffset: 0,
         duration,
@@ -19,32 +19,32 @@ export default function Overlay({ title, number, index, currentIndex, duration }
   return (
     <div className="absolute z-20 inset-0 flex items-end justify-between px-10 pb-10 text-white">
       <h1 className="text-4xl font-bold max-w-xl">{title}</h1>
-      <div className="relative w-16 h-16">
-        <svg className="absolute inset-0" width="64" height="64">
+      <div className="relative w-20 h-20"> {/* Increased container size */}
+        <svg className="absolute inset-0" width="80" height="80"> {/* Increased SVG size */}
           {/* Background Circle */}
           <circle
-            r="30"
-            cx="32"
-            cy="32"
+            r="40"
+            cx="40"
+            cy="40"
             fill="none"
             stroke="#fff"
-            strokeWidth="4"
+            strokeWidth="1"
             opacity="0.2"
           />
 
           {/* Animated Progress Circle */}
           <circle
             ref={circleRef}
-            r="30"
-            cx="32"
-            cy="32"
+            r="40"
+            cx="40"
+            cy="40"
             fill="none"
             stroke="#fff"
-            strokeWidth="4"
-            strokeDasharray="188.4"
-            strokeDashoffset="188.4"
+            strokeWidth="1"
+            strokeDasharray="251.2"
+            strokeDashoffset="251.2"
             className="origin-center"
-            style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }} // Start from top
+            style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
           />
         </svg>
 
