@@ -84,16 +84,7 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Overlay Content */}
-      <div className="relative z-20 flex items-center justify-center h-full bg-black bg-opacity-40 text-white px-4 text-center">
-        <div>
-          <h1 className="text-5xl font-bold mb-4">{overlays[currentIndex].title}</h1>
-          <p className="text-xl mb-6">{overlays[currentIndex].description}</p>
-          <button className="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700 transition">
-            {overlays[currentIndex].button}
-          </button>
-        </div>
-      </div>
+
 
       {/* Loading State - Removed for immediate display */}
     </section>
