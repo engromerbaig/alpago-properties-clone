@@ -4,9 +4,11 @@ import Overlay from './Overlay';
 import { OVERLAY_DATA } from '@/contsants/overlays';
 import { theme } from '@/theme';
 import Container from './Container';
+import { gsap } from 'gsap';
 
 export default function Hero() {
   const videoRefs = useRef([]);
+  const overlayRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [videoDurations, setVideoDurations] = useState({});
 
@@ -20,10 +22,12 @@ export default function Hero() {
 
   useEffect(() => {
     const currentVideo = videoRefs.current[currentIndex];
-    if (!currentVideo) return;
+    if (!currentVideo || !overlayRef.current) return;
 
     const playVideo = async () => {
       try {
+        // Ensure overlay is hidden initially
+        gsap.set(overlayRef.current, { x: '100%' });
         currentVideo.currentTime = 0;
         await currentVideo.play();
       } catch (error) {
@@ -32,7 +36,18 @@ export default function Hero() {
     };
 
     const handleEnded = () => {
-      setCurrentIndex((prev) => (prev + 1) % OVERLAY_DATA.length);
+      // Animate black overlay from right to left
+      gsap.to(overlayRef.current, {
+        x: '0%',
+        duration: 0.6,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          // Update index to switch to next video
+          setCurrentIndex((prev) => (prev + 1) % OVERLAY_DATA.length);
+          // Instantly reset overlay to right
+          gsap.set(overlayRef.current, { x: '100%' });
+        },
+      });
     };
 
     currentVideo.addEventListener('ended', handleEnded);
@@ -44,7 +59,7 @@ export default function Hero() {
   }, [currentIndex]);
 
   return (
-    <Container className={`relative  z-10 h-screen flex flex-col w-full ${theme.paddingVerticalMenu}`}>
+    <Container className={`relative z-10 h-screen flex flex-col w-full ${theme.paddingVerticalMenu} overflow-x-hidden`}>
       {/* Video Layer */}
       <div className="absolute inset-0 w-full h-full">
         {[1, 2, 3].map((id, index) => (
@@ -55,18 +70,25 @@ export default function Hero() {
             muted
             preload="metadata"
             playsInline
-            className="w-full h-full object-cover absolute inset-0 transition-opacity duration-700 ease-in-out"
+            className="w-full h-full object-cover absolute inset-0"
             style={{
               opacity: currentIndex === index ? 1 : 0,
               zIndex: currentIndex === index ? 10 : 0,
+              transition: 'opacity 0.3s ease-in-out',
             }}
             onLoadedMetadata={(e) => handleLoadedMetadata(index, e)}
           />
         ))}
       </div>
 
+      {/* Black Overlay for Transitions */}
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 w-full h-full bg-black z-15 pointer-events-none"
+      />
+
       {/* Content Wrapper */}
-      <div className={`relative z-20 w-full h-full flex flex-col `}>
+      <div className={`relative z-20 w-full h-full flex flex-col ${theme.paddingHorizontal}`}>
         {OVERLAY_DATA.map((item, index) =>
           index === currentIndex ? (
             <Overlay
