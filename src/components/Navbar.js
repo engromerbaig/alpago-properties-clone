@@ -9,7 +9,7 @@ export default function Navbar() {
       {/* Background layer */}
       <div className="bg-black/30 w-full h-full absolute inset-0 -z-10" />
 
-      <div className="max-w-6xl mx-auto flex justify-between items-center relative z-10">
+      <div className="flex justify-between items-center relative z-10">
         <Link href="/" className="text-xl font-semibold flex items-center">
           <img src="/logo.png" alt="JobSite Logo" className="h-12 mr-2" />
         </Link>

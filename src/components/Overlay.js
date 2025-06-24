@@ -27,7 +27,7 @@ export default function Overlay({ title, number, index, currentIndex, duration }
   }, [currentIndex, index, duration, circumference]);
 
   return (
-    <div className="absolute z-20 inset-0 flex items-end justify-between px-10 pb-10 text-white">
+    <div className="absolute z-20 inset-0 flex items-end justify-between  text-white">
       <h1 className="text-4xl font-bold max-w-xl">{title}</h1>
       <div className="relative" style={{ width: size, height: size }}>
         <svg className="absolute inset-0" width={size} height={size}>
