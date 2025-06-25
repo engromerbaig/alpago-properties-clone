@@ -1,4 +1,3 @@
-// app/components/Experience.js
 'use client';
 
 import { useState } from "react";
@@ -10,54 +9,55 @@ import Heading from "./Heading";
 import BodyText from "./BodyText";
 
 export default function Experience() {
-  const [activeIndex, setActiveIndex] = useState(0); // Initially first block is active
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <Container className={`flex h-screen flex-col lg:flex-row gap-10 justify-between ${theme.paddingVertical} bg-charcoal`}>
-      {/* Left: Image */}
-      <div className="w-full lg:w-1/2 flex justify-center items-center">
-        <Image
-          src={EXPERIENCE_DATA[activeIndex].image}
-          alt={EXPERIENCE_DATA[activeIndex].heading}
-          className="w-full h-full object-contain transition-all duration-500"
-        />
-      </div>
-
-      {/* Right: Static heading + evenly spaced blocks */}
-      <div className="w-full lg:w-1/2 flex flex-col h-full">
-  {/* Fixed heading */}
-  <div className="mb-6 shrink-0">
-    <Heading text="THE ALPAGO EXPERIENCE" centered={false} color="text-white" />
-  </div>
-
-  {/* Stretchable content */}
-  <div className="flex-1 flex flex-col justify-between ">
-    {EXPERIENCE_DATA.map((exp, index) => (
-      <div
-        key={index}
-        onMouseEnter={() => setActiveIndex(index)}
-        onClick={() => setActiveIndex(index)}
-        className="flex flex-col justify-center flex-1 px-4 py-2 cursor-pointer"
-      >
-        <Heading
-          text={exp.heading}
-          size="text-2xl"
-          centered={false}
-          color={activeIndex === index ? "text-white" : "text-white/40"}
-        />
-        {activeIndex === index && (
-          <BodyText
-            text={exp.body}
-            centered={false}
-            color="text-white"
-            className="mt-2"
+    <Container className={`min-h-screen bg-charcoal ${theme.paddingVertical}`}>
+      <div className="flex flex-col lg:flex-row h-full gap-10 xl:gap-20 items-stretch">
+        {/* Left: Image */}
+        <div className="w-full lg:w-1/2 flex justify-start items-center">
+          <Image
+            src={EXPERIENCE_DATA[activeIndex].image}
+            alt={EXPERIENCE_DATA[activeIndex].heading}
+            className="w-full h-full object-contain transition-all duration-500"
           />
-        )}
-      </div>
-    ))}
-  </div>
-</div>
+        </div>
 
+        {/* Right: Text Content */}
+        <div className="w-full lg:w-1/2 flex flex-col">
+          {/* Top heading (fixed height) */}
+          <div className="shrink-0 py-10">
+            <Heading text="THE ALPAGO EXPERIENCE" centered={false} color="text-white" />
+          </div>
+
+          {/* Experience blocks fill the rest */}
+          <div className="flex flex-col justify-between py-6 flex-1">
+            {EXPERIENCE_DATA.map((exp, index) => (
+              <div
+                key={index}
+                onMouseEnter={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+                className="flex flex-col justify-center flex-1 cursor-pointer"
+              >
+                <Heading
+                  text={exp.heading}
+                  size="text-2xl"
+                  centered={false}
+                  color={activeIndex === index ? "text-white" : "text-white/40"}
+                />
+                {activeIndex === index && (
+                  <BodyText
+                    text={exp.body}
+                    centered={false}
+                    color="text-white"
+                    className="mt-2 max-w-xl"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </Container>
   );
 }
