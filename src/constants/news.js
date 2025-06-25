@@ -3,7 +3,7 @@ import placeholder from "@/assets/images/placeholder.webp";
 
 export const NEWS_DATA = [
   {
-    name: "Exciting new feature released this month",
+    name: "Exciting new feature released this month. lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     image: placeholder,
     link: "#",
     date: "12",

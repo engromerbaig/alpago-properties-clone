@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { GoArrowUpRight } from "react-icons/go";
 import { FaPlus } from "react-icons/fa";
+import Heading from './Heading';
+import BodyText from './BodyText';
 
 export default function ProjectCard({ name, image, link = "#", cardHeight='h-[400px]', isNews = false, date, month, year }) {
   const truncatedName = isNews && name.length > 40 ? name.slice(0, 40) + "..." : name;
@@ -38,10 +40,12 @@ export default function ProjectCard({ name, image, link = "#", cardHeight='h-[40
 
         {/* Text + Date */}
         <div className="p-4 flex justify-between items-center">
-          <h3 className="text-xl font-bold text-black">{truncatedName}</h3>
+
+          <Heading text={truncatedName} size="text-3xl" fontWeight='font-light' color="text-black" />
           {isNews && (
-            <span className="text-sm text-gray-600">{formattedDate}</span>
+            <BodyText text={formattedDate}   />
           )}
+       
         </div>
       </div>
     </Link>
