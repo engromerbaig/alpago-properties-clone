@@ -4,78 +4,74 @@ import Container from "./Container";
 import Heading from "./Heading";
 import BodyText from "./BodyText";
 import { FOOTER_CONTENT } from "@/constants/footer";
+import { SOCIAL_LINKS } from "@/constants/socials";
 import { theme } from "@/theme";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-  FaTiktok,
-} from "react-icons/fa";
-
-const iconMap = {
-  FaFacebookF: <FaFacebookF />,
-  FaInstagram: <FaInstagram />,
-  FaLinkedinIn: <FaLinkedinIn />,
-  FaYoutube: <FaYoutube />,
-  FaTiktok: <FaTiktok />,
-};
 
 export default function Footer() {
-  const { company, links, socialIcons } = FOOTER_CONTENT;
+  const { company, links } = FOOTER_CONTENT;
 
   return (
-    <Container className={`bg-black z-100 text-white ${theme.paddingVertical} `}>
+    <Container className={`bg-black z-100 text-white ${theme.paddingVertical}`}>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Company Info */}
         <div>
-          <h2 className="text-lg font-semibold mb-2">{company.name}</h2>
-          <p className="text-sm text-gray-300 mb-4">{company.description}</p>
-          <p className="font-semibold text-sm mb-1">Location:</p>
-          {company.location.map((line, index) => (
-            <p key={index} className="text-sm text-gray-300">{line}</p>
+          <Heading text={company.name} size="text-lg" className="mb-2" centered={false} />
+          <BodyText text={company.description} className="text-sm text-white mb-4" centered={false} />
+          <Heading text="Location:" size="text-sm" className="mb-1" centered={false} />
+          {company.location.map((line, idx) => (
+            <BodyText key={idx} text={line} className="text-sm text-white" centered={false} />
           ))}
         </div>
 
         {/* Menu Links */}
-        <div>
-          <h3 className="text-sm font-semibold mb-2">HOME</h3>
+        <div className="space-y-2 xl:space-y-4">
           {links.menu.map((item) => (
-            <p key={item} className="text-sm text-white hover:underline cursor-pointer">
-              {item.toUpperCase()}
-            </p>
+            <BodyText
+              key={item}
+              text={item.toUpperCase()}
+              className="text-sm text-white hover:underline cursor-pointer"
+              centered={false}
+            />
           ))}
         </div>
 
         {/* Projects */}
         <div>
-          <h3 className="text-sm font-semibold mb-2">PROJECTS</h3>
+          <Heading text="PROJECTS" size="text-sm" className="mb-2" centered={false} />
           {links.projects.map((item) => (
-            <p key={item} className="text-sm text-white hover:underline cursor-pointer">
-              {item.toUpperCase()}
-            </p>
+            <BodyText
+              key={item}
+              text={item.toUpperCase()}
+              className="text-sm text-white hover:underline cursor-pointer"
+              centered={false}
+            />
           ))}
         </div>
 
-        {/* Media + Social */}
+        {/* Media + Socials */}
         <div>
-          <h3 className="text-sm font-semibold mb-2">MEDIA</h3>
+          <Heading text="MEDIA" size="text-sm" className="mb-2"               centered={false}
+ />
           {links.media.map((item) => (
-            <p key={item} className="text-sm text-white hover:underline cursor-pointer">
-              {item.toUpperCase()}
-            </p>
+            <BodyText
+              key={item}
+              text={item.toUpperCase()}
+              className="text-sm text-white hover:underline cursor-pointer"
+              centered={false}
+            />
           ))}
-          <h3 className="text-sm font-semibold mt-6 mb-2">CONTACT US</h3>
+          <Heading text="CONTACT US" size="text-sm" className="mt-6 mb-2" centered={false} />
           <div className="flex space-x-3 mt-2">
-            {socialIcons.map(({ icon, url }, index) => (
+            {SOCIAL_LINKS.map(({ icon, label, url }, index) => (
               <a
                 key={index}
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={label}
                 className="bg-[#2b2b2b] p-3 rounded-full text-white hover:scale-110 transition"
               >
-                {iconMap[icon]}
+                {icon}
               </a>
             ))}
           </div>
@@ -83,7 +79,7 @@ export default function Footer() {
       </div>
 
       <div className="text-xs text-gray-400 mt-10 text-end">
-        © Alpago Properties {new Date().getFullYear()}
+        <BodyText text={`© Alpago Properties ${new Date().getFullYear()}`} />
       </div>
     </Container>
   );
