@@ -13,7 +13,7 @@ export default function Experience() {
   const [activeIndex, setActiveIndex] = useState(0); // Initially first block is active
 
   return (
-    <Container className={`flex flex-col lg:flex-row gap-10 justify-between ${theme.paddingVertical} bg-charcoal`}>
+    <Container className={`flex h-screen flex-col lg:flex-row gap-10 justify-between ${theme.paddingVertical} bg-charcoal`}>
       {/* Left: Image */}
       <div className="w-full lg:w-1/2 flex justify-center items-center">
         <Image
@@ -25,42 +25,39 @@ export default function Experience() {
 
       {/* Right: Static heading + evenly spaced blocks */}
       <div className="w-full lg:w-1/2 flex flex-col h-full">
-        {/* Static Top Heading */}
-        <div className="mb-6">
-          <Heading
-            text="THE ALPAGO EXPERIENCE"
+  {/* Fixed heading */}
+  <div className="mb-6 shrink-0">
+    <Heading text="THE ALPAGO EXPERIENCE" centered={false} color="text-white" />
+  </div>
+
+  {/* Stretchable content */}
+  <div className="flex-1 flex flex-col justify-between ">
+    {EXPERIENCE_DATA.map((exp, index) => (
+      <div
+        key={index}
+        onMouseEnter={() => setActiveIndex(index)}
+        onClick={() => setActiveIndex(index)}
+        className="flex flex-col justify-center flex-1 px-4 py-2 cursor-pointer"
+      >
+        <Heading
+          text={exp.heading}
+          size="text-2xl"
+          centered={false}
+          color={activeIndex === index ? "text-white" : "text-white/40"}
+        />
+        {activeIndex === index && (
+          <BodyText
+            text={exp.body}
             centered={false}
             color="text-white"
+            className="mt-2"
           />
-        </div>
-
-        {/* Dynamic Content: Spread full height evenly */}
-        <div className="flex flex-col flex-grow divide-y divide-white/10 border-t border-b border-white/10">
-          {EXPERIENCE_DATA.map((exp, index) => (
-            <div
-              key={index}
-              onMouseEnter={() => setActiveIndex(index)}
-              onClick={() => setActiveIndex(index)}
-              className="flex flex-col justify-center flex-1 px-4 py-2 cursor-pointer"
-            >
-              <Heading
-                text={exp.heading}
-                size="text-2xl"
-                centered={false}
-                color={activeIndex === index ? "text-white" : "text-white/40"}
-              />
-              {activeIndex === index && (
-                <BodyText
-                  text={exp.body}
-                  centered={false}
-                  color="text-white"
-                  className="mt-2"
-                />
-              )}
-            </div>
-          ))}
-        </div>
+        )}
       </div>
+    ))}
+  </div>
+</div>
+
     </Container>
   );
 }
