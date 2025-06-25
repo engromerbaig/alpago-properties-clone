@@ -10,7 +10,7 @@ export default function Heading({
   color = 'text-white',
   size = 'text-5xl',
   centered = true,
-  fontWeight = 'font-black',
+  fontWeight = 'font-semibold',
   inActiveHeading = false,
   breakSpan = false,
   className = '',
