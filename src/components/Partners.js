@@ -37,10 +37,10 @@ export default function Partners() {
   }, []);
 
   return (
-    <Container className={`h-screen bg-white ${theme.paddingVertical}`}>
-      <div className="flex flex-col md:flex-row h-full">
+    <div className={`min-h-screen bg-white ${theme.paddingBottom}`}>
+      <div className="flex flex-col md:flex-row h-screen">
         {/* Left Text Section */}
-        <div className="md:w-1/2 p-6 flex flex-col justify-center">
+        <Container className="md:w-1/2 p-6 flex flex-col justify-center">
           <Heading
             text="DESIGN PARTNERS"
             centered={false}
@@ -59,9 +59,9 @@ export default function Partners() {
           <BodyText
             text={PARTNERS_DATA[activeIndex].description}
             centered={false}
-            className="mt-2"
+            className="mt-2 max-w-xl"
           />
-        </div>
+        </Container>
 
         {/* Right Swiper Section */}
         <div className="md:w-1/2 relative flex items-center justify-center">
@@ -135,6 +135,6 @@ export default function Partners() {
           </Swiper>
         </div>
       </div>
-    </Container>
+    </div>
   );
 }

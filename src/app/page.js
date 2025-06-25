@@ -19,10 +19,10 @@ export default function Home() {
         <div className="h-screen" />
 
         {/* 3. Projects Section - Will cover hero */}
-        {/* <div className="relative z-20 min-h-screen ">
+        <div className="relative z-20 min-h-screen ">
           <Headline />
           <Projects />
-        </div> */}
+        </div>
 
         {/* 4. Normal Scroll Content (NO PARALLAX) */}
         <div className="relative z-30">

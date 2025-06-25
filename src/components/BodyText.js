@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 export default function BodyText({
   text = '',
   color = 'text-black',
-  size = 'text-xl',
+  size = 'text-base',
   lineHeight = 'leading-normal',
   fontWeight = 'font-normal',
   centered = true,
