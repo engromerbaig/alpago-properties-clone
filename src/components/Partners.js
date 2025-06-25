@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -18,19 +18,7 @@ export default function Partners() {
   const [activeIndex, setActiveIndex] = useState(0);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const swiperInstance = document.querySelector(".swiper")?.swiper;
-      if (swiperInstance && prevRef.current && nextRef.current) {
-        swiperInstance.params.navigation.prevEl = prevRef.current;
-        swiperInstance.params.navigation.nextEl = nextRef.current;
-        swiperInstance.navigation.init();
-        swiperInstance.navigation.update();
-        clearInterval(interval);
-      }
-    }, 100);
-  }, []);
+  const swiperRef = useRef(null);
 
   return (
     <Container className={`h-screen bg-white ${theme.paddingVertical}`}>
@@ -62,6 +50,7 @@ export default function Partners() {
         {/* Right Swiper Section */}
         <div className="md:w-1/2 relative flex items-center justify-center">
           <Swiper
+            ref={swiperRef}
             modules={[Navigation]}
             spaceBetween={0}
             slidesPerView={1}
@@ -70,8 +59,13 @@ export default function Partners() {
               prevEl: prevRef.current,
               nextEl: nextRef.current,
             }}
+            onInit={(swiper) => {
+              // Initialize navigation on swiper init
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            className="w-full h-[400px]"
+            className="w-full h-[400px] relative" // Added relative here
           >
             {PARTNERS_DATA.map((member, index) => (
               <SwiperSlide key={index}>
@@ -85,32 +79,32 @@ export default function Partners() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority={index === 0}
                   />
-
-                  {/* Navigation + Counter */}
-                  {index === activeIndex && (
-                    <div className="absolute bottom-0 left-0 flex flex-col items-start bg-red-600 text-white px-10 py-6 z-10">
-                      <div className="flex items-center gap-4 mb-2">
-                        <button
-                          ref={prevRef}
-                          className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full"
-                        >
-                          <FaArrowLeft className="text-white" size={16} />
-                        </button>
-                        <button
-                          ref={nextRef}
-                          className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full"
-                        >
-                          <FaArrowRight className="text-white" size={16} />
-                        </button>
-                      </div>
-                      <div className="text-3xl">
-                        {activeIndex + 1} <span className="text-xs">/ {PARTNERS_DATA.length}</span>
-                      </div>
-                    </div>
-                  )}
                 </div>
               </SwiperSlide>
             ))}
+            
+            {/* Navigation + Counter - Inside Swiper but outside Slides */}
+            <div className="absolute bottom-0 left-0 z-10 w-1/4">
+              <div className="flex flex-col items-start bg-red-600 text-white px-10 py-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <button
+                    ref={prevRef}
+                    className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full"
+                  >
+                    <FaArrowLeft className="text-white" size={16} />
+                  </button>
+                  <button
+                    ref={nextRef}
+                    className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full"
+                  >
+                    <FaArrowRight className="text-white" size={16} />
+                  </button>
+                </div>
+                <div className="text-3xl">
+                  {(activeIndex % PARTNERS_DATA.length) + 1} <span className="text-xs">/ {PARTNERS_DATA.length}</span>
+                </div>
+              </div>
+            </div>
           </Swiper>
         </div>
       </div>
