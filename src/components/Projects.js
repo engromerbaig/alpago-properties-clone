@@ -51,31 +51,43 @@ export default function Projects() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-black"
-      style={{ scrollSnapAlign: "start" }}
-    >
-      {/* Heading stays fixed */}
-      <Container className={`${theme.paddingTop} relative z-10`}>
-        <Heading text="PROJECTS" size="text-7xl" centered={false} className="pb-10 text-white" />
-      </Container>
+  <section
+    ref={sectionRef}
+    className="relative h-screen w-full overflow-hidden"
+    style={{ scrollSnapAlign: "start" }}
+  >
+    {/* Background: 70% black top, 30% white bottom */}
+    <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="h-[70%] w-full bg-black" />
+      <div className="h-[30%] w-full bg-white" />
+    </div>
 
-      {/* Scrolling card track */}
-      <div
-        ref={trackRef}
-        className="absolute top-1/2 -translate-y-1/2 left-0 flex gap-8 px-10"
-      >
-        {PROJECTS_DATA.map((project, index) => (
-          <div
-            key={index}
-            className="project-card shrink-0"
-            style={{ width: `${window.innerWidth / 2}px` }}
-          >
-            <ProjectCard name={project.name} image={project.image} />
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+    {/* Heading stays fixed */}
+    <Container className={`${theme.paddingTop} relative z-10`}>
+      <Heading
+        text="PROJECTS"
+        size="text-7xl"
+        centered={false}
+        className="pb-10 text-white"
+      />
+    </Container>
+
+    {/* Scrolling card track */}
+    <div
+      ref={trackRef}
+      className="absolute top-1/2 -translate-y-1/2 left-0 flex gap-8 px-10 z-10"
+    >
+      {PROJECTS_DATA.map((project, index) => (
+        <div
+          key={index}
+          className="project-card shrink-0"
+          style={{ width: `${window.innerWidth / 2}px` }}
+        >
+          <ProjectCard name={project.name} image={project.image} />
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
 }
