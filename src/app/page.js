@@ -4,24 +4,31 @@ import Team from '@/components/Team';
 import Experience from '@/components/Experience';
 import News from '@/components/News';
 
-// Home page component for JobSite
 export default function Home() {
   return (
-    <>
-      {/* Hero Section */}
-      <Hero />
+    <div className="relative">
+      {/* Hero - Fixed background */}
+      <div className="fixed inset-0 h-screen w-full z-0">
+        <Hero />
+      </div>
 
-      {/* Projects Section */}
-      <Projects />
+      {/* Content container */}
+      <div className="relative z-10">
+        {/* Spacer matching hero height */}
+        <div className="h-screen" />
 
-      {/* Team Section */}
-      <Team />
+        {/* Projects - Sticky section that covers hero */}
+        <div className="sticky top-0 h-screen z-20">
+          <Projects />
+        </div>
 
-      {/* Experience Section */}
-      <Experience />
-
-      {/* News Section */}
-      <News />
-    </>
+        {/* Normal scroll content */}
+        <div className="relative z-30 bg-white">
+          <Team />
+          <Experience />
+          <News />
+        </div>
+      </div>
+    </div>
   );
 }

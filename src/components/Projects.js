@@ -1,10 +1,10 @@
-// app/components/Projects.js
+'use client';
 import { theme } from "@/theme";
 import Container from "./Container";
 
 export default function Projects() {
   return (
-    <Container className={`${theme.paddingVertical} bg-amber-300 h-screen`}>
+    <Container className={`${theme.paddingVertical} bg-amber-300 h-full min-h-screen`}>
       <h2 className="text-3xl font-semibold text-gray-800 mb-6">Our Projects</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="p-6 bg-white rounded-lg shadow-md">
