@@ -39,12 +39,29 @@ export default function ProjectCard({ name, image, link = "#", cardHeight='h-[40
         </div>
 
         {/* Text + Date */}
-        <div className="p-4 flex justify-between items-center">
+        <div className="py-4 flex justify-between items-center">
 
           <Heading text={truncatedName} size="text-3xl" fontWeight='font-light' color="text-black" />
-          {isNews && (
-            <BodyText text={formattedDate}   />
-          )}
+
+
+          {/* rhs */}
+{isNews && (
+<div className="flex justify-between">
+  {/* Left side: Date and Month */}
+  <div className="flex items-start">
+
+    <p className={`font-light text-3xl mt-0  text-black leading-none`}>
+
+{`${date}.${month}`}
+
+    </p>
+  </div>
+  {/* Right side: Year */}
+  <div className="flex items-start">
+    <BodyText text={year} size='text-xs' className="text-black leading-none ml-2" />
+  </div>
+</div>
+)}
        
         </div>
       </div>
