@@ -10,56 +10,56 @@ import Heading from "./Heading";
 import BodyText from "./BodyText";
 
 export default function Experience() {
-  const [hoveredIndex, setHoveredIndex] = useState(0); // Default to first entry
+  const [activeIndex, setActiveIndex] = useState(0); // Initially first block is active
 
   return (
-    <Container className={`flex flex-col lg:flex-row gap-10 items-center justify-between ${theme.paddingVertical} bg-charcoal`}>
+    <Container className={`flex flex-col lg:flex-row gap-10 justify-between ${theme.paddingVertical} bg-charcoal`}>
       {/* Left: Image */}
       <div className="w-full lg:w-1/2 flex justify-center items-center">
         <Image
-          src={EXPERIENCE_DATA[hoveredIndex].image}
-          alt={EXPERIENCE_DATA[hoveredIndex].heading}
-          className="w-full h-full object-contain  transition-all duration-500"
+          src={EXPERIENCE_DATA[activeIndex].image}
+          alt={EXPERIENCE_DATA[activeIndex].heading}
+          className="w-full h-full object-contain transition-all duration-500"
         />
       </div>
 
-      {/* Right: Headings */}
-      <div className="w-full lg:w-1/2 flex flex-col gap-6">
+      {/* Right: Static heading + evenly spaced blocks */}
+      <div className="w-full lg:w-1/2 flex flex-col h-full">
+        {/* Static Top Heading */}
+        <div className="mb-6">
+          <Heading
+            text="THE ALPAGO EXPERIENCE"
+            centered={false}
+            color="text-white"
+          />
+        </div>
 
-      <Heading
-      text="THE ALPAGO EXPERIENCE"
-      centered={false}
-      color="text-white"
-
-      />
-
-"
-        <ul className="flex flex-col gap-4">
+        {/* Dynamic Content: Spread full height evenly */}
+        <div className="flex flex-col flex-grow divide-y divide-white/10 border-t border-b border-white/10">
           {EXPERIENCE_DATA.map((exp, index) => (
-            <li
+            <div
               key={index}
-              onMouseEnter={() => setHoveredIndex(index)}
-              className={`transition-all duration-300 cursor-pointer px-4 py-2 rounded-md ${
-                hoveredIndex === index ? "bg-white/10 text-white" : "text-white/40"
-              }`}
+              onMouseEnter={() => setActiveIndex(index)}
+              onClick={() => setActiveIndex(index)}
+              className="flex flex-col justify-center flex-1 px-4 py-2 cursor-pointer"
             >
-
               <Heading
-              text={exp.heading}
-              size="text-xl"
-              centered={false}
-              color={hoveredIndex === index ? "text-white" : "text-white/40"}
+                text={exp.heading}
+                size="text-2xl"
+                centered={false}
+                color={activeIndex === index ? "text-white" : "text-white/40"}
               />
-
-              <BodyText
-              text= {exp.body}
-              centered={false}
-              color="text-white"
-              className="mt-2"
-              />
-            </li>
+              {activeIndex === index && (
+                <BodyText
+                  text={exp.body}
+                  centered={false}
+                  color="text-white"
+                  className="mt-2"
+                />
+              )}
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </Container>
   );
