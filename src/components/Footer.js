@@ -1,9 +1,12 @@
 
 
+import { theme } from "@/theme";
+import Container from "./Container";
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-400 z-100 text-center text-sm text-gray-600 py-10 ">
+    <Container className={`z-100 ${theme.paddingVertical} bg-black text-white `}>
       © {new Date().getFullYear()} JobSite. All rights reserved.
-    </footer>
+    </Container>
   );
 }
