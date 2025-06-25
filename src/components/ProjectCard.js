@@ -4,7 +4,7 @@ import Image from 'next/image';
 export default function ProjectCard({ name, image }) {
   return (
     <div className="group overflow-hidden  transition-all duration-300 ">
-      <div className="relative h-96 w-full overflow-hidden">
+      <div className="relative h-[400px] w-full overflow-hidden">
         <Image
           src={image}
           alt={name}
