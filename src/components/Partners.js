@@ -13,6 +13,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import Heading from "./Heading";
 import BodyText from "./BodyText";
+import { theme } from "@/theme";
 
 const DESIGN_PARTNERS = "DESIGN PARTNERS";
 
@@ -23,7 +24,7 @@ export default function Partners() {
   const nextRef = useRef(null);
 
   return (
-    <Container className={`h-screen bg-white pt-10 pb-20`}>
+    <Container className={`h-screen bg-white ${theme.paddingVertical}`}>
       <div className="flex flex-col md:flex-row h-full">
         {/* Left Text Section */}
         <div className="md:w-1/2 p-6 flex flex-col justify-center">
