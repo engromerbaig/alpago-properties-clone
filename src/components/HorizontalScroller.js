@@ -3,6 +3,8 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Container from "./Container";
+import Heading from "./Heading";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +16,7 @@ export default function HorizontalScroller({
   sectionStyle = {},
   trackClassName = "",
   renderTrackContent,
+  title = "", // 👈 Accept title like "PROJECTS" or "NEWS"
 }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
@@ -53,6 +56,20 @@ export default function HorizontalScroller({
       className={`relative h-screen w-full overflow-hidden ${sectionClassName}`}
       style={{ scrollSnapAlign: "start", ...sectionStyle }}
     >
+      {/* Title */}
+      {title && (
+        <Container className="pt-16 relative z-10">
+          <Heading
+            text={title}
+            size="text-[120px]"
+            centered={false}
+            fontWeight="font-semibold"
+            className="pb-10 text-white"
+          />
+        </Container>
+      )}
+
+      {/* Track */}
       <div
         ref={trackRef}
         className={`absolute bottom-10 left-0 flex px-10 ${trackClassName}`}

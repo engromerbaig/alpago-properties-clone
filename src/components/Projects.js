@@ -1,21 +1,16 @@
+// components/Projects.js
 'use client';
 
 import React, { useEffect, useState } from "react";
-import Container from "./Container";
-import Heading from "./Heading";
 import ProjectCard from "./ProjectCard";
 import { PROJECTS_DATA } from "@/constants/projects";
-import { theme } from "@/theme";
 import HorizontalScroller from "./HorizontalScroller";
 
 export default function Projects() {
   const [cardWidth, setCardWidth] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      setCardWidth(window.innerWidth / 2);
-    };
-
+    const handleResize = () => setCardWidth(window.innerWidth / 2);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -25,6 +20,7 @@ export default function Projects() {
 
   return (
     <HorizontalScroller
+      title="PROJECTS"
       cardWidth={cardWidth}
       gap={80}
       cardCount={cardCount}
@@ -45,10 +41,9 @@ export default function Projects() {
             </div>
           ))}
 
-          {/* Invisible spacer */}
           <div
             className="project-card shrink-0 opacity-0 pointer-events-none"
-            style={{ width: `${width}px` }}
+            style={{ width: `${cardWidth}px` }}
           />
         </>
       )}
