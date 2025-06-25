@@ -18,7 +18,7 @@ export default function Navbar() {
           </Link>
 
           {/* Navigation Links */}
-          <div className="space-x-4 uppercase">
+          <div className="hidden xl:block space-x-4 uppercase">
             {NAV_LINKS.map((link, idx) => (
               <Link
                 key={idx}
