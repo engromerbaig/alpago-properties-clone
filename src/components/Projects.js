@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Container from "./Container";
@@ -15,15 +15,26 @@ export default function Projects() {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
 
+  const [cardWidth, setCardWidth] = useState(0);
+
+  // Safe access to window
+  useEffect(() => {
+    const handleResize = () => {
+      setCardWidth(window.innerWidth / 2);
+    };
+
+    handleResize(); // set initial
+    window.addEventListener("resize", handleResize); // update on resize
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
-    if (!section || !track) return;
+    if (!section || !track || cardWidth === 0) return;
 
-    const cardElements = track.querySelectorAll(".project-card");
-    const cardCount = PROJECTS_DATA.length + 1; // +1 for invisible card
-
-    const cardWidth = window.innerWidth / 2; // 2 cards per viewport
+    const cardCount = PROJECTS_DATA.length + 1; // +1 for invisible spacer
     const gap = 80;
     const totalWidth = (cardWidth + gap) * cardCount - window.innerWidth;
 
@@ -48,7 +59,7 @@ export default function Projects() {
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [cardWidth]);
 
   return (
     <section
@@ -56,13 +67,13 @@ export default function Projects() {
       className="relative h-screen w-full overflow-hidden"
       style={{ scrollSnapAlign: "start" }}
     >
-      {/* Background: 70% black top, 30% white bottom */}
+      {/* Background split: 70% black top, 30% white bottom */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="h-[70%] w-full bg-black" />
         <div className="h-[30%] w-full bg-white" />
       </div>
 
-      {/* Heading stays fixed */}
+      {/* Heading */}
       <Container className={`${theme.paddingTop} relative z-10`}>
         <Heading
           text="PROJECTS"
@@ -73,7 +84,7 @@ export default function Projects() {
         />
       </Container>
 
-      {/* Scrolling card track - changed from top-1/2 -translate-y-1/2 to bottom-0 */}
+      {/* Track */}
       <div
         ref={trackRef}
         className="absolute bottom-10 left-0 flex gap-20 px-10 z-10"
@@ -82,15 +93,16 @@ export default function Projects() {
           <div
             key={index}
             className="project-card shrink-0"
-            style={{ width: `${window.innerWidth / 2}px` }}
+            style={{ width: `${cardWidth}px` }}
           >
             <ProjectCard name={project.name} image={project.image} />
           </div>
         ))}
-        {/* Invisible card for extra space */}
+
+        {/* Invisible spacer card for end scroll space */}
         <div
           className="project-card shrink-0 opacity-0 pointer-events-none"
-          style={{ width: `${window.innerWidth / 2}px` }}
+          style={{ width: `${cardWidth}px` }}
         />
       </div>
     </section>
