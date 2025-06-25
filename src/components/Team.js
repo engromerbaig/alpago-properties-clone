@@ -1,93 +1,92 @@
 'use client';
 
-import { theme } from "@/theme";
-import Container from "./Container";
-import { useEffect, useRef, useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { gsap } from "gsap";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+
+import { useState, useRef } from "react";
 import TEAMS_DATA from "@/constants/teams";
+import Container from "./Container";
 import Image from "next/image";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const DESIGN_PARTNERS = "DESIGN PARTNERS";
 
+
 export default function Team() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slideRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to(slideRef.current, {
-        xPercent: -currentSlide * 100,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    });
-    return () => ctx.revert();
-  }, [currentSlide]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % TEAMS_DATA.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + TEAMS_DATA.length) % TEAMS_DATA.length);
-  };
+  const [activeIndex, setActiveIndex] = useState(0);
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
 
   return (
-    <Container className={`h-screen bg-white ${theme.paddingVertical}`}>
+    <Container className={`h-screen bg-white pt-10 pb-20`}>
       <div className="flex flex-col md:flex-row h-full">
         {/* Left Text Section */}
         <div className="md:w-1/2 p-6 flex flex-col justify-center">
           <h2 className="text-3xl font-semibold text-gray-800 mb-2">
-            {DESIGN_PARTNERS}
+            DESIGN PARTNERS
           </h2>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {TEAMS_DATA[currentSlide].heading}
+            {TEAMS_DATA[activeIndex].heading}
           </h1>
-          <p className="text-gray-600">{TEAMS_DATA[currentSlide].description}</p>
+          <p className="text-gray-600">{TEAMS_DATA[activeIndex].description}</p>
         </div>
 
-        {/* Right Image Slider Section */}
+        {/* Right Swiper Section */}
         <div className="md:w-1/2 relative flex items-center justify-center">
-          <div className="overflow-hidden w-full h-[400px]">
-            <div
-              ref={slideRef}
-              className="flex"
-              style={{ width: `${TEAMS_DATA.length * 100}%` }}
-            >
-              {TEAMS_DATA.map((member, index) => (
-                <div key={index} className="min-w-full flex-shrink-0">
-                  <div className="relative w-full h-[400px]">
-                    <Image
-                      src={member.image}
-                      alt={member.heading}
-                      fill
-                      placeholder="blur"
-                      className="object-contain"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority={index === 0}
-                    />
-                  </div>
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={0}
+            slidesPerView={1}
+            loop={true}
+            navigation={{
+              prevEl: prevRef.current,
+              nextEl: nextRef.current,
+            }}
+            onSwiper={(swiper) => {
+              // Attach navigation refs after swiper is initialized
+              setTimeout(() => {
+                swiper.params.navigation.prevEl = prevRef.current;
+                swiper.params.navigation.nextEl = nextRef.current;
+                swiper.navigation.init();
+                swiper.navigation.update();
+              });
+            }}
+            onSlideChange={(swiper) => {
+              const realIndex = swiper.realIndex;
+              setActiveIndex(realIndex);
+            }}
+            className="w-full h-[400px]"
+          >
+            {TEAMS_DATA.map((member, index) => (
+              <SwiperSlide key={index}>
+                <div className="relative w-full h-[400px]">
+                  <Image
+                    src={member.image}
+                    alt={member.heading}
+                    fill
+                    placeholder="blur"
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={index === 0}
+                  />
                 </div>
-              ))}
-            </div>
-          </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-          {/* Arrows */}
-          <div className="absolute bottom-4 left-4 flex items-center text-black bg-white px-3 py-1 rounded shadow">
-            <FaArrowLeft
-              className="cursor-pointer mr-2"
-              onClick={prevSlide}
-              size={20}
-            />
-            <span className="text-sm font-medium">
-              {currentSlide + 1} / {TEAMS_DATA.length}
+          {/* Custom Navigation Arrows */}
+          <div className="absolute bottom-4 left-4 flex items-center bg-white px-3 py-1 rounded shadow z-10">
+            <button ref={prevRef}>
+              <FaArrowLeft className="text-black cursor-pointer mr-2" size={20} />
+            </button>
+            <span className="text-sm font-medium text-black">
+              {activeIndex + 1} / {TEAMS_DATA.length}
             </span>
-            <FaArrowRight
-              className="cursor-pointer ml-2"
-              onClick={nextSlide}
-              size={20}
-            />
+            <button ref={nextRef}>
+              <FaArrowRight className="text-black cursor-pointer ml-2" size={20} />
+            </button>
           </div>
         </div>
       </div>
