@@ -3,7 +3,7 @@ import { theme } from "@/theme";
 import Container from "./Container";
 import Heading from "./Heading";
 import { PROJECTS_DATA } from "@/contsants/projects";
-import Image from "next/image";
+import ProjectCard from "./ProjectCard";
 
 export default function Projects() {
   return (
@@ -20,7 +20,7 @@ export default function Projects() {
           className="pb-10 text-white"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {PROJECTS_DATA.map((project, index) => (
             <ProjectCard 
               key={index}
@@ -33,19 +33,3 @@ export default function Projects() {
     </div>
   );
 }
-
-const ProjectCard = ({ name, image }) => (
-  <div className="relative h-96 w-full overflow-hidden rounded-lg shadow-lg">
-    <Image
-      src={image}
-      alt={name}
-      fill
-      className="object-cover"
-      placeholder="blur" // Optional: if you want blur-up effect
-      sizes="(max-width: 768px) 100vw, 50vw"
-    />
-    <div className="absolute inset-0 bg-black/30 flex items-end p-4">
-      <h3 className="text-xl font-bold text-white">{name}</h3>
-    </div>
-  </div>
-);
