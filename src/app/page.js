@@ -3,6 +3,7 @@ import Projects from '@/components/Projects';
 import Team from '@/components/Team';
 import Experience from '@/components/Experience';
 import News from '@/components/News';
+import { Headline } from '@/components/Headline';
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
 
         {/* 3. Projects Section - Will cover hero */}
         <div className="relative z-20 min-h-screen ">
+          <Headline />
           <Projects />
         </div>
 

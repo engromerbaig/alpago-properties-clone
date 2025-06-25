@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 export default function Heading({
   text = '',
   spanText = '',
-  spanColor = 'text-black',
+  spanColor = 'text-white',
   spanSize = '',
   spanFontWeight = 'font-black',
   color = 'text-white',
-  size = 'text-7xl',
+  size = 'text-5xl',
   centered = true,
   fontWeight = 'font-black',
   inActiveHeading = false,
