@@ -11,12 +11,12 @@ import { NEWS_DATA } from "@/constants/news";
 export default function News() {
   const [cardWidth, setCardWidth] = useState(0);
 
-  useEffect(() => {
-    const handleResize = () => setCardWidth(window.innerWidth / 2);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+useEffect(() => {
+  const handleResize = () => setCardWidth(window.innerWidth * 0.65); // 👈 Wider than projects
+  handleResize();
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
   const cardCount = NEWS_DATA.length ;
 
