@@ -2,8 +2,8 @@
 
 /* Font face */
 @font-face {
-  font-family: 'DMSans';
-  src: url('/fonts/DMSans.woff2') format('woff2');
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -23,12 +23,12 @@
   --color-darkGray: #5B5B5B;
   --color-charcoal: #1A1A1A;
 
-  --font-clash: 'DMSans', ui-sans-serif, system-ui, sans-serif;
+  --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Apply global font */
 body {
-  font-family: var(--font-clash);
+  font-family: var(--font-roboto);
 }
 
 /* ✅ Custom utility classes */
