@@ -21,6 +21,7 @@
   --color-lightGray: #F5F5F5;
   --color-Gray: #E9E9E9;
   --color-darkGray: #5B5B5B;
+  --color-charcoal: #1A1A1A;
 
   --font-clash: 'DMSans', ui-sans-serif, system-ui, sans-serif;
 }
@@ -58,5 +59,9 @@ body {
 
   .bg-Gray {
     background-color: var(--color-Gray);
+  }
+
+  .bg-charcoal {
+    background-color: var(--color-charcoal);
   }
 }
