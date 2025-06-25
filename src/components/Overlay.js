@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { OVERLAY_DATA } from '@/contsants/overlays';
+import { OVERLAY_DATA } from '@/constants/overlays';
 
 export default function Overlay({ title, number, index, currentIndex, duration }) {
   const circleRef = useRef();

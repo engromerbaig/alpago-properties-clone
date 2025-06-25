@@ -2,7 +2,7 @@
 import { theme } from "@/theme";
 import Container from "./Container";
 import Heading from "./Heading";
-import { PROJECTS_DATA } from "@/contsants/projects";
+import { PROJECTS_DATA } from "@/constants/projects";
 import ProjectCard from "./ProjectCard";
 
 export default function Projects() {

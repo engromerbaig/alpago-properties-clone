@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Overlay from './Overlay';
-import { OVERLAY_DATA } from '@/contsants/overlays';
+import { OVERLAY_DATA } from '@/constants/overlays';
 import { theme } from '@/theme';
 import Container from './Container';
 import { gsap } from 'gsap';
