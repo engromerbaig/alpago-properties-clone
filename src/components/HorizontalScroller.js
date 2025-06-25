@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Container from "./Container";
 import Heading from "./Heading";
+import { theme } from "@/theme";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,7 @@ export default function HorizontalScroller({
   gap = 80,
   cardCount,
   sectionClassName = "",
+  titleColor = "text-white",
   sectionStyle = {},
   trackClassName = "",
   renderTrackContent,
@@ -58,13 +60,14 @@ export default function HorizontalScroller({
     >
       {/* Title */}
       {title && (
-        <Container className="pt-16 relative z-10">
+        <Container className={`${theme.paddingTop} relative z-10`}>
           <Heading
             text={title}
             size="text-[120px]"
             centered={false}
             fontWeight="font-semibold"
-            className="pb-10 text-white"
+            color={titleColor}
+            className={`pb-10 `}
           />
         </Container>
       )}

@@ -6,15 +6,15 @@ import Link from 'next/link';
 import { GoArrowUpRight } from "react-icons/go";
 import { FaPlus } from "react-icons/fa";
 
-export default function ProjectCard({ name, image, link = "#", isNews = false, date, month, year }) {
-  const truncatedName = isNews && name.length > 20 ? name.slice(0, 20) + "..." : name;
+export default function ProjectCard({ name, image, link = "#", cardHeight='h-[400px]', isNews = false, date, month, year }) {
+  const truncatedName = isNews && name.length > 40 ? name.slice(0, 40) + "..." : name;
   const formattedDate = isNews ? `${date}.${month}.${year}` : "";
 
   return (
     <Link href={link} target="_blank" rel="noopener noreferrer">
       <div className="group overflow-hidden relative transition-all duration-300 cursor-pointer">
         {/* Image */}
-        <div className="relative h-[400px] w-full overflow-hidden">
+        <div className={`relative ${cardHeight} w-full overflow-hidden`}>
           <Image
             src={image}
             alt={name}

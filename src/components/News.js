@@ -18,15 +18,16 @@ export default function News() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const cardCount = NEWS_DATA.length + 1;
+  const cardCount = NEWS_DATA.length ;
 
   return (
  <HorizontalScroller
   title="NEWS"
+  titleColor="text-black"
   cardWidth={cardWidth}
   gap={80}
   cardCount={cardCount}
-  sectionClassName="bg-pink-500"
+  sectionClassName="bg-white"
   renderTrackContent={(width) => (
     <>
       {NEWS_DATA.map((item, index) => (
@@ -37,6 +38,7 @@ export default function News() {
         >
           <ProjectCard
             isNews
+            cardHeight="h-80"
             name={item.name}
             image={item.image}
             link={item.link}
