@@ -11,6 +11,9 @@ import Container from "./Container";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
+import Heading from "./Heading";
+import BodyText from "./BodyText";
+
 const DESIGN_PARTNERS = "DESIGN PARTNERS";
 
 
@@ -24,13 +27,16 @@ export default function Partners() {
       <div className="flex flex-col md:flex-row h-full">
         {/* Left Text Section */}
         <div className="md:w-1/2 p-6 flex flex-col justify-center">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-2">
-            DESIGN PARTNERS
-          </h2>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {PARTNERS_DATA[activeIndex].heading}
-          </h1>
-          <p className="text-gray-600">{PARTNERS_DATA[activeIndex].description}</p>
+        <Heading text="DESIGN PARTNERS"  centered={false} color="text-Gray" fontWeight="font-extralight"  className="text-lg   mb-2" />
+        
+        <Heading
+        text={PARTNERS_DATA[activeIndex].heading}
+        size="text-4xl"
+        centered={false}
+        color="text-black"
+        />
+        
+        <BodyText text={PARTNERS_DATA[activeIndex].description} centered={false} className="mt-2" />
         </div>
 
         {/* Right Swiper Section */}
