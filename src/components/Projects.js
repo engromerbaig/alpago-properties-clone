@@ -21,10 +21,10 @@ export default function Projects() {
     if (!section || !track) return;
 
     const cardElements = track.querySelectorAll(".project-card");
-    const cardCount = PROJECTS_DATA.length;
+    const cardCount = PROJECTS_DATA.length + 1; // +1 for invisible card
 
     const cardWidth = window.innerWidth / 2; // 2 cards per viewport
-const gap = 80;
+    const gap = 80;
     const totalWidth = (cardWidth + gap) * cardCount - window.innerWidth;
 
     gsap.set(track, {
@@ -51,43 +51,47 @@ const gap = 80;
   }, []);
 
   return (
-  <section
-    ref={sectionRef}
-    className="relative h-screen w-full overflow-hidden"
-    style={{ scrollSnapAlign: "start" }}
-  >
-    {/* Background: 70% black top, 30% white bottom */}
-    <div className="absolute inset-0 z-0 pointer-events-none">
-      <div className="h-[70%] w-full bg-black" />
-      <div className="h-[30%] w-full bg-white" />
-    </div>
-
-    {/* Heading stays fixed */}
-    <Container className={`${theme.paddingTop} relative z-10`}>
-      <Heading
-        text="PROJECTS"
-        size="text-7xl"
-        centered={false}
-        className="pb-10 text-white"
-      />
-    </Container>
-
-    {/* Scrolling card track */}
-    <div
-      ref={trackRef}
-      className="absolute top-1/2 -translate-y-1/2 left-0 flex gap-20 px-10 z-10"
+    <section
+      ref={sectionRef}
+      className="relative h-screen w-full overflow-hidden"
+      style={{ scrollSnapAlign: "start" }}
     >
-      {PROJECTS_DATA.map((project, index) => (
-        <div
-          key={index}
-          className="project-card shrink-0"
-          style={{ width: `${window.innerWidth / 2}px` }}
-        >
-          <ProjectCard name={project.name} image={project.image} />
-        </div>
-      ))}
-    </div>
-  </section>
-);
+      {/* Background: 70% black top, 30% white bottom */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="h-[70%] w-full bg-black" />
+        <div className="h-[30%] w-full bg-white" />
+      </div>
 
+      {/* Heading stays fixed */}
+      <Container className={`${theme.paddingTop} relative z-10`}>
+        <Heading
+          text="PROJECTS"
+          size="text-7xl"
+          centered={false}
+          className="pb-10 text-white"
+        />
+      </Container>
+
+      {/* Scrolling card track - changed from top-1/2 -translate-y-1/2 to bottom-0 */}
+      <div
+        ref={trackRef}
+        className="absolute bottom-10 left-0 flex gap-20 px-10 z-10"
+      >
+        {PROJECTS_DATA.map((project, index) => (
+          <div
+            key={index}
+            className="project-card shrink-0"
+            style={{ width: `${window.innerWidth / 2}px` }}
+          >
+            <ProjectCard name={project.name} image={project.image} />
+          </div>
+        ))}
+        {/* Invisible card for extra space */}
+        <div
+          className="project-card shrink-0 opacity-0 pointer-events-none"
+          style={{ width: `${window.innerWidth / 2}px` }}
+        />
+      </div>
+    </section>
+  );
 }
