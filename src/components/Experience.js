@@ -40,12 +40,12 @@ export default function Experience() {
                 className="flex flex-col justify-center flex-1 cursor-pointer"
               >
                 <div className="wrapper overflow-hidden">
-                  {/* Heading with slide up animation */}
+                  {/* Heading - only active one moves to make space */}
                   <div 
                     className={`transform transition-all duration-500 ease-out ${
                       activeIndex === index 
-                        ? 'translate-y-0' 
-                        : 'translate-y-2'
+                        ? '-translate-y-2' 
+                        : 'translate-y-0'
                     }`}
                   >
                     <Heading
@@ -56,12 +56,12 @@ export default function Experience() {
                     />
                   </div>
 
-                  {/* Body text with fade and slide animations */}
+                  {/* Body text - only fades in/out */}
                   <div 
-                    className={`transform transition-all duration-500 ease-out ${
+                    className={`transition-all duration-500 ease-out ${
                       activeIndex === index
-                        ? 'opacity-100 translate-y-0 max-h-96'
-                        : 'opacity-0 translate-y-4 max-h-0'
+                        ? 'opacity-100 max-h-96'
+                        : 'opacity-0 max-h-0'
                     }`}
                   >
                     <BodyText
