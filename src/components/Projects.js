@@ -66,8 +66,9 @@ export default function Projects() {
       <Container className={`${theme.paddingTop} relative z-10`}>
         <Heading
           text="PROJECTS"
-          size="text-7xl"
+          size="text-[120px]"
           centered={false}
+          fontWeight="font-semibold"
           className="pb-10 text-white"
         />
       </Container>
