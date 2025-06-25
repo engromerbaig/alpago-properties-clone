@@ -15,9 +15,6 @@ export default function Heading({
   breakSpan = false,
   className = '',
 }) {
-  // Split text into parts around spanText
-  const parts = spanText ? text.split(spanText) : [text];
-
   // Apply 20% opacity if inActiveHeading is true
   const getColorWithOpacity = (colorClass) => {
     if (!inActiveHeading) return colorClass;
@@ -25,92 +22,59 @@ export default function Heading({
     return `text-${colorName}/20`;
   };
 
-  // Split text into words while preserving trailing spaces
-  const splitIntoWordsWithSpaces = (string) => {
-    const words = [];
-    const parts = string.split(' ');
-    for (let i = 0; i < parts.length; i++) {
-      if (parts[i]) {
-        words.push(i === parts.length - 1 ? parts[i] : parts[i] + ' ');
-      }
-    }
-    return words;
-  };
+  // Split text into parts around spanText
+  const parts = spanText ? text.split(spanText) : [text];
 
-  // Reconstruct text with proper spacing
-  const reconstructTextWithSpacing = () => {
-    let result = parts[0] || '';
-    if (spanText) {
-      if (!breakSpan && result && !result.endsWith(' ') && !spanText.startsWith(' ')) {
-        result += ' ';
-      }
-      result += spanText;
-      if (!breakSpan && parts[1] && !spanText.endsWith(' ') && !parts[1].startsWith(' ')) {
-        result += ' ';
-      }
-      result += parts[1] || '';
-    }
-    return result;
-  };
-
-  // Determine styling for each word
-  const getWordStyling = (wordText, wordStartIndex, fullText) => {
+  // Reconstruct text with proper spacing and line breaks
+  const renderHeadingContent = () => {
     if (!spanText) {
-      return {
-        color: getColorWithOpacity(color),
-        size: '',
-        weight: '',
-        isSpan: false,
-      };
+      return (
+        <span className={`${getColorWithOpacity(color)}`}>
+          {text}
+        </span>
+      );
     }
 
-    const spanStart = fullText.indexOf(spanText);
-    const spanEnd = spanStart + spanText.length;
-    const isSpanWord = wordStartIndex >= spanStart && wordStartIndex < spanEnd;
-
-    return {
-      color: isSpanWord ? getColorWithOpacity(spanColor) : getColorWithOpacity(color),
-      size: isSpanWord ? spanSize : '',
-      weight: isSpanWord ? spanFontWeight : '',
-      isSpan: isSpanWord,
-    };
+    return (
+      <>
+        {parts[0] && (
+          <span className={`${getColorWithOpacity(color)}`}>
+            {parts[0]}
+          </span>
+        )}
+        
+        {breakSpan ? (
+          <>
+            <br />
+            <span className={`${getColorWithOpacity(spanColor)} ${spanSize} ${spanFontWeight} block`}>
+              {spanText}
+            </span>
+          </>
+        ) : (
+          <span className={`${getColorWithOpacity(spanColor)} ${spanSize} ${spanFontWeight}`}>
+            {spanText}
+          </span>
+        )}
+        
+        {parts[1] && (
+          <span className={`${getColorWithOpacity(color)}`}>
+            {parts[1]}
+          </span>
+        )}
+      </>
+    );
   };
-
-  // Render the heading
-  const fullText = reconstructTextWithSpacing();
-  const allWords = splitIntoWordsWithSpaces(fullText);
-  let currentIndex = 0;
 
   return (
     <h1
-      className={`${centered ? 'text-center' : ''} ${getColorWithOpacity(color)} ${size} ${fontWeight} ${className}`}
+      className={`${centered ? 'text-center' : ''} ${size} ${fontWeight} ${className}`}
       style={{
         wordBreak: 'normal',
         overflowWrap: 'break-word',
         whiteSpace: 'normal',
       }}
     >
-      {allWords.map((word, wordIndex) => {
-        const styling = getWordStyling(word, currentIndex, fullText);
-        const wordToRender = word.replace(/\s+$/, ''); // Remove trailing space for display
-        const hasTrailingSpace = word !== wordToRender;
-
-        const element = (
-          <span
-            key={`word-${wordIndex}`}
-            className={`${styling.color} ${styling.size} ${styling.weight} ${
-              styling.isSpan && breakSpan ? 'block mt-0' : ''
-            }`}
-            style={{ display: 'inline-block' }}
-          >
-            {wordToRender}
-            {hasTrailingSpace && '\u00A0'}
-          </span>
-        );
-
-        currentIndex += word.length;
-        return element;
-      })}
+      {renderHeadingContent()}
     </h1>
   );
 }

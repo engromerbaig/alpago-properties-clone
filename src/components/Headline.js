@@ -4,7 +4,7 @@ import Container from "./Container";
 
 export const Headline = () => {
   return (
-    <Container className={`bg-black ${theme.paddingVertical}`}>
+    <Container className={`bg-black ${theme.paddingTop}`}>
   <Heading
   text="ALPAGO PROPERTIES EXCELLENCE IN LUXURY"
   spanText="EXCELLENCE IN LUXURY"
