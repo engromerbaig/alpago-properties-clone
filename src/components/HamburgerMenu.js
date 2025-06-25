@@ -78,15 +78,17 @@ export default function HamburgerMenu() {
             </div>
 
             {/* Right: Placeholder Image */}
-            <div className="w-full md:w-4/12 bg-gray-100 p-8 flex items-center justify-center">
-              <Image
-                src="/placeholder.webp"
-                alt="Placeholder"
-                width={300}
-                height={300}
-                className="object-contain"
-              />
-            </div>
+<div className="w-full md:w-4/12 bg-gray-100 p-0 flex items-center justify-center">
+  <div className="w-full h-full">
+    <Image
+      src="/offcanvas.webp"
+      alt="Placeholder"
+      width={500}
+      height={500}
+      className="w-full h-full object-cover"
+    />
+  </div>
+</div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -32,6 +32,11 @@ body {
   font-family: var(--font-roboto);
 }
 
+/* turn off horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+}
+
 /* ✅ Custom utility classes */
 @layer utilities {
   .text-primary {
