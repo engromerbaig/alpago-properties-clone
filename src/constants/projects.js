@@ -18,5 +18,15 @@ export const PROJECTS_DATA = [
    {
     name: "Project Four", 
     image: placeholder
+  },
+
+     {
+    name: "Project Five", 
+    image: placeholder
+  },
+
+   {
+    name: "Project Six", 
+    image: placeholder
   }
 ];
