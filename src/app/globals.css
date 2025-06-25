@@ -9,29 +9,54 @@
   font-display: swap;
 }
 
+/* CSS Reset */
 * {
   box-sizing: border-box;
 }
 
-/* CSS variables */
+/* CSS Variables */
 :root {
   --color-primary: #FF0000;
   --color-secondary: #10B981;
   --color-lightGray: #F5F5F5;
-    --color-Gray: #E9E9E9;
-    --color-darkGray: #5B5B5B;
+  --color-Gray: #E9E9E9;
+  --color-darkGray: #5B5B5B;
 
   --font-clash: 'DMSans', ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Apply font using CSS variable */
+/* Apply global font */
 body {
   font-family: var(--font-clash);
 }
 
-/* Custom utility classes */
+/* ✅ Custom utility classes */
 @layer utilities {
-  .font-clash {
-    font-family: var(--font-clash);
+  .text-primary {
+    color: var(--color-primary);
+  }
+
+  .bg-lightGray {
+    background-color: var(--color-lightGray);
+  }
+
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+
+  .text-darkGray {
+    color: var(--color-darkGray);
+  }
+
+  .bg-darkGray {
+    background-color: var(--color-darkGray);
+  }
+
+  .bg-Gray {
+    background-color: var(--color-Gray);
   }
 }

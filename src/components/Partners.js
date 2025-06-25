@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import PARTNERS_DATA from "@/constants/partners";
 import Container from "./Container";
 import Image from "next/image";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { GoArrowRight , GoArrowLeft } from "react-icons/go";
 import Heading from "./Heading";
 import BodyText from "./BodyText";
 import { theme } from "@/theme";
@@ -71,6 +71,8 @@ export default function Partners() {
             spaceBetween={0}
             slidesPerView={1}
             loop={true}
+              speed={2000} // 👈 Add this line (speed in milliseconds)
+
             navigation={{
               prevEl: prevRef.current,
               nextEl: nextRef.current,
@@ -80,11 +82,11 @@ export default function Partners() {
               swiper.navigation.update();
             }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            className="w-full h-[400px] relative"
+            className="w-full h-full relative"
           >
             {PARTNERS_DATA.map((member, index) => (
               <SwiperSlide key={index}>
-                <div className="relative w-full h-[400px]">
+                <div className="relative w-full h-full">
                   <Image
                     src={member.image}
                     alt={member.heading}
@@ -99,27 +101,37 @@ export default function Partners() {
             ))}
             
             {/* Navigation + Counter - Inside Swiper but outside Slides */}
-            <div className="absolute bottom-0 left-0 z-10 w-1/4">
-              <div className="flex flex-col items-start bg-red-600 text-white px-10 py-6">
-                <div className="flex items-center gap-4 mb-2">
-                  <button
-                    ref={prevRef}
-                    className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full hover:bg-amber-500 transition-colors cursor-pointer"
-                  >
-                    <FaArrowLeft className="text-white" size={16} />
-                  </button>
-                  <button
-                    ref={nextRef}
-                    className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full hover:bg-amber-500 transition-colors cursor-pointer"
-                  >
-                    <FaArrowRight className="text-white" size={16} />
-                  </button>
-                </div>
-                <div className="text-3xl">
-                  {(activeIndex % PARTNERS_DATA.length) + 1} <span className="text-xs">/ {PARTNERS_DATA.length}</span>
-                </div>
-              </div>
-            </div>
+ <div className="absolute bottom-0 left-0 z-10 w-auto">
+  <div className="flex flex-col items-start bg-lightGray text-white px-8 py-6 w-full">
+    
+    {/* Row 1: Arrows right-aligned */}
+    <div className="flex justify-end items-center gap-2 mb-4 w-full">
+      <button
+        ref={prevRef}
+        className="group bg-Gray h-10 w-10 flex items-center justify-center rounded-full hover:bg-black transition-colors cursor-pointer"
+      >
+        <GoArrowLeft className="text-black group-hover:text-white transition-colors" size={20} />
+      </button>
+      <button
+        ref={nextRef}
+        className="group bg-Gray h-10 w-10 flex items-center justify-center rounded-full hover:bg-black transition-colors cursor-pointer"
+      >
+        <GoArrowRight className="text-black group-hover:text-white transition-colors" size={20} />
+      </button>
+    </div>
+
+    {/* Row 2: Slide indicator */}
+    <div className="flex justify-between items-center w-full text-black text-[60px] font-semibold">
+      <span>{(activeIndex % PARTNERS_DATA.length) + 1}</span>
+      <span className="text-sm">/ {PARTNERS_DATA.length}</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+
           </Swiper>
         </div>
       </div>
