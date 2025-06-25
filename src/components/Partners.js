@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -19,6 +19,22 @@ export default function Partners() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
+
+  // This effect ensures navigation is properly initialized
+  useEffect(() => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      const swiper = swiperRef.current.swiper;
+      
+      // Reinitialize navigation with our refs
+      swiper.params.navigation.prevEl = prevRef.current;
+      swiper.params.navigation.nextEl = nextRef.current;
+      
+      // Destroy old navigation and reinit
+      swiper.navigation.destroy();
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  }, []);
 
   return (
     <Container className={`h-screen bg-white ${theme.paddingVertical}`}>
@@ -60,12 +76,11 @@ export default function Partners() {
               nextEl: nextRef.current,
             }}
             onInit={(swiper) => {
-              // Initialize navigation on swiper init
               swiper.navigation.init();
               swiper.navigation.update();
             }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            className="w-full h-[400px] relative" // Added relative here
+            className="w-full h-[400px] relative"
           >
             {PARTNERS_DATA.map((member, index) => (
               <SwiperSlide key={index}>
@@ -89,13 +104,13 @@ export default function Partners() {
                 <div className="flex items-center gap-4 mb-2">
                   <button
                     ref={prevRef}
-                    className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full"
+                    className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full hover:bg-amber-500 transition-colors cursor-pointer"
                   >
                     <FaArrowLeft className="text-white" size={16} />
                   </button>
                   <button
                     ref={nextRef}
-                    className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full"
+                    className="bg-amber-400 h-10 w-10 flex items-center justify-center rounded-full hover:bg-amber-500 transition-colors cursor-pointer"
                   >
                     <FaArrowRight className="text-white" size={16} />
                   </button>
