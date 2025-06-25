@@ -7,23 +7,23 @@ import News from '@/components/News';
 export default function Home() {
   return (
     <div className="relative">
-      {/* Hero - Fixed background */}
+      {/* 1. Fixed Hero Background */}
       <div className="fixed inset-0 h-screen w-full z-0">
         <Hero />
       </div>
 
-      {/* Content container */}
+      {/* 2. Scroll Container */}
       <div className="relative z-10">
-        {/* Spacer matching hero height */}
+        {/* Empty spacer matching viewport height */}
         <div className="h-screen" />
 
-        {/* Projects - Sticky section that covers hero */}
-        <div className="sticky top-0 h-screen z-20">
+        {/* 3. Projects Section - Will cover hero */}
+        <div className="relative z-20 min-h-screen bg-amber-300">
           <Projects />
         </div>
 
-        {/* Normal scroll content */}
-        <div className="relative z-30 bg-white">
+        {/* 4. Normal Scroll Content (NO PARALLAX) */}
+        <div className="relative z-30">
           <Team />
           <Experience />
           <News />
