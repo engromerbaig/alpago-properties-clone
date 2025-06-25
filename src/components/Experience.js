@@ -55,7 +55,7 @@ export default function Experience() {
               text= {exp.body}
               centered={false}
               color="text-white"
-              className="mt-2 "
+              className="mt-2"
               />
             </li>
           ))}
