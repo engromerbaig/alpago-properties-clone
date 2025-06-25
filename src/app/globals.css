@@ -22,6 +22,7 @@
   --color-Gray: #E9E9E9;
   --color-darkGray: #5B5B5B;
   --color-charcoal: #1A1A1A;
+  --color-hamburgerBg: #4A4A4A;
 
   --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 }
@@ -63,5 +64,10 @@ body {
 
   .bg-charcoal {
     background-color: var(--color-charcoal);
+  }
+
+  .bg-hamburgerBg{
+        background-color: var(--color-hamburgerBg);
+
   }
 }
