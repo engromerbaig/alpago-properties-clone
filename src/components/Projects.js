@@ -24,7 +24,7 @@ export default function Projects() {
     const cardCount = PROJECTS_DATA.length;
 
     const cardWidth = window.innerWidth / 2; // 2 cards per viewport
-    const gap = 32; // Tailwind's gap-8
+const gap = 80;
     const totalWidth = (cardWidth + gap) * cardCount - window.innerWidth;
 
     gsap.set(track, {
@@ -75,7 +75,7 @@ export default function Projects() {
     {/* Scrolling card track */}
     <div
       ref={trackRef}
-      className="absolute top-1/2 -translate-y-1/2 left-0 flex gap-8 px-10 z-10"
+      className="absolute top-1/2 -translate-y-1/2 left-0 flex gap-20 px-10 z-10"
     >
       {PROJECTS_DATA.map((project, index) => (
         <div
