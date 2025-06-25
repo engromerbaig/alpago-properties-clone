@@ -18,7 +18,7 @@ export default function Home() {
         <div className="h-screen" />
 
         {/* 3. Projects Section - Will cover hero */}
-        <div className="relative z-20 min-h-screen bg-amber-300">
+        <div className="relative z-20 min-h-screen ">
           <Projects />
         </div>
 

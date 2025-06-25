@@ -1,7 +1,7 @@
 // app/components/News.js
 export default function News() {
   return (
-    <section className="py-12 h-screen bg-pink-500">
+    <section className="py-20 h-screen bg-pink-500">
       <h2 className="text-3xl font-semibold text-gray-800 mb-6">Latest News</h2>
       <div className="space-y-4">
         <div className="p-4 bg-white rounded-lg shadow-md">
