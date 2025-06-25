@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { FiX } from 'react-icons/fi';
+import { RxHamburgerMenu } from 'react-icons/rx';
 import { motion, AnimatePresence } from 'framer-motion';
 import NAV_LINKS from '@/constants/navlinks';
 import Link from 'next/link';
@@ -35,24 +36,17 @@ export default function HamburgerMenu() {
       {/* Invisible tracker div for scroll detection */}
       <div ref={navRef} className="w-full h-[1px]" />
 
-      {/* Hamburger Button */}
+      {/* Hamburger Toggle Button */}
       <div className={`fixed top-5 right-5 z-50 ${showHamburger ? 'block' : 'md:hidden'}`}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-hamburgerBg text-white p-6 h-6 w-6 rounded-full flex items-center justify-center"
+          className="bg-hamburgerBg text-white p-3 rounded-full flex items-center justify-center"
         >
-          {isOpen ? (
-            <div className='text-white'>X</div>
-          ) : (
-            <div className="space-y-[6px]">
-              <span className="block w-6 h-[1px] bg-white"></span>
-              <span className="block w-6 h-[1px] bg-white"></span>
-            </div>
-          )}
+          {isOpen ? <FiX size={24} /> : <RxHamburgerMenu size={24} />}
         </button>
       </div>
 
-      {/* Offcanvas Overlay */}
+      {/* Offcanvas Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
