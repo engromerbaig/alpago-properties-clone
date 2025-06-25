@@ -39,20 +39,39 @@ export default function Experience() {
                 onClick={() => setActiveIndex(index)}
                 className="flex flex-col justify-center flex-1 cursor-pointer"
               >
-                <Heading
-                  text={exp.heading}
-                  size="text-3xl"
-                  centered={false}
-                  color={activeIndex === index ? "text-white" : "text-white/40"}
-                />
-                {activeIndex === index && (
-                  <BodyText
-                    text={exp.body}
-                    centered={false}
-                    color="text-white"
-                    className="mt-2 max-w-xl"
-                  />
-                )}
+                <div className="wrapper overflow-hidden">
+                  {/* Heading with slide up animation */}
+                  <div 
+                    className={`transform transition-all duration-500 ease-out ${
+                      activeIndex === index 
+                        ? 'translate-y-0' 
+                        : 'translate-y-2'
+                    }`}
+                  >
+                    <Heading
+                      text={exp.heading}
+                      size="text-3xl"
+                      centered={false}
+                      color={activeIndex === index ? "text-white" : "text-white/40"}
+                    />
+                  </div>
+
+                  {/* Body text with fade and slide animations */}
+                  <div 
+                    className={`transform transition-all duration-500 ease-out ${
+                      activeIndex === index
+                        ? 'opacity-100 translate-y-0 max-h-96'
+                        : 'opacity-0 translate-y-4 max-h-0'
+                    }`}
+                  >
+                    <BodyText
+                      text={exp.body}
+                      centered={false}
+                      color="text-white"
+                      className="mt-2 max-w-xl"
+                    />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
