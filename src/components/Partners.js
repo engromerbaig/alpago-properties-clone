@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import { useState, useRef } from "react";
-import TEAMS_DATA from "@/constants/teams";
+import PARTNERS_DATA from "@/constants/partners";
 import Container from "./Container";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -14,7 +14,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 const DESIGN_PARTNERS = "DESIGN PARTNERS";
 
 
-export default function Team() {
+export default function Partners() {
   const [activeIndex, setActiveIndex] = useState(0);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
@@ -28,9 +28,9 @@ export default function Team() {
             DESIGN PARTNERS
           </h2>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {TEAMS_DATA[activeIndex].heading}
+            {PARTNERS_DATA[activeIndex].heading}
           </h1>
-          <p className="text-gray-600">{TEAMS_DATA[activeIndex].description}</p>
+          <p className="text-gray-600">{PARTNERS_DATA[activeIndex].description}</p>
         </div>
 
         {/* Right Swiper Section */}
@@ -59,7 +59,7 @@ export default function Team() {
             }}
             className="w-full h-[400px]"
           >
-            {TEAMS_DATA.map((member, index) => (
+            {PARTNERS_DATA.map((member, index) => (
               <SwiperSlide key={index}>
                 <div className="relative w-full h-[400px]">
                   <Image
@@ -82,7 +82,7 @@ export default function Team() {
               <FaArrowLeft className="text-black cursor-pointer mr-2" size={20} />
             </button>
             <span className="text-sm font-medium text-black">
-              {activeIndex + 1} / {TEAMS_DATA.length}
+              {activeIndex + 1} / {PARTNERS_DATA.length}
             </span>
             <button ref={nextRef}>
               <FaArrowRight className="text-black cursor-pointer ml-2" size={20} />

@@ -3,7 +3,7 @@ import placeholder from "@/assets/images/placeholder.webp";
 import image1 from "@/assets/images/partners/1.webp";
 import image2 from "@/assets/images/partners/2.webp";
 
-const TEAMS_DATA = [
+const PARTNERS_DATA = [
   {
     heading: "SAOTA",
     description:
@@ -24,4 +24,4 @@ const TEAMS_DATA = [
   },
 ];
 
-export default TEAMS_DATA;
+export default PARTNERS_DATA;

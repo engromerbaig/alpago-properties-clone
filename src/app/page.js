@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero';
 import Projects from '@/components/Projects';
-import Team from '@/components/Team';
+import Partners from '@/components/Partners';
 import Experience from '@/components/Experience';
 import News from '@/components/News';
 import { Headline } from '@/components/Headline';
@@ -26,7 +26,7 @@ export default function Home() {
 
         {/* 4. Normal Scroll Content (NO PARALLAX) */}
         <div className="relative z-30">
-          <Team />
+          <Partners />
           <Experience />
           <News />
         </div>
