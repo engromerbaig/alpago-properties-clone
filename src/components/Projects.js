@@ -35,7 +35,7 @@ export default function Projects() {
 }
 
 const ProjectCard = ({ name, image }) => (
-  <div className="relative h-64 w-full overflow-hidden rounded-lg shadow-lg">
+  <div className="relative h-96 w-full overflow-hidden rounded-lg shadow-lg">
     <Image
       src={image}
       alt={name}
