@@ -17,7 +17,10 @@
 :root {
   --color-primary: #FF0000;
   --color-secondary: #10B981;
-  --color-green: #0F4D0F;
+  --color-lightGray: #F5F5F5;
+    --color-Gray: #E9E9E9;
+    --color-darkGray: #5B5B5B;
+
   --font-clash: 'DMSans', ui-sans-serif, system-ui, sans-serif;
 }
 
