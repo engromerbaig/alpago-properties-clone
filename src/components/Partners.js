@@ -38,27 +38,33 @@ export default function Partners() {
       <div className="flex flex-col md:flex-row min-h-screen">
         {/* Left Text Section */}
         <Container className="md:w-1/2 p-6 flex flex-col md:justify-end">
-          <Heading
-            text="DESIGN PARTNERS"
-            centered={false}
-            color="text-Gray"
-            fontWeight="font-extralight"
-            className="text-lg mb-2"
-          />
+  <Heading
+    text="DESIGN PARTNERS"
+    centered={false}
+    color="text-Gray"
+    fontWeight="font-extralight"
+    className="text-lg mb-2"
+  />
 
-          <Heading
-            text={PARTNERS_DATA[activeIndex].heading}
-            size="text-4xl"
-            centered={false}
-            color="text-black"
-          />
+  {/* Heading with fixed space to avoid shift */}
+  <div className="min-h-[120px]">
+    <Heading
+      text={PARTNERS_DATA[activeIndex].heading}
+      size="text-4xl"
+      centered={false}
+      color="text-black"
+    />
+  </div>
 
-          <BodyText
-            text={PARTNERS_DATA[activeIndex].description}
-            centered={false}
-            className="mt-2 max-w-xl"
-          />
-        </Container>
+  {/* Description with fixed space */}
+  <div className="mt-2 max-w-xl min-h-[220px] md:min-h-[150px]">
+    <BodyText
+      text={PARTNERS_DATA[activeIndex].description}
+      centered={false}
+    />
+  </div>
+</Container>
+
 
         {/* Right Swiper Section */}
         <div className="md:w-1/2 relative flex items-center justify-center h-[60vh] md:min-h-[600px] md:h-[100vh]">
