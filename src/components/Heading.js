@@ -1,5 +1,7 @@
 'use client';
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from 'react';
+import { animateText } from './animations/animateText';
 
 export default function Heading({
   text = '',
@@ -13,9 +15,19 @@ export default function Heading({
   fontWeight = 'font-semibold',
   breakSpan = false,
   className = '',
+  isAnimate = false,
 }) {
+  const headingRef = useRef(null);
+
   // Split text into parts around spanText
   const parts = spanText ? text.split(spanText) : [text];
+
+  useEffect(() => {
+    if (isAnimate && headingRef.current) {
+      const cleanup = animateText(headingRef.current);
+      return cleanup;
+    }
+  }, [isAnimate]);
 
   // Reconstruct text with proper spacing and line breaks
   const renderHeadingContent = () => {
@@ -59,6 +71,7 @@ export default function Heading({
 
   return (
     <h1
+      ref={headingRef}
       className={`${centered ? 'text-center' : ''} ${size} ${fontWeight} ${className}`}
       style={{
         wordBreak: 'normal',
@@ -83,4 +96,5 @@ Heading.propTypes = {
   fontWeight: PropTypes.string,
   breakSpan: PropTypes.bool,
   className: PropTypes.string,
+  isAnimate: PropTypes.bool,
 };

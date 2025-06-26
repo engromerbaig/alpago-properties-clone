@@ -2,6 +2,7 @@
 import CircularProgress from './animations/CircularProgress';
 import NavigationArrows from './NavigationArrows';
 import { OVERLAY_DATA } from '@/constants/overlays';
+import Heading from './Heading';
 
 export default function Overlay({ 
   title, 
@@ -17,7 +18,13 @@ export default function Overlay({
 
   return (
     <div className="absolute z-20 inset-0 flex items-end justify-between text-white">
-      <h1 className="text-4xl font-bold max-w-xl">{title}</h1>
+
+      <Heading
+      text={title}
+      size='text-6xl'
+      fontWeight='font-black'
+      isAnimate
+      />
       
       {/* Desktop: Circular Progress (md and above) */}
       <div className="hidden md:block">
