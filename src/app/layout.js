@@ -15,23 +15,27 @@ export const metadata = {
   },
 };
 
+function LayoutStructure({ children }) {
+  return (
+    <body className="flex flex-col min-h-screen relative">
+      <VhUpdater />
+      <Navbar />
+      <HamburgerMenu />
+      <main className="flex-grow">{children}</main>
+      <Footer />
+    </body>
+  );
+}
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="flex flex-col min-h-screen relative">
-        <VhUpdater />
-        <Navbar />
-        <HamburgerMenu />
-        <main className="flex-grow">
-          <Suspense fallback={<Loader />}>
-            {children}
-          </Suspense>
-        </main>
-        <Footer />
-      </body>
+      <Suspense fallback={<Loader />}>
+        <LayoutStructure>{children}</LayoutStructure>
+      </Suspense>
     </html>
   );
 }
