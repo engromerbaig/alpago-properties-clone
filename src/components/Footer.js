@@ -1,3 +1,4 @@
+// components/Footer.jsx
 'use client';
 
 import Container from "./Container";
@@ -6,18 +7,14 @@ import BodyText from "./BodyText";
 import { FOOTER_CONTENT } from "@/constants/footer";
 import { SOCIAL_LINKS } from "@/constants/socials";
 import NAV_LINKS from "@/constants/navlinks";
+import { PROJECTS_DATA } from "@/constants/projects";
 import { theme } from "@/theme";
 import Link from "next/link";
 
-function slugify(text) {
-  return text
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w\-]+/g, "");
-}
+const sectionSpacing = "space-y-3 xl:space-y-4";
 
 export default function Footer() {
-  const { company, links } = FOOTER_CONTENT;
+  const { company } = FOOTER_CONTENT;
 
   const menuLinks = NAV_LINKS.filter(({ name }) =>
     ["Home", "About", "Expertise"].includes(name)
@@ -55,9 +52,9 @@ export default function Footer() {
         {/* Right: Footer Columns */}
         <div className="col-span-12 md:col-span-8 grid grid-cols-8 gap-8">
           {/* Menu Links */}
-          <div className="col-span-8 md:col-span-2 space-y-3 xl:space-y-4">
-            {menuLinks.map(({ name, href }) => (
-              <Link key={name} href={href}>
+          <div className={`col-span-8 md:col-span-2 ${sectionSpacing}`}>
+            {menuLinks.map(({ name }) => (
+              <Link key={name} href={name === "Home" ? "/" : "#"}>
                 <BodyText
                   text={name.toUpperCase()}
                   className="text-base"
@@ -69,12 +66,12 @@ export default function Footer() {
           </div>
 
           {/* Projects */}
-          <div className="col-span-8 md:col-span-3 space-y-2">
+          <div className={`col-span-8 md:col-span-3 ${sectionSpacing}`}>
             <Heading text="PROJECTS" size="text-base" centered={false} />
-            {links.projects.map((item) => (
-              <Link key={item} href={`/projects/${slugify(item)}`}>
+            {PROJECTS_DATA.map(({ name }) => (
+              <Link key={name} href="#">
                 <BodyText
-                  text={item.toUpperCase()}
+                  text={name.toUpperCase()}
                   className="text-sm"
                   centered={false}
                   color="text-grayText"
@@ -84,10 +81,10 @@ export default function Footer() {
           </div>
 
           {/* Media + Socials */}
-          <div className="col-span-8 md:col-span-3 space-y-2">
+          <div className={`col-span-8 md:col-span-3 ${sectionSpacing}`}>
             <Heading text="MEDIA" size="text-base" centered={false} />
-            {mediaLinks.map(({ name, href }) => (
-              <Link key={name} href={href}>
+            {mediaLinks.map(({ name }) => (
+              <Link key={name} href="#">
                 <BodyText
                   text={name.toUpperCase()}
                   className="text-sm"
@@ -116,7 +113,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Copyright */}
       <div className="text-xs text-gray-400 mt-10 text-end">
         <BodyText
           color="text-white"

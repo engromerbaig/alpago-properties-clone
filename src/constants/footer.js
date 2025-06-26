@@ -8,15 +8,5 @@ export const FOOTER_CONTENT = {
       "Tower 1, Downtown Dubai, Dubai, UAE",
     ],
   },
-  links: {
-    projects: [
-      "Riva Del Lusso",
-      "Serene Versante",
-      "Framed Allure",
-      "Sole Mare",
-      "Kural Vista",
-      "Palm Flower",
-      "Casa Del Sole",
-    ],
-  },
+
 };
