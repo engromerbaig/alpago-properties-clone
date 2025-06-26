@@ -1,27 +1,27 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import HamburgerMenu from '@/components/HamburgerMenu'; // ← Import here
+import HamburgerMenu from '@/components/HamburgerMenu';
 import './globals.css';
 
 export const metadata = {
-  title: 'Job Test Site',
-  description: 'Basic Next.js site with Tailwind CSS',
+  title: 'The Leading Dubai Leading Real Estate Developer | Alpago Properties Clone',
+  description:
+    'Explore luxury real estate properties in Dubai with Alpago Properties – a modern, responsive replica showcasing high-end residential and commercial developments.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className="flex flex-col min-h-screen relative">
-        {/* Navbar always visible at top */}
         <Navbar />
-
-        {/* Hamburger menu overlays and handles scroll-based visibility */}
         <HamburgerMenu />
-
-        {/* Main content */}
         <main className="flex-grow">{children}</main>
-
-        {/* Footer */}
         <Footer />
       </body>
     </html>
