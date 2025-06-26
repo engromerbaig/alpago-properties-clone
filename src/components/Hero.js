@@ -21,37 +21,41 @@ export default function Hero() {
     }));
   };
 
-  // Handle slide transition with overlay animation
-  const transitionToSlide = useCallback((newIndex) => {
-    if (isTransitioning) return;
-    
-    setIsTransitioning(true);
-    
-    // Animate black overlay from right to left
-    gsap.to(overlayRef.current, {
-      x: '0%',
-      duration: 0.6,
-      ease: 'power2.inOut',
-      onComplete: () => {
-        setCurrentIndex(newIndex);
-        gsap.set(overlayRef.current, { x: '100%' });
-        setIsTransitioning(false);
-      },
-    });
-  }, [isTransitioning]);
+  const transitionToSlide = useCallback(
+    (newIndex) => {
+      if (isTransitioning) {
+        console.log("Transition blocked: isTransitioning is true, newIndex:", newIndex);
+        return;
+      }
+      console.log("Transitioning to slide:", newIndex);
+      setIsTransitioning(true);
+      gsap.to(overlayRef.current, {
+        x: '0%',
+        duration: 0.6,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          console.log("Transition complete, setting currentIndex to:", newIndex);
+          setCurrentIndex(newIndex);
+          gsap.set(overlayRef.current, { x: '100%' });
+          setIsTransitioning(false);
+        },
+      });
+    },
+    [isTransitioning]
+  );
 
-  // Navigation functions
   const handleNext = useCallback(() => {
+    console.log("handleNext called, currentIndex:", currentIndex);
     const nextIndex = (currentIndex + 1) % OVERLAY_DATA.length;
     transitionToSlide(nextIndex);
   }, [currentIndex, transitionToSlide]);
 
   const handlePrev = useCallback(() => {
+    console.log("handlePrev called, currentIndex:", currentIndex);
     const prevIndex = (currentIndex - 1 + OVERLAY_DATA.length) % OVERLAY_DATA.length;
     transitionToSlide(prevIndex);
   }, [currentIndex, transitionToSlide]);
 
-  // Handle progress completion (for desktop circular progress)
   const handleProgressComplete = useCallback(() => {
     handleNext();
   }, [handleNext]);
@@ -62,17 +66,10 @@ export default function Hero() {
 
     const playVideo = async () => {
       try {
-        // Ensure overlay is hidden initially
-        if (overlayRef.current) {
-          gsap.set(overlayRef.current, { x: '100%' });
-        }
-        
-        // Reset video and play
+        gsap.set(overlayRef.current, { x: '100%' });
         currentVideo.currentTime = 0;
-        currentVideo.muted = true; // Ensure muted for autoplay
+        currentVideo.muted = true;
         await currentVideo.play();
-        
-        // Reset transitioning state after video starts
         setIsTransitioning(false);
       } catch (error) {
         console.error('Error playing video:', error);
@@ -84,9 +81,11 @@ export default function Hero() {
   }, [currentIndex]);
 
   return (
-    <Container className={`relative z-10 h-screen flex flex-col w-full ${theme.paddingVerticalMenu} overflow-x-hidden`}>
+    <Container
+      className={`relative z-10 h-screen flex flex-col w-full ${theme.paddingVerticalMenu} overflow-x-hidden`}
+    >
       {/* Video Layer */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full pointer-events-none">
         {[1, 2, 3].map((id, index) => (
           <video
             key={id}
