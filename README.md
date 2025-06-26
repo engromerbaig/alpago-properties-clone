@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+> 🧠 **Note**: Data is currently handled via local JS/TS files under `constants/`. This is a placeholder and follows the **"File-Based Mocking"** pattern for rapid prototyping. In a production version, this will be replaced by **serverless functions or CMS-powered API routes** (e.g., `/api/projects`).
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✅ Features Implemented
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- ✅ Responsive layout for Desktop, Tablet, and Mobile
+- ✅ GSAP-powered scroll and entry animations
+- ✅ Component-based architecture for scalability
+- ✅ Loader (basic)
+- ✅ Deployed and publicly accessible version
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚠️ Known Limitations (MVP Status)
 
-## Learn More
+This version is a **minimal working clone** built under a strict 48-hour deadline. Some known issues and improvement areas include:
 
-To learn more about Next.js, take a look at the following resources:
+- ❌ **Responsiveness Issues**: The horizontal scroll section requires refinement for smaller viewports.
+- ❌ **Flash of Unstyled Content (FOUC)**: Present due to current animation setup and CSS loading strategy.
+- ❌ **Loader**: Only a basic loader is implemented; could be improved with branding or skeleton loaders.
+- ❌ **SEO**: Not optimized – no meta tags, OG tags, or structured data added yet.
+- ❌ **Accessibility**: ARIA roles and focus management not yet implemented.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📤 Deliverables
 
-## Deploy on Vercel
+- ✅ **Live Deployment**: [https://alpago-properties-clone.netlify.app/](https://alpago-properties-clone.netlify.app/)
+- ✅ **Codebase**: Available on GitHub (private or shared upon request)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📆 Timeline
+
+This version was completed within the assigned **48-hour window**, prioritizing core layout, component structure, and animation fidelity over polish or optimization.
+
+---
+
+## 📈 Next Steps (If Continued)
+
+- 🔄 Refactor dummy data to use **Next.js API Routes** or integrate with a **headless CMS** (e.g., Sanity, Strapi)
+- ⚙️ Improve animation sequencing and performance
+- 🪄 Implement SSR/SEO best practices
+- 🧪 Add testing with Jest + React Testing Library
+- 🌐 Improve accessibility and Lighthouse scores
+
+---
+
+## 🙌 Credits
+
+Developed by **Muhammad Omer Baig**  
+[Portfolio](https://omerbaig.dev/) • [Email](mailto:omerbaigde@gmail.com) • [LinkedIn](https://linkedin.com/in/omerbaig)
+
+---
+
+> This assignment showcases my proficiency in modern frontend tools and practices under tight deadlines. I'm excited about opportunities that push the boundaries of design fidelity, performance, and maintainable code.
