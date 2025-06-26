@@ -98,7 +98,7 @@ export default function HorizontalScroller({
   const titleTopSpace = typeof window !== 'undefined' ? window.innerHeight * 0.2 : 0;
   // ADJUST THIS VALUE TO MOVE TRACK CONTENT UP/DOWN
   // Positive values move down, negative values move up
-  const verticalAdjustment = 0; // Change this to fine-tune vertical position
+  const verticalAdjustment = -50; // Change this to fine-tune vertical position
   const cardTopPosition = titleTopSpace + (dimensions.titleHeight * 0.5) + verticalAdjustment;
 
   return (
