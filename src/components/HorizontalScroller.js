@@ -18,7 +18,7 @@ export default function HorizontalScroller({
   sectionStyle = {},
   trackClassName = "",
   renderTrackContent,
-  title = "", // 👈 Accept title like "PROJECTS" or "NEWS"
+  title = "", // e.g., "PROJECTS" or "NEWS"
 }) {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
@@ -28,12 +28,15 @@ export default function HorizontalScroller({
     const track = trackRef.current;
     if (!section || !track || cardWidth === 0) return;
 
+    // Calculate total width for horizontal scroll
     const totalWidth = (cardWidth + gap) * cardCount - window.innerWidth;
 
+    // Set initial track width
     gsap.set(track, {
       width: (cardWidth + gap) * cardCount,
     });
 
+    // Animate track horizontally
     gsap.to(track, {
       x: -totalWidth,
       ease: "none",
@@ -47,8 +50,9 @@ export default function HorizontalScroller({
       },
     });
 
+    // Cleanup ScrollTrigger instances on component unmount
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, [cardWidth, gap, cardCount]);
 
@@ -58,7 +62,7 @@ export default function HorizontalScroller({
       className={`relative h-screen w-full overflow-hidden ${sectionClassName}`}
       style={{ scrollSnapAlign: "start", ...sectionStyle }}
     >
-      {/* Title */}
+      {/* Title - Positioned at top with higher z-index */}
       {title && (
         <Container className={`${theme.paddingTop} relative z-10`}>
           <Heading
@@ -67,17 +71,17 @@ export default function HorizontalScroller({
             centered={false}
             fontWeight="font-semibold"
             color={titleColor}
-            className={`pb-10 `}
+            className="pb-10"
             isAnimate
           />
         </Container>
       )}
 
-      {/* Track */}
+      {/* Track - Positioned at bottom, below title */}
       <div
         ref={trackRef}
         className={`absolute bottom-10 left-0 flex px-10 ${trackClassName}`}
-        style={{ gap: `${gap}px` }}
+        style={{ gap: `${gap}px`, zIndex: 1 }} // Explicit z-index to ensure cards are below title
       >
         {renderTrackContent(cardWidth)}
       </div>
