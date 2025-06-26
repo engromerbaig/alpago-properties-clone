@@ -12,7 +12,7 @@ export default function Heading({
   color = 'text-white',
   size = 'text-5xl',
   centered = true,
-  fontWeight = 'font-semibold',
+  fontWeight = 'font-bold',
   breakSpan = false,
   className = '',
   isAnimate = false,

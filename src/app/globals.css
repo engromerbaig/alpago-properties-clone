@@ -3,11 +3,13 @@
 /* Font face */
 @font-face {
   font-family: 'Roboto';
-  src: url('/fonts/Roboto.woff2') format('woff2');
-  font-weight: 100 900;
+  src: url('/fonts/Roboto-VariableFont_wdth,wght.woff2') format('woff2-variations');
+  font-weight: 100 900;       /* Full weight range */
+  font-stretch: 75% 100%;     /* Optional: allows width variation */
   font-style: normal;
   font-display: swap;
 }
+
 
 /* CSS Reset */
 * {

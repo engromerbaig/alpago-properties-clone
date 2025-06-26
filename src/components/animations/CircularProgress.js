@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import Heading from '../Heading';
+import BodyText from '../BodyText';
 
 export default function CircularProgress({ 
   isActive, 
@@ -105,8 +107,17 @@ export default function CircularProgress({
       </svg>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-        <span className="text-[100px] font-light leading-none">{number}</span>
-        <span className="text-xl font-light opacity-70">/ {totalCount}</span>
+        <Heading
+          text={number}
+          size='text-[100px]'
+          className='leading-none'
+        />  
+        <BodyText
+        text={`/ ${totalCount}`}
+        color='text-white'
+        size='text-2xl'
+        lineHeight='leading-none'
+        />
       </div>
     </div>
   );

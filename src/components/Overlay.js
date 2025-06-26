@@ -22,7 +22,6 @@ export default function Overlay({
       <Heading
       text={title}
       size='text-6xl'
-      fontWeight='font-black'
       isAnimate
       />
       
