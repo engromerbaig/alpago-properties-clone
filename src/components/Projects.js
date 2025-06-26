@@ -4,23 +4,24 @@ import React, { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { PROJECTS_DATA } from "@/constants/projects";
 import HorizontalScroller from "./HorizontalScroller";
+import useMediaQuery from "./hooks/useMediaQuery";
 
 export default function Projects() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [cardWidth, setCardWidth] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.innerWidth < 768; // Tailwind md breakpoint
+    const updateWidth = () => {
       const newWidth = isMobile
         ? window.innerWidth / 1.25
         : window.innerWidth / 2;
       setCardWidth(newWidth);
     };
 
-    handleResize(); // Set on mount
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, [isMobile]);
 
   const cardCount = PROJECTS_DATA.length + 1;
 
@@ -28,7 +29,7 @@ export default function Projects() {
     <HorizontalScroller
       title="PROJECTS"
       cardWidth={cardWidth}
-      gap={80}
+      gap={isMobile ? 40 : 80} // ✅ gap adjusts by screen size
       cardCount={cardCount}
       sectionClassName=""
       sectionStyle={{
