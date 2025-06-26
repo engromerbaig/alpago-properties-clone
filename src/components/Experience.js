@@ -15,79 +15,39 @@ export default function Experience() {
   const [activeIndex, setActiveIndex] = useState(0);
   const isDesktop = useMediaQuery("(min-width: 992px)");
 
-  const toggleAccordion = (index) => {
-    setActiveIndex(prev => prev === index ? -1 : index);
+  const handleMobileToggle = (index) => {
+    // Prevent closing all; one must remain open
+    if (index !== activeIndex) {
+      setActiveIndex(index);
+    }
+  };
+
+  const handleDesktopHover = (index) => {
+    setActiveIndex(index);
   };
 
   return (
     <Container className={`min-h-screen bg-charcoal ${theme.paddingVertical}`}>
       <div className="flex flex-col gap-10">
-        {/* Main Heading */}
-        <div className="py-10">
-          <Heading text="THE ALPAGO EXPERIENCE" centered={false} color="text-white" />
-        </div>
-
-        {/* Desktop layout */}
-        {isDesktop ? (
-          <div className="flex flex-col lg:flex-row h-full gap-10 xl:gap-20 items-stretch">
-            {/* Left: Image */}
-            <div className="w-full lg:w-1/2 flex justify-start items-center">
-              <Image
-                src={EXPERIENCE_DATA[activeIndex].image}
-                alt={EXPERIENCE_DATA[activeIndex].heading}
-                className="w-full h-full object-contain transition-all duration-500"
-              />
-            </div>
-
-            {/* Right: Experience blocks */}
-            <div className="w-full lg:w-1/2 flex flex-col justify-between py-6">
-              {EXPERIENCE_DATA.map((exp, index) => (
-                <div
-                  key={index}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
-                  className="flex flex-col justify-center flex-1 cursor-pointer"
-                >
-                  <div className="wrapper overflow-hidden">
-                    <div 
-                      className={`transform transition-all duration-500 ease-out ${
-                        activeIndex === index ? '-translate-y-2' : 'translate-y-0'
-                      }`}
-                    >
-                      <Heading
-                        text={exp.heading}
-                        size="text-50px"
-                        centered={false}
-                        color={activeIndex === index ? "text-white" : "text-white/40"}
-                      />
-                    </div>
-                    <div 
-                      className={`transition-all duration-500 ease-out ${
-                        activeIndex === index ? 'opacity-100 max-h-96' : 'opacity-0 max-h-0'
-                      }`}
-                    >
-                      <BodyText
-                        text={exp.body}
-                        centered={false}
-                        color="text-white"
-                        className="mt-2 max-w-xl"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          // Accordion layout for mobile/tablet
+        {/* Mobile: Accordion Layout */}
+        {!isDesktop && (
           <div className="flex flex-col gap-6">
+             <div className="w-full">
+                <Heading
+                  text="THE ALPAGO EXPERIENCE"
+                  centered={false}
+                  color="text-white"
+                  className="mb-8"
+                  size="text-90px"
+                />
+              </div>
             {EXPERIENCE_DATA.map((exp, index) => {
               const isOpen = activeIndex === index;
               return (
-                <div key={index} className="bg-charcoal pt-4">
+                <div key={index} className="bg-charcoal  pt-4">
                   {/* Heading row with toggle */}
                   <button
-                    onClick={() => toggleAccordion(index)}
+                    onClick={() => handleMobileToggle(index)}
                     className="flex justify-between items-center w-full text-left"
                   >
                     <Heading
@@ -104,7 +64,7 @@ export default function Experience() {
                     />
                   </button>
 
-                  {/* Body text */}
+                  {/* Body + Image */}
                   <div
                     className={`transition-all duration-500 overflow-hidden ${
                       isOpen ? "max-h-[1000px] opacity-100 mt-2" : "max-h-0 opacity-0"
@@ -117,7 +77,6 @@ export default function Experience() {
                       className="max-w-xl"
                     />
 
-                    {/* Image below */}
                     <div className="mt-4">
                       <Image
                         src={exp.image}
@@ -131,6 +90,77 @@ export default function Experience() {
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {/* Desktop layout */}
+        {isDesktop && (
+          <div className="flex flex-col lg:flex-row-reverse gap-10 xl:gap-20 items-stretch h-full">
+            {/* Left: Experience blocks */}
+            <div className="w-full lg:w-1/2 flex flex-col justify-between py-6">
+
+             <div className="w-full">
+                <Heading
+                  text="THE ALPAGO EXPERIENCE"
+                  centered={false}
+                  color="text-white"
+                  className="mb-8"
+                />
+              </div>
+
+              {EXPERIENCE_DATA.map((exp, index) => {
+                const isActive = activeIndex === index;
+                return (
+                  <div
+                    key={index}
+                    onMouseEnter={() => handleDesktopHover(index)}
+                    onClick={() => handleDesktopHover(index)}
+                    className="cursor-pointer"
+                  >
+                    {/* Heading with translate animation */}
+                    <div
+                      className={`transform transition-transform duration-500 ${
+                        isActive ? "-translate-y-2" : "translate-y-0"
+                      }`}
+                    >
+                      <Heading
+                        text={exp.heading}
+                        size="text-50px"
+                        centered={false}
+                        color={isActive ? "text-white" : "text-white/40"}
+                      />
+                    </div>
+
+                    {/* Smoothly expand/collapse body */}
+                    <div
+                      className={`transition-all duration-500 overflow-hidden ${
+                        isActive ? "max-h-[300px] opacity-100 mt-2" : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <BodyText
+                        text={exp.body}
+                        centered={false}
+                        color="text-white"
+                        className="max-w-xl"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Right: Image + Main Heading */}
+            <div className="w-full lg:w-1/2 flex flex-col justify-end items-center">
+          
+
+              <Image
+                src={EXPERIENCE_DATA[activeIndex].image}
+                alt={EXPERIENCE_DATA[activeIndex].heading}
+                className="w-full h-auto object-contain transition-all duration-500"
+                width={1000}
+                height={600}
+              />
+            </div>
           </div>
         )}
       </div>
