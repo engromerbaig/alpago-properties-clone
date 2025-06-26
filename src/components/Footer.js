@@ -113,13 +113,38 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="text-xs text-gray-400 mt-10 text-end">
+      <div className=" mt-10 text-end">
         <BodyText
           color="text-white"
           size="text-sm"
           centered={false}
           text={`© Alpago Properties ${new Date().getFullYear()}`}
         />
+      </div>
+
+       <div className=" mt-10 text-center">
+      <BodyText
+  color="text-white"
+  size="text-sm"
+  centered={false}
+text={
+  <>
+    Clone website created for <a
+      href="https://digitalgraphiks.ae/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400"
+    >Graphiks Digital</a> job test by <a
+      href="https://omerbaig.dev"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400"
+    >Muhammad Omer Baig</a>. For non-commercial use only.
+  </>
+}
+
+/>
+
       </div>
     </Container>
   );
