@@ -71,7 +71,7 @@ export default function HorizontalScroller({
             centered={false}
             fontWeight="font-semibold"
             color={titleColor}
-            className="pb-10"
+            className="pb-0"
             isAnimate
           />
         </Container>
