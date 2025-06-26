@@ -6,6 +6,7 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import { AnimatePresence } from 'framer-motion';
 import OffcanvasMenu from './OffcanvasMenu';
 import { radialHide, radialReveal } from './animations/radialReveal';
+import useMediaQuery from './hooks/useMediaQuery';
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,8 +15,15 @@ export default function HamburgerMenu() {
   const btnRef = useRef(null);
   const circleRef = useRef(null);
 
-  // Scroll observer
+  const isMobile = useMediaQuery('(max-width: 992px)');
+
+  // Show hamburger on scroll (desktop only)
   useEffect(() => {
+    if (isMobile) {
+      setShowHamburger(true); // Always visible on mobile
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setShowHamburger(!entry.isIntersecting);
@@ -27,9 +35,9 @@ export default function HamburgerMenu() {
     return () => {
       if (navRef.current) observer.unobserve(navRef.current);
     };
-  }, []);
+  }, [isMobile]);
 
-  // Initial radial reveal of the button
+  // Animate radial reveal/hide
   useEffect(() => {
     if (btnRef.current) {
       if (showHamburger) {
@@ -40,7 +48,6 @@ export default function HamburgerMenu() {
     }
   }, [showHamburger]);
 
-  // Hover reveal only on X icon
   const handleMouseEnter = () => {
     if (circleRef.current && isOpen) {
       radialReveal(circleRef.current, { duration: 0.3, scale: 1 });
@@ -55,7 +62,7 @@ export default function HamburgerMenu() {
 
   return (
     <>
-      {/* Invisible scroll tracker */}
+      {/* Invisible scroll tracker (used for IntersectionObserver) */}
       <div ref={navRef} className="w-full h-[1px]" />
 
       {/* Toggle button container */}
@@ -64,7 +71,7 @@ export default function HamburgerMenu() {
           onClick={() => setIsOpen(!isOpen)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="relative w-12 h-12 rounded-full bg-hamburgerBg  cursor-pointer flex items-center justify-center overflow-hidden"
+          className="relative w-12 h-12 rounded-full bg-hamburgerBg cursor-pointer flex items-center justify-center overflow-hidden"
         >
           {/* White radial hover layer for close icon */}
           {isOpen && (
