@@ -82,7 +82,7 @@ export default function Hero() {
 
   return (
     <Container
-      className={`relative z-10 h-screen flex flex-col w-full ${theme.paddingVerticalMenu} overflow-x-hidden`}
+      className={`relative z-10 h-screen flex flex-col overflow-hidden w-full ${theme.paddingVerticalMenu} `}
     >
       {/* Video Layer */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
@@ -106,10 +106,11 @@ export default function Hero() {
       </div>
 
       {/* Black Overlay for Transitions */}
-      <div
-        ref={overlayRef}
-        className="absolute inset-0 w-full h-full bg-black z-15 pointer-events-none"
-      />
+   <div
+  ref={overlayRef}
+  className="absolute inset-0 w-full h-full bg-black z-15 pointer-events-none overflow-hidden"
+ />
+
 
       {/* Content Wrapper */}
       <div className={`relative z-20 w-full h-full flex flex-col ${theme.paddingHorizontal}`}>
