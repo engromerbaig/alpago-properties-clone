@@ -10,7 +10,7 @@ export default function Heading({
   spanSize = '',
   spanFontWeight = 'font-black',
   color = 'text-white',
-  size = 'text-5xl',
+  size = 'text-60px',
   centered = true,
   fontWeight = 'font-bold',
   breakSpan = false,

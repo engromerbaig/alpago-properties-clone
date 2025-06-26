@@ -91,6 +91,18 @@ html, body {
     font-size: clamp(2.25rem, 4.6875vw, 5.625rem); /* 90px */
   }
 
+ 
+
+.text-60px {
+  font-size: clamp(1.5rem, 3.125vw, 3.75rem); /* 60px */
+}
+
+
+ .text-50px {
+  font-size: clamp(1.25rem, 2.6042vw, 3.125rem); /* 50px */
+}
+
+
   .text-35px {
     font-size: clamp(1rem, 1.822vw, 2.1875rem); /* 35px */
   }
