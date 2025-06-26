@@ -50,7 +50,7 @@ export default function Experience() {
                   >
                     <Heading
                       text={exp.heading}
-                      size="text-3xl"
+                      size="text-50px"
                       centered={false}
                       color={activeIndex === index ? "text-white" : "text-white/40"}
                     />
