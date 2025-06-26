@@ -97,10 +97,10 @@ export default function Partners() {
             ))}
 
             {/* Navigation + Counter */}
-            <div className="absolute bottom-0 left-0 z-10 w-auto">
-              <div className="flex flex-col items-start bg-lightGray text-white px-8 py-6 w-full">
+            <div className="absolute bottom-0 left-0 z-10 w-3/4 md:w-auto">
+              <div className="flex flex-row-reverse md:flex-col items-center md:items-start bg-lightGray text-white px-4 py-1 md:px-8 md:py-4 w-full">
                 {/* Arrows */}
-                <div className="flex justify-end items-center gap-2 mb-4 w-full">
+                <div className="flex   justify-end items-center gap-2 md:mb-4 w-full">
                   <button
                     ref={prevRef}
                     className="group bg-Gray h-10 w-10 flex items-center justify-center rounded-full hover:bg-black transition-colors cursor-pointer"
@@ -116,7 +116,7 @@ export default function Partners() {
                 </div>
 
                 {/* Slide Counter */}
-                <div className="flex justify-between items-center w-full text-black text-[60px] font-semibold">
+                <div className="flex md:justify-between items-center w-full text-black text-90px font-semibold">
                   <span>{(activeIndex % PARTNERS_DATA.length) + 1}</span>
                   <span className="text-sm">/ {PARTNERS_DATA.length}</span>
                 </div>
