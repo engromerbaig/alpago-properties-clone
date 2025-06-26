@@ -17,7 +17,7 @@ export default function Overlay({
   const isActive = index === currentIndex;
 
   return (
-    <div className="absolute z-20 inset-0 flex flex-col justify-end py-8 md:py-0 text-white">
+    <div className="absolute z-20 inset-0 flex flex-col justify-end py-10 md:py-0 text-white">
 
       {/* Mobile Layout */}
       <div className="flex flex-col items-center w-full md:hidden gap-2">
