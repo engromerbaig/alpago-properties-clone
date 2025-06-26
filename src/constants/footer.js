@@ -9,7 +9,6 @@ export const FOOTER_CONTENT = {
     ],
   },
   links: {
-    menu: ["Home", "About Us", "Expertise"],
     projects: [
       "Riva Del Lusso",
       "Serene Versante",
@@ -19,6 +18,5 @@ export const FOOTER_CONTENT = {
       "Palm Flower",
       "Casa Del Sole",
     ],
-    media: ["Blogs", "News"],
   },
 };
