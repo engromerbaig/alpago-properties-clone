@@ -34,7 +34,7 @@ export default function Partners() {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-white ${theme.paddingBottom} overflow-hidden`}>
+    <div className={`min-h-screen bg-white ${theme.paddingBottomOnlyMd} overflow-hidden`}>
       <div className="flex flex-col md:flex-row min-h-screen">
         {/* Left Text Section */}
         <Container className="md:w-1/2 p-6 flex flex-col md:justify-end">
