@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import Overlay from './Overlay';
 import { OVERLAY_DATA } from '@/constants/overlays';
 import { theme } from '@/theme';
@@ -11,6 +11,7 @@ export default function Hero() {
   const overlayRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [videoDurations, setVideoDurations] = useState({});
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleLoadedMetadata = (index, e) => {
     const video = e.target;
@@ -20,42 +21,66 @@ export default function Hero() {
     }));
   };
 
+  // Handle slide transition with overlay animation
+  const transitionToSlide = useCallback((newIndex) => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    // Animate black overlay from right to left
+    gsap.to(overlayRef.current, {
+      x: '0%',
+      duration: 0.6,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        setCurrentIndex(newIndex);
+        gsap.set(overlayRef.current, { x: '100%' });
+        setIsTransitioning(false);
+      },
+    });
+  }, [isTransitioning]);
+
+  // Navigation functions
+  const handleNext = useCallback(() => {
+    const nextIndex = (currentIndex + 1) % OVERLAY_DATA.length;
+    transitionToSlide(nextIndex);
+  }, [currentIndex, transitionToSlide]);
+
+  const handlePrev = useCallback(() => {
+    const prevIndex = (currentIndex - 1 + OVERLAY_DATA.length) % OVERLAY_DATA.length;
+    transitionToSlide(prevIndex);
+  }, [currentIndex, transitionToSlide]);
+
+  // Handle progress completion (for desktop circular progress)
+  const handleProgressComplete = useCallback(() => {
+    handleNext();
+  }, [handleNext]);
+
   useEffect(() => {
     const currentVideo = videoRefs.current[currentIndex];
-    if (!currentVideo || !overlayRef.current) return;
+    if (!currentVideo) return;
 
     const playVideo = async () => {
       try {
         // Ensure overlay is hidden initially
-        gsap.set(overlayRef.current, { x: '100%' });
+        if (overlayRef.current) {
+          gsap.set(overlayRef.current, { x: '100%' });
+        }
+        
+        // Reset video and play
         currentVideo.currentTime = 0;
+        currentVideo.muted = true; // Ensure muted for autoplay
         await currentVideo.play();
+        
+        // Reset transitioning state after video starts
+        setIsTransitioning(false);
       } catch (error) {
         console.error('Error playing video:', error);
+        setIsTransitioning(false);
       }
     };
 
-    const handleEnded = () => {
-      // Animate black overlay from right to left
-      gsap.to(overlayRef.current, {
-        x: '0%',
-        duration: 0.6,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          // Update index to switch to next video
-          setCurrentIndex((prev) => (prev + 1) % OVERLAY_DATA.length);
-          // Instantly reset overlay to right
-          gsap.set(overlayRef.current, { x: '100%' });
-        },
-      });
-    };
-
-    currentVideo.addEventListener('ended', handleEnded);
     playVideo();
-
-    return () => {
-      currentVideo.removeEventListener('ended', handleEnded);
-    };
   }, [currentIndex]);
 
   return (
@@ -97,6 +122,9 @@ export default function Hero() {
               index={index}
               currentIndex={currentIndex}
               duration={videoDurations[index]}
+              onNext={handleNext}
+              onPrev={handlePrev}
+              onProgressComplete={handleProgressComplete}
             />
           ) : null
         )}
