@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import PARTNERS_DATA from "@/constants/partners";
 import Container from "./Container";
 import Image from "next/image";
-import { GoArrowRight , GoArrowLeft } from "react-icons/go";
+import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 import Heading from "./Heading";
 import BodyText from "./BodyText";
 import { theme } from "@/theme";
@@ -20,16 +20,13 @@ export default function Partners() {
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
 
-  // This effect ensures navigation is properly initialized
   useEffect(() => {
     if (swiperRef.current && swiperRef.current.swiper) {
       const swiper = swiperRef.current.swiper;
-      
-      // Reinitialize navigation with our refs
+
       swiper.params.navigation.prevEl = prevRef.current;
       swiper.params.navigation.nextEl = nextRef.current;
-      
-      // Destroy old navigation and reinit
+
       swiper.navigation.destroy();
       swiper.navigation.init();
       swiper.navigation.update();
@@ -37,8 +34,8 @@ export default function Partners() {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-white ${theme.paddingBottom}`}>
-      <div className="flex flex-col md:flex-row h-screen">
+    <div className={`min-h-screen bg-white ${theme.paddingBottom} overflow-hidden`}>
+      <div className="flex flex-col md:flex-row min-h-screen">
         {/* Left Text Section */}
         <Container className="md:w-1/2 p-6 flex flex-col md:justify-end">
           <Heading
@@ -64,15 +61,14 @@ export default function Partners() {
         </Container>
 
         {/* Right Swiper Section */}
-        <div className="md:w-1/2 relative flex items-center justify-center">
+        <div className="md:w-1/2 relative flex items-center justify-center h-[60vh] md:min-h-[600px] md:h-[100vh]">
           <Swiper
             ref={swiperRef}
             modules={[Navigation]}
             spaceBetween={0}
             slidesPerView={1}
             loop={true}
-              speed={2000} // 👈 Add this line (speed in milliseconds)
-
+            speed={2000}
             navigation={{
               prevEl: prevRef.current,
               nextEl: nextRef.current,
@@ -99,39 +95,33 @@ export default function Partners() {
                 </div>
               </SwiperSlide>
             ))}
-            
-            {/* Navigation + Counter - Inside Swiper but outside Slides */}
- <div className="absolute bottom-0 left-0 z-10 w-auto">
-  <div className="flex flex-col items-start bg-lightGray text-white px-8 py-6 w-full">
-    
-    {/* Row 1: Arrows right-aligned */}
-    <div className="flex justify-end items-center gap-2 mb-4 w-full">
-      <button
-        ref={prevRef}
-        className="group bg-Gray h-10 w-10 flex items-center justify-center rounded-full hover:bg-black transition-colors cursor-pointer"
-      >
-        <GoArrowLeft className="text-black group-hover:text-white transition-colors" size={20} />
-      </button>
-      <button
-        ref={nextRef}
-        className="group bg-Gray h-10 w-10 flex items-center justify-center rounded-full hover:bg-black transition-colors cursor-pointer"
-      >
-        <GoArrowRight className="text-black group-hover:text-white transition-colors" size={20} />
-      </button>
-    </div>
 
-    {/* Row 2: Slide indicator */}
-    <div className="flex justify-between items-center w-full text-black text-[60px] font-semibold">
-      <span>{(activeIndex % PARTNERS_DATA.length) + 1}</span>
-      <span className="text-sm">/ {PARTNERS_DATA.length}</span>
-    </div>
-  </div>
-</div>
+            {/* Navigation + Counter */}
+            <div className="absolute bottom-0 left-0 z-10 w-auto">
+              <div className="flex flex-col items-start bg-lightGray text-white px-8 py-6 w-full">
+                {/* Arrows */}
+                <div className="flex justify-end items-center gap-2 mb-4 w-full">
+                  <button
+                    ref={prevRef}
+                    className="group bg-Gray h-10 w-10 flex items-center justify-center rounded-full hover:bg-black transition-colors cursor-pointer"
+                  >
+                    <GoArrowLeft className="text-black group-hover:text-white transition-colors" size={20} />
+                  </button>
+                  <button
+                    ref={nextRef}
+                    className="group bg-Gray h-10 w-10 flex items-center justify-center rounded-full hover:bg-black transition-colors cursor-pointer"
+                  >
+                    <GoArrowRight className="text-black group-hover:text-white transition-colors" size={20} />
+                  </button>
+                </div>
 
-
-
-
-
+                {/* Slide Counter */}
+                <div className="flex justify-between items-center w-full text-black text-[60px] font-semibold">
+                  <span>{(activeIndex % PARTNERS_DATA.length) + 1}</span>
+                  <span className="text-sm">/ {PARTNERS_DATA.length}</span>
+                </div>
+              </div>
+            </div>
           </Swiper>
         </div>
       </div>
