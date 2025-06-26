@@ -6,6 +6,7 @@ import BodyText from "./BodyText";
 import { FOOTER_CONTENT } from "@/constants/footer";
 import { SOCIAL_LINKS } from "@/constants/socials";
 import { theme } from "@/theme";
+import NAV_LINKS from "@/constants/navlinks";
 
 export default function Footer() {
   const { company, links } = FOOTER_CONTENT;
@@ -15,8 +16,8 @@ export default function Footer() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
         {/* Left: Company Info */}
         <div className="col-span-12 md:col-span-4">
-          <Heading text={company.name} size="text-lg" className="mb-2" centered={false} />
-          <BodyText text={company.description} className="text-sm text-white mb-4" centered={false}  color="text-grayText" />
+          <Heading text={company.name} size="text-base" className="mb-2" centered={false} />
+          <BodyText text={company.description} className="text-sm text-white mb-4 max-w-xs" centered={false}  color="text-grayText" />
           <Heading text="Location:" size="text-sm" className="mb-1" centered={false} />
           {company.location.map((line, idx) => (
             <BodyText key={idx} text={line} className="text-sm text-white" centered={false} color="text-grayText" />
