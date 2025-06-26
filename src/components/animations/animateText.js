@@ -3,12 +3,15 @@ import gsap from 'gsap';
 export const animateText = (element, trigger = true) => {
   if (!element) return;
 
+  // Set initial visibility to hidden to prevent static text flash
+  gsap.set(element, { visibility: 'hidden' });
+
   // Split text into words, then each word into characters
   const splitTextIntoWords = (text) => {
     return text.split(/\s+/).map((word) => (
       `<span class="word inline-block">${word.split('').map((char) => (
         `<span class="inline-block">${char === ' ' ? '\u00A0' : char}</span>`
-      )).join('')}&nbsp;</span>`
+      )).join('')} </span>`
     )).join('');
   };
 
@@ -41,6 +44,8 @@ export const animateText = (element, trigger = true) => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          // Make element visible before animating
+          gsap.set(element, { visibility: 'visible' });
           // Animate each character
           gsap.to(charSpans, {
             y: 0,
@@ -64,5 +69,6 @@ export const animateText = (element, trigger = true) => {
   return () => {
     observer.disconnect();
     style.remove();
+    gsap.set(element, { visibility: 'visible' }); // Reset visibility on cleanup
   };
 };
