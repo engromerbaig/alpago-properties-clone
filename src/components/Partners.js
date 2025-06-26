@@ -40,7 +40,7 @@ export default function Partners() {
     <div className={`min-h-screen bg-white ${theme.paddingBottom}`}>
       <div className="flex flex-col md:flex-row h-screen">
         {/* Left Text Section */}
-        <Container className="md:w-1/2 p-6 flex flex-col justify-center">
+        <Container className="md:w-1/2 p-6 flex flex-col xl:justify-end">
           <Heading
             text="DESIGN PARTNERS"
             centered={false}
