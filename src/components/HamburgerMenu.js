@@ -51,7 +51,7 @@ export default function HamburgerMenu() {
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-hamburgerBg text-white p-3 rounded-full flex items-center justify-center"
+          className="bg-hamburgerBg text-white p-3 rounded-full flex items-center justify-center cursor-pointer"
         >
           {isOpen ? <FiX size={24} /> : <RxHamburgerMenu size={24} />}
         </button>
