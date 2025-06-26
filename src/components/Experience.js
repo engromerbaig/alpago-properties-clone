@@ -7,7 +7,6 @@ import Container from "./Container";
 import { theme } from "@/theme";
 import Heading from "./Heading";
 import BodyText from "./BodyText";
-
 import { RxCaretDown } from "react-icons/rx";
 import useMediaQuery from "./hooks/useMediaQuery";
 
@@ -16,7 +15,6 @@ export default function Experience() {
   const isDesktop = useMediaQuery("(min-width: 992px)");
 
   const handleMobileToggle = (index) => {
-    // Prevent closing all; one must remain open
     if (index !== activeIndex) {
       setActiveIndex(index);
     }
@@ -32,19 +30,19 @@ export default function Experience() {
         {/* Mobile: Accordion Layout */}
         {!isDesktop && (
           <div className="flex flex-col gap-6">
-             <div className="w-full">
-                <Heading
-                  text="THE ALPAGO EXPERIENCE"
-                  centered={false}
-                  color="text-white"
-                  className="mb-8"
-                  size="text-90px"
-                />
-              </div>
+            <div className="w-full">
+              <Heading
+                text="THE ALPAGO EXPERIENCE"
+                centered={false}
+                color="text-white"
+                className="mb-8"
+                size="text-90px"
+              />
+            </div>
             {EXPERIENCE_DATA.map((exp, index) => {
               const isOpen = activeIndex === index;
               return (
-                <div key={index} className="bg-charcoal  pt-4">
+                <div key={index} className="bg-charcoal pt-4">
                   {/* Heading row with toggle */}
                   <button
                     onClick={() => handleMobileToggle(index)}
@@ -54,12 +52,12 @@ export default function Experience() {
                       text={exp.heading}
                       size="text-2xl"
                       centered={false}
-                      color="text-white"
+                      color={isOpen ? "text-white" : "text-white/40"}
                     />
                     <RxCaretDown
                       size={30}
-                      className={`text-white transform transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
+                      className={`transform transition-transform duration-300 ${
+                        isOpen ? "text-white rotate-180" : "text-white/40"
                       }`}
                     />
                   </button>
@@ -76,7 +74,6 @@ export default function Experience() {
                       color="text-white"
                       className="max-w-xl"
                     />
-
                     <div className="mt-4">
                       <Image
                         src={exp.image}
@@ -98,8 +95,7 @@ export default function Experience() {
           <div className="flex flex-col lg:flex-row-reverse gap-10 xl:gap-20 items-stretch h-full">
             {/* Left: Experience blocks */}
             <div className="w-full lg:w-1/2 flex flex-col justify-between py-6">
-
-             <div className="w-full">
+              <div className="w-full">
                 <Heading
                   text="THE ALPAGO EXPERIENCE"
                   centered={false}
@@ -149,10 +145,8 @@ export default function Experience() {
               })}
             </div>
 
-            {/* Right: Image + Main Heading */}
+            {/* Right: Image */}
             <div className="w-full lg:w-1/2 flex flex-col justify-end items-center">
-          
-
               <Image
                 src={EXPERIENCE_DATA[activeIndex].image}
                 alt={EXPERIENCE_DATA[activeIndex].heading}
