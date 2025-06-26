@@ -83,7 +83,7 @@ export default function HamburgerMenu() {
 
           {/* Icon */}
           <span
-            className={`relative z-10 transition-colors duration-300 ${
+            className={`relative z-100 transition-colors duration-300 ${
               isOpen ? 'text-white hover:text-black' : 'text-white'
             }`}
           >
