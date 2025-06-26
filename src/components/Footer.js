@@ -16,10 +16,10 @@ export default function Footer() {
         {/* Left: Company Info */}
         <div className="col-span-12 md:col-span-4">
           <Heading text={company.name} size="text-lg" className="mb-2" centered={false} />
-          <BodyText text={company.description} className="text-sm text-white mb-4" centered={false} />
+          <BodyText text={company.description} className="text-sm text-white mb-4" centered={false}  color="text-grayText" />
           <Heading text="Location:" size="text-sm" className="mb-1" centered={false} />
           {company.location.map((line, idx) => (
-            <BodyText key={idx} text={line} className="text-sm text-white" centered={false} />
+            <BodyText key={idx} text={line} className="text-sm text-white" centered={false} color="text-grayText" />
           ))}
         </div>
 
@@ -31,37 +31,39 @@ export default function Footer() {
               <BodyText
                 key={item}
                 text={item.toUpperCase()}
-                className="text-sm text-white hover:underline cursor-pointer"
+                className="text-base text-white hover:underline cursor-pointer"
                 centered={false}
               />
             ))}
           </div>
 
           {/* Projects: span 3 */}
-          <div className="col-span-8 md:col-span-3">
-            <Heading text="PROJECTS" size="text-sm" className="mb-2" centered={false} />
+          <div className="col-span-8 md:col-span-3 space-y-2">
+            <Heading text="PROJECTS" size="text-base" className="mb-2" centered={false} />
             {links.projects.map((item) => (
               <BodyText
                 key={item}
                 text={item.toUpperCase()}
-                className="text-sm text-white hover:underline cursor-pointer"
+                className="text-sm  hover:underline cursor-pointer"
                 centered={false}
+                color="text-grayText"
               />
             ))}
           </div>
 
           {/* Media & Socials: span 3 */}
           <div className="col-span-8 md:col-span-3">
-            <Heading text="MEDIA" size="text-sm" className="mb-2" centered={false} />
+            <Heading text="MEDIA" size="text-base" className="mb-2" centered={false} />
             {links.media.map((item) => (
               <BodyText
                 key={item}
                 text={item.toUpperCase()}
                 className="text-sm text-white hover:underline cursor-pointer"
                 centered={false}
+                color="text-grayText"
               />
             ))}
-            <Heading text="CONTACT US" size="text-sm" className="mt-6 mb-2" centered={false} />
+            <Heading text="CONTACT US" size="text-base" className="mt-6 mb-2" centered={false} />
             <div className="flex space-x-3 mt-2">
               {SOCIAL_LINKS.map(({ icon, label, url }, index) => (
                 <a

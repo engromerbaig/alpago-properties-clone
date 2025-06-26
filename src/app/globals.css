@@ -25,6 +25,8 @@
   --color-darkGray: #5B5B5B;
   --color-charcoal: #1A1A1A;
   --color-hamburgerBg: #4A4A4A;
+    --color-grayText: #B3B3B3;
+
 
   --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 }
@@ -43,6 +45,11 @@ html, body {
 @layer utilities {
   .text-primary {
     color: var(--color-primary);
+  }
+
+  .text-grayText{
+        color: var(--color-grayText);
+
   }
 
   .bg-lightGray {
