@@ -55,24 +55,26 @@ export default function ProjectCard({
         </div>
 
         {/* Text + Date */}
-        <div className="py-4 flex justify-between items-center">
-          <Heading text={truncatedName} size="text-3xl" fontWeight="font-light" color="text-black" />
+        <div className="py-4 flex justify-start  md:justify-between items-center">
+          <Heading text={truncatedName} size="text-50px" centered={false} fontWeight="font-light" color="text-black"  />
 
           {/* rhs */}
-          {isNews && (
-            <div className="flex justify-between">
-              {/* Left side: Date and Month */}
-              <div className="flex items-start">
-                <p className="font-light text-3xl mt-0 text-black leading-none">
-                  {`${date}.${month}`}
-                </p>
-              </div>
-              {/* Right side: Year */}
-              <div className="flex items-start">
-                <BodyText text={year} size="text-xs" className="text-black leading-none ml-2" />
-              </div>
-            </div>
-          )}
+       {/* rhs */}
+{isNews && (
+  <div className="hidden md:flex  justify-between">
+    {/* Left side: Date and Month */}
+    <div className="flex items-start">
+      <p className="font-light text-50px mt-0 text-black leading-none">
+        {`${date}.${month}`}
+      </p>
+    </div>
+    {/* Right side: Year */}
+    <div className="flex items-start">
+      <BodyText text={year} size="text-xs" className="text-black leading-none ml-2" />
+    </div>
+  </div>
+)}
+
         </div>
       </div>
     </Link>
