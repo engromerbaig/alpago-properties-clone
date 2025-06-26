@@ -1,4 +1,3 @@
-// components/ProjectCard.js
 'use client';
 
 import Image from 'next/image';
@@ -8,9 +7,12 @@ import { FaPlus } from "react-icons/fa";
 import Heading from './Heading';
 import BodyText from './BodyText';
 
-export default function ProjectCard({ name, image, link = "#", cardHeight='h-[400px]', isNews = false, date, month, year }) {
+export default function ProjectCard({ name, image, link = "#", isNews = false, date, month, year }) {
   const truncatedName = isNews && name.length > 40 ? name.slice(0, 40) + "..." : name;
   const formattedDate = isNews ? `${date}.${month}.${year}` : "";
+
+  // Dynamic height using viewport units (vh) with responsive variants
+  const cardHeight = "h-[40vh] sm:h-[50vh] md:h-[55vh] lg:h-[58vh]  2xl:h-[73vh] max-h-[1000px] min-h-[300px]";
 
   return (
     <Link href={link} target="_blank" rel="noopener noreferrer">
@@ -28,42 +30,35 @@ export default function ProjectCard({ name, image, link = "#", cardHeight='h-[40
         </div>
 
         {/* Icon Container Scale */}
-  <div className="absolute inset-0 flex items-center justify-center z-10">
-  <div className="bg-[#5B5B5B] rounded-full p-3 transition-transform duration-500 transform group-hover:scale-120">
-    {isNews ? (
-      <FaPlus className="text-white text-2xl" />
-    ) : (
-      <GoArrowUpRight className="text-white text-2xl" />
-    )}
-  </div>
-</div>
-
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="bg-[#5B5B5B] rounded-full p-3 transition-transform duration-500 transform group-hover:scale-120">
+            {isNews ? (
+              <FaPlus className="text-white text-2xl" />
+            ) : (
+              <GoArrowUpRight className="text-white text-2xl" />
+            )}
+          </div>
+        </div>
 
         {/* Text + Date */}
         <div className="py-4 flex justify-between items-center">
-
-          <Heading text={truncatedName} size="text-3xl" fontWeight='font-light' color="text-black" />
-
+          <Heading text={truncatedName} size="text-3xl" fontWeight="font-light" color="text-black" />
 
           {/* rhs */}
-{isNews && (
-<div className="flex justify-between">
-  {/* Left side: Date and Month */}
-  <div className="flex items-start">
-
-    <p className={`font-light text-3xl mt-0  text-black leading-none`}>
-
-{`${date}.${month}`}
-
-    </p>
-  </div>
-  {/* Right side: Year */}
-  <div className="flex items-start">
-    <BodyText text={year} size='text-xs' className="text-black leading-none ml-2" />
-  </div>
-</div>
-)}
-       
+          {isNews && (
+            <div className="flex justify-between">
+              {/* Left side: Date and Month */}
+              <div className="flex items-start">
+                <p className="font-light text-3xl mt-0 text-black leading-none">
+                  {`${date}.${month}`}
+                </p>
+              </div>
+              {/* Right side: Year */}
+              <div className="flex items-start">
+                <BodyText text={year} size="text-xs" className="text-black leading-none ml-2" />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Link>

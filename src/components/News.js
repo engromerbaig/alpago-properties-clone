@@ -38,7 +38,7 @@ useEffect(() => {
         >
           <ProjectCard
             isNews
-            cardHeight="h-96"
+            // cardHeight="h-96"
             name={item.name}
             image={item.image}
             link={item.link}
