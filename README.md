@@ -1,4 +1,4 @@
-# 🏗️ Alpago Properties Homepage – Frontend Developer Test Assignment
+# Alpago Properties Homepage – Frontend Developer Test Assignment
 
 This is a **minimum viable clone** of the homepage of [Alpago Properties](https://www.alpagoproperties.com/) built as part of a Frontend Developer Test Assignment. The goal was to recreate the homepage using **Next.js**, **TailwindCSS**, **GSAP**, and **Framer Motion** within a strict **48-hour deadline**.
 
