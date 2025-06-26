@@ -1,35 +1,46 @@
-// components/Projects.js
 'use client';
 
 import React, { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { PROJECTS_DATA } from "@/constants/projects";
 import HorizontalScroller from "./HorizontalScroller";
+import useMediaQuery from "./hooks/useMediaQuery";
 
 export default function Projects() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const [cardWidth, setCardWidth] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => setCardWidth(window.innerWidth / 2);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    const updateWidth = () => {
+      const newWidth = isMobile
+        ? window.innerWidth / 1.25
+        : window.innerWidth / 2;
+      setCardWidth(newWidth);
+    };
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, [isMobile]);
 
   const cardCount = PROJECTS_DATA.length + 1;
+
+  const sectionStyle = {
+    background: isMobile
+      ? "linear-gradient(to bottom, black 50%, white 50%)"
+      : "linear-gradient(to bottom, black 70%, white 30%)",
+  };
 
   return (
     <HorizontalScroller
       title="PROJECTS"
       cardWidth={cardWidth}
-      gap={80}
+      gap={isMobile ? 40 : 80}
       cardCount={cardCount}
       sectionClassName=""
-      sectionStyle={{
-        background: "linear-gradient(to bottom, black 70%, white 30%)",
-      }}
+      sectionStyle={sectionStyle}
       trackClassName="z-10"
-      renderTrackContent={(width) => (
+      renderTrackContent={(width, cardHeight) => (
         <>
           {PROJECTS_DATA.map((project, index) => (
             <div
@@ -37,7 +48,12 @@ export default function Projects() {
               className="project-card shrink-0"
               style={{ width: `${width}px` }}
             >
-              <ProjectCard name={project.name} image={project.image} />
+              <ProjectCard
+                name={project.name}
+                image={project.image}
+                link={project.link}
+                dynamicHeight={cardHeight}
+              />
             </div>
           ))}
 

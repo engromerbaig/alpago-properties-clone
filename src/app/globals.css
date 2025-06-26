@@ -2,12 +2,14 @@
 
 /* Font face */
 @font-face {
-  font-family: 'DMSans';
-  src: url('/fonts/DMSans.woff2') format('woff2');
-  font-weight: 100 900;
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-VariableFont_wdth,wght.woff2') format('woff2-variations');
+  font-weight: 100 900;       /* Full weight range */
+  font-stretch: 75% 100%;     /* Optional: allows width variation */
   font-style: normal;
   font-display: swap;
 }
+
 
 /* CSS Reset */
 * {
@@ -22,19 +24,32 @@
   --color-Gray: #E9E9E9;
   --color-darkGray: #5B5B5B;
   --color-charcoal: #1A1A1A;
+  --color-hamburgerBg: #4A4A4A;
+    --color-grayText: #B3B3B3;
 
-  --font-clash: 'DMSans', ui-sans-serif, system-ui, sans-serif;
+
+  --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Apply global font */
 body {
-  font-family: var(--font-clash);
+  font-family: var(--font-roboto);
+}
+
+/* turn off horizontal scrolling */
+html, body {
+  overflow-x: hidden;
 }
 
 /* ✅ Custom utility classes */
 @layer utilities {
   .text-primary {
     color: var(--color-primary);
+  }
+
+  .text-grayText{
+        color: var(--color-grayText);
+
   }
 
   .bg-lightGray {
@@ -63,5 +78,39 @@ body {
 
   .bg-charcoal {
     background-color: var(--color-charcoal);
+  }
+
+  .bg-hamburgerBg{
+        background-color: var(--color-hamburgerBg);
+
+  }
+
+  /* font sizes */
+    .text-150px {
+    font-size: clamp(3.75rem, 7.5vw, 9.375rem); /* 150px */
+  }
+
+  .text-120px {
+    font-size: clamp(3rem, 6.25vw, 7.5rem); /* 120px */
+  }
+
+  .text-90px {
+    font-size: clamp(2.25rem, 4.6875vw, 5.625rem); /* 90px */
+  }
+
+ 
+
+.text-60px {
+  font-size: clamp(1.5rem, 3.125vw, 3.75rem); /* 60px */
+}
+
+
+ .text-50px {
+  font-size: clamp(1.25rem, 2.6042vw, 3.125rem); /* 50px */
+}
+
+
+  .text-35px {
+    font-size: clamp(1rem, 1.822vw, 2.1875rem); /* 35px */
   }
 }
