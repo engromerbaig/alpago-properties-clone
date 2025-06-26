@@ -1,4 +1,3 @@
-// components/Projects.js
 'use client';
 
 import React, { useEffect, useState } from "react";
@@ -10,8 +9,15 @@ export default function Projects() {
   const [cardWidth, setCardWidth] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => setCardWidth(window.innerWidth / 2);
-    handleResize();
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768; // Tailwind md breakpoint
+      const newWidth = isMobile
+        ? window.innerWidth / 1.25
+        : window.innerWidth / 2;
+      setCardWidth(newWidth);
+    };
+
+    handleResize(); // Set on mount
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
