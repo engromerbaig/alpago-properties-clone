@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import Container from './Container';
 import NAV_LINKS from '@/constants/navlinks';
+import { useState } from 'react';
+import { getTranslateTextStyles } from './animations/translateText';
 
 export default function Navbar() {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
   return (
     <nav className="absolute py-6 z-50 shadow-sm w-full">
       {/* Background layer */}
@@ -18,16 +22,37 @@ export default function Navbar() {
           </Link>
 
           {/* Navigation Links */}
-          <div className="hidden xl:block space-x-4 uppercase">
-            {NAV_LINKS.map((link, idx) => (
-              <Link
-                key={idx}
-                href={link.href}
-                className="text-white hover:text-blue-600"
-              >
-                {link.name}
-              </Link>
-            ))}
+          <div className="hidden xl:flex space-x-6 uppercase">
+            {NAV_LINKS.map((link, idx) => {
+              const isHovered = hoveredIndex === idx;
+              const { topText, bottomText } = getTranslateTextStyles(isHovered, false);
+
+              return (
+                <Link
+                  key={idx}
+                  href={link.href}
+                  onMouseEnter={() => setHoveredIndex(idx)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="relative overflow-hidden h-5"
+                >
+                  {/* Top Text (Hover Reveal) */}
+                  <span
+                    className="absolute top-0 left-0 transition-transform duration-300 text-white font-semibold"
+                    style={topText}
+                  >
+                    {link.name}
+                  </span>
+
+                  {/* Bottom Text (Default) */}
+                  <span
+                    className="block transition-transform duration-300 text-white font-semibold"
+                    style={bottomText}
+                  >
+                    {link.name}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </Container>
