@@ -104,45 +104,43 @@ export default function Experience() {
                 />
               </div>
 
-              {EXPERIENCE_DATA.map((exp, index) => {
-                const isActive = activeIndex === index;
-                return (
-                  <div
-                    key={index}
-                    onMouseEnter={() => handleDesktopHover(index)}
-                    onClick={() => handleDesktopHover(index)}
-                    className="cursor-pointer"
-                  >
-                    {/* Heading with translate animation */}
-                    <div
-                      className={`transform transition-transform duration-500 ${
-                        isActive ? "-translate-y-2" : "translate-y-0"
-                      }`}
-                    >
-                      <Heading
-                        text={exp.heading}
-                        size="text-50px"
-                        centered={false}
-                        color={isActive ? "text-white" : "text-white/40"}
-                      />
-                    </div>
+           {EXPERIENCE_DATA.map((exp, index) => {
+  const isActive = activeIndex === index;
+  return (
+    <div
+      key={index}
+      onMouseEnter={() => handleDesktopHover(index)}
+      onClick={() => handleDesktopHover(index)}
+      className="cursor-pointer transition-all duration-300"
+    >
+      {/* Static position heading with color change only */}
+      <Heading
+        text={exp.heading}
+        size="text-50px"
+        centered={false}
+        color={isActive ? "text-white" : "text-white/40"}
+        className="transition-colors duration-300"
+      />
 
-                    {/* Smoothly expand/collapse body */}
-                    <div
-                      className={`transition-all duration-500 overflow-hidden ${
-                        isActive ? "max-h-[300px] opacity-100 mt-2" : "max-h-0 opacity-0"
-                      }`}
-                    >
-                      <BodyText
-                        text={exp.body}
-                        centered={false}
-                        color="text-white"
-                        className="max-w-xl"
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+      {/* Reserve space always, fade content in/out */}
+      <div
+        className={`transition-all duration-500 ease-in-out overflow-hidden ${
+          isActive ? "opacity-100 max-h-[300px] mt-2" : "opacity-0 max-h-0"
+        }`}
+      >
+        <div className="min-h-[80px]"> {/* Prevent layout jump */}
+          <BodyText
+            text={exp.body}
+            centered={false}
+            color="text-white"
+            className="max-w-xl"
+          />
+        </div>
+      </div>
+    </div>
+  );
+})}
+
             </div>
 
             {/* Right: Image */}
