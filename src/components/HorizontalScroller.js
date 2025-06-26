@@ -67,11 +67,10 @@ export default function HorizontalScroller({
         <Container className={`${theme.paddingTop} relative z-10`}>
           <Heading
             text={title}
-            size="text-[120px]"
+            size="text-150px"
             centered={false}
-            fontWeight="font-semibold"
+            fontWeight="font-bold"
             color={titleColor}
-            className="pb-0"
             isAnimate
           />
         </Container>
