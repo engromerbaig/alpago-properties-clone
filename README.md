@@ -1,58 +1,59 @@
-
-> 🧠 **Note**: Data is currently handled via local JS/TS files under `constants/`. This is a placeholder and follows the **"File-Based Mocking"** pattern for rapid prototyping. In a production version, this will be replaced by **serverless functions or CMS-powered API routes** (e.g., `/api/projects`).
+> 💡 **Note**: Local JavaScript files under `/constants` are used to simulate data fetching. These will be replaced by real APIs or CMS integrations in future iterations.
 
 ---
 
 ## ✅ Features Implemented
 
-- ✅ Responsive layout for Desktop, Tablet, and Mobile
-- ✅ GSAP-powered scroll and entry animations
+- ✅ Fully responsive layout for Desktop, Tablet, and Mobile
+- ✅ Pixel-matching sections with accurate spacing and typography
+- ✅ Scroll and entry animations using GSAP and Framer Motion
 - ✅ Component-based architecture for scalability
-- ✅ Loader (basic)
-- ✅ Deployed and publicly accessible version
+- ✅ Deployed and live on Netlify
 
 ---
 
-## ⚠️ Known Limitations (MVP Status)
+## ⚠️ Known Limitations
 
-This version is a **minimal working clone** built under a strict 48-hour deadline. Some known issues and improvement areas include:
+This version was developed in **under 48 hours** and represents a basic functional MVP. Some known issues include:
 
-- ❌ **Responsiveness Issues**: The horizontal scroll section requires refinement for smaller viewports.
-- ❌ **Flash of Unstyled Content (FOUC)**: Present due to current animation setup and CSS loading strategy.
-- ❌ **Loader**: Only a basic loader is implemented; could be improved with branding or skeleton loaders.
-- ❌ **SEO**: Not optimized – no meta tags, OG tags, or structured data added yet.
-- ❌ **Accessibility**: ARIA roles and focus management not yet implemented.
+- ⚠️ **Responsiveness**: Horizontal scroll section needs better handling on mobile/tablets
+- ⚠️ **FOUC (Flash of Unstyled Content)**: Appears on load due to animation setup
+- ⚠️ **Basic Loader**: Implemented, but lacks branding polish
+- ⚠️ **SEO**: Only root-level `metadata` provided via `app/layout.js`; no OG tags, structured data, or dynamic metadata
+- ⚠️ **Accessibility**: Semantic structure and ARIA roles yet to be optimized
 
 ---
 
 ## 📤 Deliverables
 
-- ✅ **Live Deployment**: [https://alpago-properties-clone.netlify.app/](https://alpago-properties-clone.netlify.app/)
-- ✅ **Codebase**: Available on GitHub (private or shared upon request)
+- ✅ **Live Deployment**: [alpago-properties-clone.netlify.app](https://alpago-properties-clone.netlify.app/)
+- ✅ **Codebase**: [GitHub Repository](https://github.com/engromerbaig/alpago-properties-clone)
 
 ---
 
 ## 📆 Timeline
 
-This version was completed within the assigned **48-hour window**, prioritizing core layout, component structure, and animation fidelity over polish or optimization.
+This clone was created from scratch within a **48-hour** window, focusing on layout structure, component logic, scroll animations, and overall UX responsiveness.
 
 ---
 
-## 📈 Next Steps (If Continued)
+## 🛠 Suggested Improvements (Next Phase)
 
-- 🔄 Refactor dummy data to use **Next.js API Routes** or integrate with a **headless CMS** (e.g., Sanity, Strapi)
-- ⚙️ Improve animation sequencing and performance
-- 🪄 Implement SSR/SEO best practices
-- 🧪 Add testing with Jest + React Testing Library
-- 🌐 Improve accessibility and Lighthouse scores
-
----
-
-## 🙌 Credits
-
-Developed by **Muhammad Omer Baig**  
-[Portfolio](https://omerbaig.dev/) • [Email](mailto:omerbaigde@gmail.com) • [LinkedIn](https://linkedin.com/in/omerbaig)
+- 🔄 Replace mocked data with real APIs or CMS (e.g., Sanity, Contentful)
+- 🧪 Add automated testing with Playwright or React Testing Library
+- ⚙️ Add full SEO (meta tags, OG tags, structured data)
+- ♿ Improve accessibility for screen readers and keyboard navigation
+- 🎯 Refine animation timing and responsiveness
 
 ---
 
-> This assignment showcases my proficiency in modern frontend tools and practices under tight deadlines. I'm excited about opportunities that push the boundaries of design fidelity, performance, and maintainable code.
+## 🙌 Author
+
+**Muhammad Omer Baig**  
+🔗 [omerbaig.dev](https://omerbaig.dev/)  
+📧 [omerbaigde@gmail.com](mailto:omerbaigde@gmail.com)  
+🐙 [GitHub: engromerbaig](https://github.com/engromerbaig)
+
+---
+
+> Created as part of a technical test to demonstrate real-world frontend capabilities using modern tools and a fast-paced delivery model.
