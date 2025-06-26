@@ -3,23 +3,38 @@ import gsap from 'gsap';
 export const animateText = (element, trigger = true) => {
   if (!element) return;
 
-  // Split text into characters and wrap each in a span
-  const splitText = (text) => {
-    return text.split('').map((char, index) => (
-      `<span class="inline-block">${char === ' ' ? '\u00A0' : char}</span>`
+  // Split text into words, then each word into characters
+  const splitTextIntoWords = (text) => {
+    return text.split(/\s+/).map((word) => (
+      `<span class="word inline-block">${word.split('').map((char) => (
+        `<span class="inline-block">${char === ' ' ? '\u00A0' : char}</span>`
+      )).join('')}&nbsp;</span>`
     )).join('');
   };
 
   // Apply splitting to all text nodes within spans
   const spans = element.querySelectorAll('span');
   spans.forEach((span) => {
-    span.innerHTML = splitText(span.textContent);
+    span.innerHTML = splitTextIntoWords(span.textContent);
   });
 
-  const charSpans = element.querySelectorAll('span span');
+  // Select all character spans
+  const charSpans = element.querySelectorAll('.word span');
 
   // Set initial state for animation
   gsap.set(charSpans, { y: 50, opacity: 0 });
+
+  // Add CSS to ensure proper word spacing and wrapping
+  const style = document.createElement('style');
+  style.textContent = `
+    .word {
+      white-space: nowrap;
+    }
+    .word > span {
+      display: inline-block;
+    }
+  `;
+  document.head.appendChild(style);
 
   // Create IntersectionObserver
   const observer = new IntersectionObserver(
@@ -46,5 +61,8 @@ export const animateText = (element, trigger = true) => {
   }
 
   // Return cleanup function
-  return () => observer.disconnect();
+  return () => {
+    observer.disconnect();
+    style.remove();
+  };
 };
