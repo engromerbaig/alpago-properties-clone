@@ -11,8 +11,19 @@ export function radialReveal(target, options = {}) {
 
   gsap.fromTo(
     target,
-    { scale: 0, opacity: 0 },
-    { scale, opacity, duration, delay, ease }
+    {
+      scale: 0,
+      opacity: 0,
+      transformOrigin: "50% 50%", // ✅ center origin
+    },
+    {
+      scale,
+      opacity,
+      duration,
+      delay,
+      ease,
+      transformOrigin: "50% 50%", // ✅ ensure consistency
+    }
   );
 }
 
@@ -25,5 +36,12 @@ export function radialHide(target, options = {}) {
     opacity = 0,
   } = options;
 
-  gsap.to(target, { scale, opacity, duration, delay, ease });
+  gsap.to(target, {
+    scale,
+    opacity,
+    duration,
+    delay,
+    ease,
+    transformOrigin: "50% 50%", // ✅ center origin
+  });
 }

@@ -12,14 +12,15 @@ export default function HamburgerMenu() {
   const [showHamburger, setShowHamburger] = useState(false);
   const navRef = useRef(null);
   const btnRef = useRef(null);
+  const circleRef = useRef(null);
 
-  // Detect when navbar is out of view
+  // Scroll observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setShowHamburger(!entry.isIntersecting);
       },
-      { threshold: 0.6 } // Adjust threshold to delay hamburger reveal
+      { threshold: 0.6 }
     );
 
     if (navRef.current) observer.observe(navRef.current);
@@ -28,7 +29,7 @@ export default function HamburgerMenu() {
     };
   }, []);
 
-  // Animate hamburger button on visibility toggle
+  // Initial radial reveal of the button
   useEffect(() => {
     if (btnRef.current) {
       if (showHamburger) {
@@ -39,25 +40,52 @@ export default function HamburgerMenu() {
     }
   }, [showHamburger]);
 
+  // Hover reveal only on X icon
+  const handleMouseEnter = () => {
+    if (circleRef.current && isOpen) {
+      radialReveal(circleRef.current, { duration: 0.3, scale: 1 });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (circleRef.current && isOpen) {
+      radialHide(circleRef.current, { duration: 0.3, scale: 0 });
+    }
+  };
+
   return (
     <>
-      {/* Invisible tracker for scroll detection */}
+      {/* Invisible scroll tracker */}
       <div ref={navRef} className="w-full h-[1px]" />
 
-      {/* Hamburger Toggle Button */}
-      <div
-        ref={btnRef}
-        className="fixed top-5 right-5 z-50 scale-0 opacity-0"
-      >
+      {/* Toggle button container */}
+      <div ref={btnRef} className="fixed top-5 right-5 z-50 scale-0 opacity-0">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-hamburgerBg text-white p-3 rounded-full flex items-center justify-center cursor-pointer"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative w-12 h-12 rounded-full bg-hamburgerBg  cursor-pointer flex items-center justify-center overflow-hidden"
         >
-          {isOpen ? <FiX size={24} /> : <RxHamburgerMenu size={24} />}
+          {/* White radial hover layer for close icon */}
+          {isOpen && (
+            <span
+              ref={circleRef}
+              className="absolute inset-0 bg-white scale-0 rounded-full z-0 pointer-events-none"
+            />
+          )}
+
+          {/* Icon */}
+          <span
+            className={`relative z-10 transition-colors duration-300 ${
+              isOpen ? 'text-white hover:text-black' : 'text-white'
+            }`}
+          >
+            {isOpen ? <FiX size={24} /> : <RxHamburgerMenu size={24} />}
+          </span>
         </button>
       </div>
 
-      {/* Offcanvas Menu */}
+      {/* Offcanvas */}
       <AnimatePresence>
         {isOpen && <OffcanvasMenu onClose={() => setIsOpen(false)} />}
       </AnimatePresence>
