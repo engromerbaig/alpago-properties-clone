@@ -17,30 +17,25 @@ export default function Overlay({
   const isActive = index === currentIndex;
 
   return (
-    <div className="absolute z-20 inset-0 flex items-end justify-between text-white">
+    <div className="absolute z-20 inset-0 flex flex-col justify-end py-8 md:py-0 text-white">
 
-      <Heading
-      text={title}
-      size='text-6xl'
-      isAnimate
-      />
-      
-      {/* Desktop: Circular Progress (md and above) */}
-      <div className="hidden md:block">
+      {/* Mobile Layout */}
+      <div className="flex flex-col items-center w-full md:hidden gap-2">
+        <Heading text={title} size="text-90px" isAnimate />
+        <div className="w-full flex justify-end">
+          <NavigationArrows onNext={onNext} onPrev={onPrev} />
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden md:flex items-end justify-between w-full">
+        <Heading text={title} size="text-90px" isAnimate />
         <CircularProgress
           isActive={isActive}
-          duration={duration || 20 }
+          duration={duration || 20}
           number={number}
           totalCount={OVERLAY_DATA.length}
           onComplete={onProgressComplete}
-        />
-      </div>
-      
-      {/* Mobile: Navigation Arrows (below md) */}
-      <div className="block md:hidden">
-        <NavigationArrows
-          onNext={onNext}
-          onPrev={onPrev}
         />
       </div>
     </div>
