@@ -25,18 +25,22 @@ export default function Projects() {
 
   const cardCount = PROJECTS_DATA.length + 1;
 
+  const sectionStyle = {
+    background: isMobile
+      ? "linear-gradient(to bottom, black 50%, white 50%)"
+      : "linear-gradient(to bottom, black 70%, white 30%)",
+  };
+
   return (
     <HorizontalScroller
       title="PROJECTS"
       cardWidth={cardWidth}
-      gap={isMobile ? 40 : 80} // ✅ gap adjusts by screen size
+      gap={isMobile ? 40 : 80}
       cardCount={cardCount}
       sectionClassName=""
-      sectionStyle={{
-        background: "linear-gradient(to bottom, black 70%, white 30%)",
-      }}
+      sectionStyle={sectionStyle}
       trackClassName="z-10"
-      renderTrackContent={(width) => (
+      renderTrackContent={(width, cardHeight) => (
         <>
           {PROJECTS_DATA.map((project, index) => (
             <div
@@ -44,7 +48,12 @@ export default function Projects() {
               className="project-card shrink-0"
               style={{ width: `${width}px` }}
             >
-              <ProjectCard name={project.name} image={project.image} />
+              <ProjectCard
+                name={project.name}
+                image={project.image}
+                link={project.link}
+                dynamicHeight={cardHeight}
+              />
             </div>
           ))}
 

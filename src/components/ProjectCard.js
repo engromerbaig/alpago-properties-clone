@@ -7,18 +7,32 @@ import { FaPlus } from "react-icons/fa";
 import Heading from './Heading';
 import BodyText from './BodyText';
 
-export default function ProjectCard({ name, image, link = "#", isNews = false, date, month, year }) {
+export default function ProjectCard({ 
+  name, 
+  image, 
+  link = "#", 
+  isNews = false, 
+  date, 
+  month, 
+  year,
+  dynamicHeight // This will be passed from HorizontalScroller
+}) {
   const truncatedName = isNews && name.length > 40 ? name.slice(0, 40) + "..." : name;
   const formattedDate = isNews ? `${date}.${month}.${year}` : "";
 
-  // Dynamic height using viewport units (vh) with responsive variants
-  const cardHeight = "h-[40vh] sm:h-[50vh] md:h-[55vh] lg:h-[58vh]  2xl:h-[73vh] max-h-[1000px] min-h-[300px]";
+  // Use dynamic height if provided, otherwise fallback to responsive viewport units
+  const cardHeight = dynamicHeight 
+    ? `${dynamicHeight}px` 
+    : "h-[40vh] sm:h-[50vh] md:h-[55vh] lg:h-[58vh] 2xl:h-[73vh] max-h-[1000px] min-h-[300px]";
 
   return (
     <Link href={link} target="_blank" rel="noopener noreferrer">
       <div className="group overflow-hidden relative transition-all duration-300 cursor-pointer">
         {/* Image */}
-        <div className={`relative ${cardHeight} w-full overflow-hidden`}>
+        <div 
+          className={`relative w-full overflow-hidden ${!dynamicHeight ? cardHeight : ''}`}
+          style={dynamicHeight ? { height: `${dynamicHeight}px` } : {}}
+        >
           <Image
             src={image}
             alt={name}
