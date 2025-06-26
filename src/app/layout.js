@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HamburgerMenu from '@/components/HamburgerMenu';
 import './globals.css';
+import VhUpdater from '@/components/utils/VhUpdater';
 
 export const metadata = {
   title: 'The Leading Dubai Leading Real Estate Developer | Alpago Properties Clone',
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="flex flex-col min-h-screen relative">
+        <VhUpdater /> {/* 👈 Add it here */}
         <Navbar />
         <HamburgerMenu />
         <main className="flex-grow">{children}</main>
