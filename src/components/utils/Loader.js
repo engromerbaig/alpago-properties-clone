@@ -16,7 +16,7 @@ export default function Loader() {
         each: 0.1,
         from: 'end'
       }
-      // ❌ Don't remove manually — React will handle it
+      // ❌ Don't remove manually — React will handle 
     });
   }, []);
 
