@@ -26,6 +26,8 @@
   --color-charcoal: #1A1A1A;
   --color-hamburgerBg: #4A4A4A;
     --color-grayText: #B3B3B3;
+        --color-loader: #222222;
+
 
 
   --font-roboto: 'Roboto', ui-sans-serif, system-ui, sans-serif;
@@ -74,6 +76,11 @@ html, body {
 
   .bg-Gray {
     background-color: var(--color-Gray);
+  }
+
+  .bg-loader{
+        background-color: var(--color-loader);
+
   }
 
   .bg-charcoal {
