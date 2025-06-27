@@ -30,7 +30,7 @@ export default function OffcanvasMenu({ onClose }) {
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
-      transition={{ type: 'tween', duration: 0.3 }}
+      transition={{ type: 'tween', duration: 0.8 }}
       className="fixed top-0 right-0 w-full h-screen z-[999] flex flex-col md:flex-row"
     >
       {/* Left: Nav + Logo */}
@@ -49,27 +49,27 @@ export default function OffcanvasMenu({ onClose }) {
               className="mr-2"
             />        </Link>
 
-        <div className="flex flex-col items-center justify-center space-y-6">
+        <div className="flex flex-col items-start justify-center space-y-1">
           {NAV_LINKS.map((link, idx) => (
             <Link
               key={idx}
               href={link.href}
               onClick={onClose}
-              className="text-xl font-semibold hover:text-blue-400 transition-all"
+              className="text-xl  transition-all"
             >
-              <Heading text={link.name} color="text-white" />
+              <Heading text={link.name} color="text-grayText" centered={false} className='uppercase' />
             </Link>
           ))}
         </div>
       </Container>
 
       {/* Right: Image */}
-      <div className="w-full md:w-4/12 bg-gray-100 flex items-center justify-center h-1/2 md:h-full">
+      <div className="w-full md:w-4/12 bg-black flex items-center justify-center h-1/2 md:h-full">
         <Image
           src="/offcanvas.webp"
           alt="Off Canvas Image"
-          width={500}
-          height={500}
+          width={300}
+          height={300}
           className="w-full h-full object-cover"
         />
       </div>
