@@ -21,7 +21,7 @@ export default function Loader() {
   }, []);
 
   return (
-    <div className="loader-container fixed top-0 left-0 h-screen w-screen flex z-50 bg-white">
+    <div className="loader-container fixed top-0 left-0 h-screen w-screen flex z-50 ">
       {[...Array(6)].map((_, index) => (
         <div
           key={index}
