@@ -10,19 +10,20 @@ import Heading from './Heading';
 import Container from './Container';
 
 export default function OffcanvasMenu({ onClose }) {
-  useEffect(() => {
-    const scrollY = window.scrollY;
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
 
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      window.scrollTo(0, scrollY);
-    };
-  }, []);
+  useEffect(() => {
+  const scrollY = window.scrollY;
+  document.body.classList.add('body-scroll-lock');
+  document.body.style.top = `-${scrollY}px`;
+
+  return () => {
+    document.body.classList.remove('body-scroll-lock');
+    document.body.style.top = '';
+    window.scrollTo(0, scrollY);
+  };
+}, []);
+
+  
 
   return (
     <motion.div

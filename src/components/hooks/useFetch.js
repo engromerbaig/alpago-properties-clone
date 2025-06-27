@@ -22,7 +22,7 @@ export default function useFetch(url) {
         }
       } catch (err) {
         if (isMounted) {
-          setError(err.message);
+          setError(err.message || 'Something went wrong');
           setLoading(false);
         }
       }
@@ -35,11 +35,10 @@ export default function useFetch(url) {
     };
   }, [url]);
 
-  const FallbackUI = ({ children }) => {
-    if (loading) return <div className="text-black text-start">Loading...</div>;
-    if (error) return <div className="text-red-500 text-start">Error: {error}</div>;
-    return children(data);
+  return {
+    data,
+    loading,
+    error,
+    hasData: !!data && !loading && !error,
   };
-
-  return { data, loading, error, FallbackUI };
 }
