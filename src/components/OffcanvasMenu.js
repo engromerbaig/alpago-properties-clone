@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import NAV_LINKS from '@/constants/navlinks';
 import Heading from './Heading';
+import Container from './Container';
 
 export default function OffcanvasMenu({ onClose }) {
   useEffect(() => {
@@ -33,14 +34,20 @@ export default function OffcanvasMenu({ onClose }) {
       className="fixed top-0 right-0 w-full h-screen z-[999] flex flex-col md:flex-row"
     >
       {/* Left: Nav + Logo */}
-      <div className="w-full md:w-8/12 bg-black text-white p-8 flex flex-col justify-center items-center relative h-1/2 md:h-full">
+      <Container className="w-full md:w-8/12 bg-black text-white p-8 flex flex-col justify-center items-center relative h-1/2 md:h-full">
         <Link
           href="/"
           onClick={onClose}
           className="absolute top-4 left-4"
         >
-          <Image src="/logo.png" alt="Logo" width={100} height={40} />
-        </Link>
+  <Image
+              src="/logo.png"
+              alt="Alpago Properties Clone"
+              width={120}
+              height={60}
+              priority
+              className="mr-2"
+            />        </Link>
 
         <div className="flex flex-col items-center justify-center space-y-6">
           {NAV_LINKS.map((link, idx) => (
@@ -54,7 +61,7 @@ export default function OffcanvasMenu({ onClose }) {
             </Link>
           ))}
         </div>
-      </div>
+      </Container>
 
       {/* Right: Image */}
       <div className="w-full md:w-4/12 bg-gray-100 flex items-center justify-center h-1/2 md:h-full">
