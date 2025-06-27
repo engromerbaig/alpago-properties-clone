@@ -11,14 +11,22 @@ import useMediaQuery from './hooks/useMediaQuery';
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [showHamburger, setShowHamburger] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const navRef = useRef(null);
   const btnRef = useRef(null);
   const circleRef = useRef(null);
 
   const isMobile = useMediaQuery('(max-width: 992px)');
 
-  // Show hamburger on scroll (desktop only)
+  // Prevent hydration mismatch
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Show hamburger logic
+  useEffect(() => {
+    if (!mounted) return;
+
     if (isMobile) {
       setShowHamburger(true); // Always visible on mobile
       return;
@@ -35,10 +43,12 @@ export default function HamburgerMenu() {
     return () => {
       if (navRef.current) observer.unobserve(navRef.current);
     };
-  }, [isMobile]);
+  }, [isMobile, mounted]);
 
   // Animate radial reveal/hide
   useEffect(() => {
+    if (!mounted) return;
+    
     if (btnRef.current) {
       if (showHamburger) {
         radialReveal(btnRef.current, { duration: 0.5, scale: 1 });
@@ -46,7 +56,7 @@ export default function HamburgerMenu() {
         radialHide(btnRef.current, { duration: 0.3 });
       }
     }
-  }, [showHamburger]);
+  }, [showHamburger, mounted]);
 
   const handleMouseEnter = () => {
     if (circleRef.current && isOpen) {
@@ -60,13 +70,30 @@ export default function HamburgerMenu() {
     }
   };
 
+  // Don't render until mounted to prevent hydration issues
+  if (!mounted) {
+    return (
+      <>
+        {/* Invisible scroll tracker */}
+        <div ref={navRef} className="w-full h-[1px]" />
+        {/* Placeholder for mobile hamburger to prevent layout shift */}
+        <div className="fixed top-5 right-5 z-50 w-12 h-12 lg:hidden" />
+      </>
+    );
+  }
+
   return (
     <>
       {/* Invisible scroll tracker (used for IntersectionObserver) */}
       <div ref={navRef} className="w-full h-[1px]" />
 
       {/* Toggle button container */}
-      <div ref={btnRef} className="fixed top-5 right-5 z-50 scale-0 opacity-0">
+      <div 
+        ref={btnRef} 
+        className={`fixed top-5 right-5 z-50 transition-opacity duration-200 ${
+          showHamburger ? 'opacity-100' : 'opacity-0 scale-0'
+        }`}
+      >
         <button
           onClick={() => setIsOpen(!isOpen)}
           onMouseEnter={handleMouseEnter}

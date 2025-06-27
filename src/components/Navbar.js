@@ -3,13 +3,19 @@
 import Link from 'next/link';
 import Container from './Container';
 import NAV_LINKS from '@/constants/navlinks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getTranslateTextStyles } from './animations/translateText';
 import useMediaQuery from './hooks/useMediaQuery';
 
 export default function Navbar() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const isMobile = useMediaQuery('(max-width: 992px)'); // 👈 custom logic
+  const [mounted, setMounted] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 992px)');
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <nav className="absolute py-6 z-50 shadow-sm w-full">
@@ -21,37 +27,40 @@ export default function Navbar() {
             <img src="/logo.png" alt="JobSite Logo" className="h-12 mr-2" />
           </Link>
 
-          {!isMobile && (
-            <div className="flex space-x-6 uppercase">
-              {NAV_LINKS.map((link, idx) => {
-                const isHovered = hoveredIndex === idx;
-                const { topText, bottomText } = getTranslateTextStyles(isHovered, false);
+          {/* Hide nav links on mobile - prevent flash with CSS and conditional rendering */}
+          <div 
+            className={`space-x-6 uppercase transition-opacity duration-200 ${
+              mounted ? 'flex' : 'hidden'
+            } lg:flex hidden`}
+          >
+            {mounted && !isMobile && NAV_LINKS.map((link, idx) => {
+              const isHovered = hoveredIndex === idx;
+              const { topText, bottomText } = getTranslateTextStyles(isHovered, false);
 
-                return (
-                  <Link
-                    key={idx}
-                    href={link.href}
-                    onMouseEnter={() => setHoveredIndex(idx)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                    className="relative overflow-hidden h-5"
+              return (
+                <Link
+                  key={idx}
+                  href={link.href}
+                  onMouseEnter={() => setHoveredIndex(idx)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="relative overflow-hidden h-5"
+                >
+                  <span
+                    className="absolute top-0 left-0 transition-transform duration-300 text-white font-semibold"
+                    style={topText}
                   >
-                    <span
-                      className="absolute top-0 left-0 transition-transform duration-300 text-white font-semibold"
-                      style={topText}
-                    >
-                      {link.name}
-                    </span>
-                    <span
-                      className="block transition-transform duration-300 text-white font-semibold"
-                      style={bottomText}
-                    >
-                      {link.name}
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
+                    {link.name}
+                  </span>
+                  <span
+                    className="block transition-transform duration-300 text-white font-semibold"
+                    style={bottomText}
+                  >
+                    {link.name}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </Container>
     </nav>
