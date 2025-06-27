@@ -1,62 +1,41 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AnimatePresence } from 'framer-motion';
 import OffcanvasMenu from './OffcanvasMenu';
 import { radialHide, radialReveal } from './animations/radialReveal';
-import useMediaQuery from './hooks/useMediaQuery';
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const [showHamburger, setShowHamburger] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const navRef = useRef(null);
   const btnRef = useRef(null);
   const circleRef = useRef(null);
 
-  const isMobile = useMediaQuery('(max-width: 992px)');
-
-  // Prevent hydration mismatch
+  // IntersectionObserver for desktop only
   useEffect(() => {
-    setMounted(true);
+    // Only run on desktop (min-width: 993px)
+    if (window.matchMedia('(min-width: 993px)').matches) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (btnRef.current) {
+            if (!entry.isIntersecting) {
+              radialReveal(btnRef.current, { duration: 0.5, scale: 1 });
+            } else {
+              radialHide(btnRef.current, { duration: 0.3 });
+            }
+          }
+        },
+        { threshold: 0.6 }
+      );
+
+      if (navRef.current) observer.observe(navRef.current);
+      return () => {
+        if (navRef.current) observer.unobserve(navRef.current);
+      };
+    }
   }, []);
-
-  // Show hamburger logic
-  useEffect(() => {
-    if (!mounted) return;
-
-    if (isMobile) {
-      setShowHamburger(true); // Always visible on mobile
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowHamburger(!entry.isIntersecting);
-      },
-      { threshold: 0.6 }
-    );
-
-    if (navRef.current) observer.observe(navRef.current);
-    return () => {
-      if (navRef.current) observer.unobserve(navRef.current);
-    };
-  }, [isMobile, mounted]);
-
-  // Animate radial reveal/hide
-  useEffect(() => {
-    if (!mounted) return;
-    
-    if (btnRef.current) {
-      if (showHamburger) {
-        radialReveal(btnRef.current, { duration: 0.5, scale: 1 });
-      } else {
-        radialHide(btnRef.current, { duration: 0.3 });
-      }
-    }
-  }, [showHamburger, mounted]);
 
   const handleMouseEnter = () => {
     if (circleRef.current && isOpen) {
@@ -70,29 +49,15 @@ export default function HamburgerMenu() {
     }
   };
 
-  // Don't render until mounted to prevent hydration issues
-  if (!mounted) {
-    return (
-      <>
-        {/* Invisible scroll tracker */}
-        <div ref={navRef} className="w-full h-[1px]" />
-        {/* Placeholder for mobile hamburger to prevent layout shift */}
-        <div className="fixed top-5 right-5 z-50 w-12 h-12 lg:hidden" />
-      </>
-    );
-  }
-
   return (
     <>
-      {/* Invisible scroll tracker (used for IntersectionObserver) */}
+      {/* Invisible scroll tracker for IntersectionObserver */}
       <div ref={navRef} className="w-full h-[1px]" />
 
-      {/* Toggle button container */}
-      <div 
-        ref={btnRef} 
-        className={`fixed top-5 right-5 z-50 transition-opacity duration-200 ${
-          showHamburger ? 'opacity-100' : 'opacity-0 scale-0'
-        }`}
+      {/* Hamburger button */}
+      <div
+        ref={btnRef}
+        className="fixed top-5 right-5 z-50 transition-opacity duration-200 lg:opacity-0" // Hidden on desktop by default
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -110,7 +75,7 @@ export default function HamburgerMenu() {
 
           {/* Icon */}
           <span
-            className={`relative z-100 transition-colors duration-300 ${
+            className={`relative z-10 transition-colors duration-300 ${
               isOpen ? 'text-white hover:text-black' : 'text-white'
             }`}
           >

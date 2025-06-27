@@ -55,7 +55,7 @@ export default function OffcanvasMenu({ onClose }) {
       <div className="w-full md:w-4/12 bg-gray-100 flex items-center justify-center h-1/2 md:h-full">
         <Image
           src="/offcanvas.webp"
-          alt="Placeholder"
+          alt="Off Canvas Image"
           width={500}
           height={500}
           className="w-full h-full object-cover"

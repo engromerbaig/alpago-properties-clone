@@ -36,6 +36,9 @@ export default function RootLayout({ children }) {
         <link rel="preload" href="/logo.png" as="image" type="image/png" />
         {/* Preload video fallback image */}
         <link rel="preload" href="/video-fallback.webp" as="image" type="image/webp" />
+
+        {/* pre load off canvas image */}
+        <link rel="preload" href="/offcanvas.webp" as="image" type="image/webp" />
         {/* Optionally preload the first video for faster loading */}
         <link rel="preload" href="/videos/1.mp4" as="video" type="video/mp4" />
       </head>
