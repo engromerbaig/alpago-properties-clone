@@ -129,12 +129,7 @@ export default function Footer() {
   centered={false}
 text={
   <>
-    Clone website created for <a
-      href="https://digitalgraphiks.ae/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-400"
-    >Graphiks Digital</a> job test by <a
+    Clone website created for by <a
       href="https://omerbaig.dev"
       target="_blank"
       rel="noopener noreferrer"
