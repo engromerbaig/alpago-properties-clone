@@ -33,6 +33,10 @@ export default function RootLayout({ children }) {
         <link rel="preload" href="/logo.png" as="image" type="image/png" />
         <link rel="preload" href="/offcanvas.webp" as="image" type="image/webp" />
         <link rel="preload" href="/videos/1.mp4" as="video" type="video/mp4" />
+
+        {/* preload font */}
+          <link rel="preload" href="/fonts/Roboto-VariableFont_wdth,wght.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+
       </head>
       <body className="flex flex-col min-h-screen relative">
         <VhUpdater />
