@@ -1,3 +1,4 @@
+// components/HamburgerMenu.js
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -13,9 +14,7 @@ export default function HamburgerMenu() {
   const btnRef = useRef(null);
   const circleRef = useRef(null);
 
-  // IntersectionObserver for desktop only
   useEffect(() => {
-    // Only run on desktop (min-width: 993px)
     if (window.matchMedia('(min-width: 993px)').matches) {
       const observer = new IntersectionObserver(
         ([entry]) => {
@@ -51,13 +50,11 @@ export default function HamburgerMenu() {
 
   return (
     <>
-      {/* Invisible scroll tracker for IntersectionObserver */}
       <div ref={navRef} className="w-full h-[1px]" />
 
-      {/* Hamburger button */}
       <div
         ref={btnRef}
-        className="fixed top-5 right-5 z-50 transition-opacity duration-200 lg:opacity-0" // Hidden on desktop by default
+        className={`fixed top-5 right-5 ${isOpen ? 'z-[1001]' : 'z-50'} transition-opacity duration-200 lg:opacity-0`}
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -65,7 +62,6 @@ export default function HamburgerMenu() {
           onMouseLeave={handleMouseLeave}
           className="relative w-12 h-12 rounded-full bg-hamburgerBg cursor-pointer flex items-center justify-center overflow-hidden"
         >
-          {/* White radial hover layer for close icon */}
           {isOpen && (
             <span
               ref={circleRef}
@@ -73,7 +69,6 @@ export default function HamburgerMenu() {
             />
           )}
 
-          {/* Icon */}
           <span
             className={`relative z-10 transition-colors duration-300 ${
               isOpen ? 'text-white hover:text-black' : 'text-white'
@@ -84,7 +79,6 @@ export default function HamburgerMenu() {
         </button>
       </div>
 
-      {/* Offcanvas */}
       <AnimatePresence>
         {isOpen && <OffcanvasMenu onClose={() => setIsOpen(false)} />}
       </AnimatePresence>

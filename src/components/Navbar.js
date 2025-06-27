@@ -7,18 +7,18 @@ import NAV_LINKS from '@/constants/navlinks';
 
 export default function Navbar() {
   return (
-    <nav className="absolute py-6 z-50 shadow-sm w-full">
+    <nav className="absolute py-6 z-40 shadow-sm w-full">
       <div className="bg-black/30 w-full h-full absolute inset-0 -z-10" />
 
       <Container>
         <div className="flex justify-between items-center relative z-10">
           {/* Logo */}
           <Link href="/" className="text-xl font-semibold flex items-center">
-           <Image
+            <Image
               src="/logo.png"
               alt="Alpago Properties Clone"
-              width={120} // Original width
-              height={60} // Original height
+              width={120}
+              height={60}
               priority
               className="mr-2"
             />
@@ -32,11 +32,11 @@ export default function Navbar() {
                 href={link.href}
                 className="relative overflow-hidden h-5 group"
               >
-                {/* Top text (slides up on hover) */}
+                {/* Top text */}
                 <span className="absolute top-0 left-0 transition-transform duration-300 text-white font-semibold group-hover:-translate-y-full">
                   {link.name}
                 </span>
-                {/* Bottom text (slides up on hover) */}
+                {/* Bottom text */}
                 <span className="block transition-transform duration-300 text-white font-semibold translate-y-full group-hover:translate-y-0">
                   {link.name}
                 </span>

@@ -1,3 +1,4 @@
+// components/OffcanvasMenu.js
 'use client';
 
 import { useEffect } from 'react';
@@ -8,11 +9,17 @@ import NAV_LINKS from '@/constants/navlinks';
 import Heading from './Heading';
 
 export default function OffcanvasMenu({ onClose }) {
-  // Disable body scroll on mount, restore on unmount
   useEffect(() => {
+    const scrollY = window.scrollY;
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+
     return () => {
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, scrollY);
     };
   }, []);
 
@@ -23,11 +30,10 @@ export default function OffcanvasMenu({ onClose }) {
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
       transition={{ type: 'tween', duration: 0.3 }}
-      className="fixed top-0 right-0 w-full h-screen z-20 flex flex-col md:flex-row"
+      className="fixed top-0 right-0 w-full h-screen z-[999] flex flex-col md:flex-row"
     >
       {/* Left: Nav + Logo */}
       <div className="w-full md:w-8/12 bg-black text-white p-8 flex flex-col justify-center items-center relative h-1/2 md:h-full">
-        {/* Logo top-left */}
         <Link
           href="/"
           onClick={onClose}
@@ -36,7 +42,6 @@ export default function OffcanvasMenu({ onClose }) {
           <Image src="/logo.png" alt="Logo" width={100} height={40} />
         </Link>
 
-        {/* Links */}
         <div className="flex flex-col items-center justify-center space-y-6">
           {NAV_LINKS.map((link, idx) => (
             <Link
