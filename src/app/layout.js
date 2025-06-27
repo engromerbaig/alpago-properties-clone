@@ -32,6 +32,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        {/* pre load the logo */}
+        <link rel="preload" href="/logo.png" as="image" type="image/png" />
+        {/* Preload video fallback image */}
+        <link rel="preload" href="/video-fallback.webp" as="image" type="image/webp" />
+        {/* Optionally preload the first video for faster loading */}
+        <link rel="preload" href="/videos/1.mp4" as="video" type="video/mp4" />
       </head>
       <Suspense fallback={<Loader />}>
         <LayoutStructure>{children}</LayoutStructure>

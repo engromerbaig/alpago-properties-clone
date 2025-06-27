@@ -5,6 +5,7 @@ import { OVERLAY_DATA } from '@/constants/overlays';
 import { theme } from '@/theme';
 import Container from './Container';
 import { gsap } from 'gsap';
+import Image from 'next/image';
 
 export default function Hero() {
   const videoRefs = useRef([]);
@@ -12,6 +13,14 @@ export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [videoDurations, setVideoDurations] = useState({});
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState({});
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  // Preload the fallback image
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = '/video-fallback.webp';
+  }, []);
 
   const handleLoadedMetadata = (index, e) => {
     const video = e.target;
@@ -19,6 +28,18 @@ export default function Hero() {
       ...prev,
       [index]: video.duration,
     }));
+  };
+
+  const handleCanPlay = (index) => {
+    setVideoLoaded((prev) => ({
+      ...prev,
+      [index]: true,
+    }));
+    
+    // If this is the first video and it's our initial load
+    if (index === 0 && initialLoad) {
+      setInitialLoad(false);
+    }
   };
 
   const transitionToSlide = useCallback(
@@ -66,7 +87,10 @@ export default function Hero() {
 
     const playVideo = async () => {
       try {
-        gsap.set(overlayRef.current, { x: '100%' });
+        // Only show overlay during transitions, not initial load
+        if (!initialLoad) {
+          gsap.set(overlayRef.current, { x: '100%' });
+        }
         currentVideo.currentTime = 0;
         currentVideo.muted = true;
         await currentVideo.play();
@@ -78,12 +102,33 @@ export default function Hero() {
     };
 
     playVideo();
-  }, [currentIndex]);
+  }, [currentIndex, initialLoad]);
+
+  // Initialize overlay position on mount
+  useEffect(() => {
+    if (overlayRef.current) {
+      gsap.set(overlayRef.current, { x: '100%' });
+    }
+  }, []);
 
   return (
     <Container
       className={`relative z-10 h-screen flex flex-col overflow-hidden w-full ${theme.paddingVerticalMenu} `}
     >
+      {/* Fallback Image - Only show during initial load */}
+      {initialLoad && !videoLoaded[0] && (
+        <div className="absolute inset-0 w-full h-full z-5">
+          <Image
+            src="/video-fallback.webp"
+            alt="Loading..."
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
+      )}
+
       {/* Video Layer */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         {[1, 2, 3].map((id, index) => (
@@ -92,7 +137,7 @@ export default function Hero() {
             ref={(el) => (videoRefs.current[index] = el)}
             src={`/videos/${id}.mp4`}
             muted
-            preload="metadata"
+            preload={index === 0 ? "auto" : "metadata"} // Preload first video fully
             playsInline
             className="w-full h-full object-cover absolute inset-0"
             style={{
@@ -101,16 +146,17 @@ export default function Hero() {
               transition: 'opacity 0.3s ease-in-out',
             }}
             onLoadedMetadata={(e) => handleLoadedMetadata(index, e)}
+            onCanPlay={() => handleCanPlay(index)}
           />
         ))}
       </div>
 
-      {/* Black Overlay for Transitions */}
-   <div
-  ref={overlayRef}
-  className="absolute inset-0 w-full h-full bg-black z-15 pointer-events-none overflow-hidden"
- />
-
+      {/* Black Overlay for Transitions - Hidden on initial load */}
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 w-full h-full bg-black z-15 pointer-events-none overflow-hidden"
+        style={{ transform: 'translateX(100%)' }} // Start hidden
+      />
 
       {/* Content Wrapper */}
       <div className={`relative z-20 w-full h-full flex flex-col ${theme.paddingHorizontal}`}>
