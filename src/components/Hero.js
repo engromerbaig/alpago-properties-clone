@@ -16,7 +16,10 @@ export default function Hero() {
   const [videoDurations, setVideoDurations] = useState({});
   const [videoLoaded, setVideoLoaded] = useState({});
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showLoader, setShowLoader] = useState(true); // new
+
+  const [showLoader, setShowLoader] = useState(true);
+  const [showVideoFallback, setShowVideoFallback] = useState(false);
+  const [hasFirstVideoStarted, setHasFirstVideoStarted] = useState(false);
 
   const handleCanPlay = (index) => {
     setVideoLoaded((prev) => ({
@@ -25,12 +28,12 @@ export default function Hero() {
     }));
 
     if (index === 0 && showLoader) {
-      // Trigger loader exit animation
+      setShowVideoFallback(true); // Show fallback image during gap
       const boxes = document.querySelectorAll('.loader-box');
       gsap.timeline({
         defaults: { ease: 'power2.out' },
         onComplete: () => {
-          setShowLoader(false); // Remove loader only after animation
+          setShowLoader(false); // Remove loader after animation
         },
       }).to(boxes, {
         y: '-100%',
@@ -107,12 +110,25 @@ export default function Hero() {
 
   return (
     <div className="relative h-screen w-full">
-      {showLoader && <Loader />} {/* show loader on top */}
+      {/* Loader on top initially */}
+      {showLoader && <Loader />}
 
+      {/* Fallback image only during gap after loader and before first video */}
+      {showVideoFallback && !hasFirstVideoStarted && (
+        <div className="absolute inset-0 z-30 bg-black">
+          <img
+            src="/video-fallback.webp"
+            alt="Fallback"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
+      {/* Main hero container */}
       <Container
         className={`relative z-10 h-screen flex flex-col overflow-hidden w-full ${theme.paddingVerticalMenu}`}
       >
-        {/* Video Layer */}
+        {/* Video background layer */}
         <div className="absolute inset-0 w-full h-full pointer-events-none">
           {[1, 2, 3].map((id, index) => (
             <video
@@ -130,18 +146,24 @@ export default function Hero() {
               }}
               onLoadedMetadata={(e) => handleLoadedMetadata(index, e)}
               onCanPlay={() => handleCanPlay(index)}
+              onPlaying={() => {
+                if (index === 0 && !hasFirstVideoStarted) {
+                  setHasFirstVideoStarted(true);
+                  setShowVideoFallback(false); // Hide fallback image
+                }
+              }}
             />
           ))}
         </div>
 
-        {/* Black overlay for slide transitions */}
+        {/* Black overlay for transition slides */}
         <div
           ref={overlayRef}
           className="absolute inset-0 w-full h-full bg-black z-15 pointer-events-none"
           style={{ transform: 'translateX(100%)' }}
         />
 
-        {/* Overlay content */}
+        {/* Content overlay */}
         <div className={`relative z-20 w-full h-full flex flex-col ${theme.paddingHorizontal}`}>
           {OVERLAY_DATA.map((item, index) =>
             index === currentIndex ? (
