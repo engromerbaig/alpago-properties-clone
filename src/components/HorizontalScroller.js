@@ -117,9 +117,8 @@ export default function HorizontalScroller({
             <div ref={titleRef}>
               <Heading
                 text={title}
-                size="text-150px"
+                size="text-[60px]  xl:text-[140px] 2xl:text-[160px]"
                 centered={false}
-                fontWeight="font-bold"
                 color={titleColor}
                 isAnimate
               />

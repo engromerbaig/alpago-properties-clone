@@ -82,9 +82,9 @@ export default function Experience() {
               <Heading
                 text="THE ALPAGO EXPERIENCE"
                 centered={false}
-                color="text-white"
-                className="mb-8"
-                size="text-90px"
+                className="mb-0 leading-none"
+                size="text-[50px] md:text-[60px]"
+                
               />
             </div>
 

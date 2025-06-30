@@ -41,16 +41,15 @@ export default function Partners() {
   <Heading
     text="DESIGN PARTNERS"
     centered={false}
-    color="text-Gray"
-    fontWeight="font-extralight"
-    className="text-lg mb-2"
+    size="text[22px]"
+    color="text-[#888]"
   />
 
   {/* Heading with fixed space to avoid shift */}
   <div className="min-h-[120px]">
     <Heading
       text={PARTNERS_DATA[activeIndex].heading}
-      size="text-4xl"
+      size="text-[60px]"
       centered={false}
       color="text-black"
     />
@@ -61,6 +60,7 @@ export default function Partners() {
     <BodyText
       text={PARTNERS_DATA[activeIndex].description}
       centered={false}
+      className="max-w-[450px]"
     />
   </div>
 </Container>

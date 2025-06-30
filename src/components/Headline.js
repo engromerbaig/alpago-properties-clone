@@ -8,8 +8,11 @@ export const Headline = () => {
   <Heading
   text="ALPAGO PROPERTIES EXCELLENCE IN LUXURY"
   spanText="EXCELLENCE IN LUXURY"
+  size="text-[36px] md:text-[42px]"
+  className="leading-tight"
   breakSpan={true}
-  spanFontWeight="font-extralight"
+  fontWeight="font-semibold"
+  spanFontWeight="font-normal"
   />
     </Container>
   );

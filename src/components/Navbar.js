@@ -32,7 +32,7 @@ export default function Navbar() {
               <Link key={idx} href={link.href} className="group">
                 <TranslateTextHover
                   text={link.name}
-                  className="text-white font-semibold"
+                  className="text-white font-normal"
                 />
               </Link>
             ))}
