@@ -50,15 +50,15 @@ export default function OffcanvasMenu({ onClose }) {
               className="mr-2"
             />        </Link>
 
-        <div className="flex flex-col items-start justify-center space-y-1">
+        <div className="flex flex-col items-start justify-center space-y-0">
           {NAV_LINKS.map((link, idx) => (
             <Link
               key={idx}
               href={link.href}
               onClick={onClose}
-              className="text-xl  transition-all"
+              className=" transition-all"
             >
-              <Heading text={link.name} color="text-grayText" centered={false} className='uppercase' />
+              <Heading text={link.name} size='text-[30px] lg:text-[50px]' color="text-grayText" centered={false} className='uppercase' />
             </Link>
           ))}
         </div>
