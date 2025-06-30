@@ -113,6 +113,7 @@ export default function CircularProgress({
           className='leading-none'
           fontWeight='font-light'
           hasArrow
+          hoverAnimation
         />  
         <BodyText
         text={`/ ${totalCount}`}

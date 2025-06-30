@@ -1,9 +1,11 @@
 'use client';
+
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
-import { animateText } from './animations/animateText';
 import Image from 'next/image';
 import rightArrowLong from '../assets/icons/arrow-right-long.svg';
+import { animateText } from './animations/animateText';
+import TranslateTextHover from './utils/TranslateTextHover';
 
 export default function Heading({
   text = '',
@@ -12,16 +14,16 @@ export default function Heading({
   spanSize = '',
   spanFontWeight = 'font-black',
   color = 'text-white',
-  size = '', // optional — if not passed, fallback to responsive logic
+  size = '', // fallback to responsive
   centered = true,
   fontWeight = 'font-normal',
   breakSpan = false,
   className = '',
   isAnimate = false,
-  hasArrow = false, // ✅ new prop
+  hoverAnimation = false,
+  hasArrow = false,
 }) {
   const headingRef = useRef(null);
-
   const responsiveSize = 'text-[48px] sm:text-[60px] md:text-[75px] 2xl:text-[102px]';
   const parts = spanText ? text.split(spanText) : [text];
 
@@ -32,27 +34,32 @@ export default function Heading({
     }
   }, [isAnimate, text]);
 
+  const renderSpan = (txt, extraClass = '') =>
+    hoverAnimation ? (
+      <TranslateTextHover text={txt} className={`${extraClass}`} />
+    ) : (
+      <span className={extraClass}>{txt}</span>
+    );
+
   const renderHeadingContent = () => {
     if (!spanText) {
-      return <span className={color}>{text}</span>;
+      return renderSpan(text, color);
     }
 
     return (
       <>
-        {parts[0] && <span className={color}>{parts[0]}</span>}
+        {parts[0] && renderSpan(parts[0], color)}
+
         {breakSpan ? (
           <>
             <br />
-            <span className={`${spanColor} ${spanSize} ${spanFontWeight} block`}>
-              {spanText}
-            </span>
+            {renderSpan(spanText, `${spanColor} ${spanSize} ${spanFontWeight} block`)}
           </>
         ) : (
-          <span className={`${spanColor} ${spanSize} ${spanFontWeight}`}>
-            {spanText}
-          </span>
+          renderSpan(spanText, `${spanColor} ${spanSize} ${spanFontWeight}`)
         )}
-        {parts[1] && <span className={color}>{parts[1]}</span>}
+
+        {parts[1] && renderSpan(parts[1], color)}
       </>
     );
   };
@@ -61,11 +68,7 @@ export default function Heading({
     <div className="relative w-full">
       {hasArrow && (
         <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-          <Image
-            src={rightArrowLong}
-            alt="Arrow"
-            className=""
-          />
+          <Image src={rightArrowLong} alt="Arrow" />
         </div>
       )}
 
@@ -97,9 +100,12 @@ Heading.propTypes = {
   breakSpan: PropTypes.bool,
   className: PropTypes.string,
   isAnimate: PropTypes.bool,
-  hasArrow: PropTypes.bool, // ✅ new prop type
+  hoverAnimation: PropTypes.bool,
+  hasArrow: PropTypes.bool,
 };
 
 Heading.defaultProps = {
+  isAnimate: false,
+  hoverAnimation: false,
   hasArrow: false,
 };
