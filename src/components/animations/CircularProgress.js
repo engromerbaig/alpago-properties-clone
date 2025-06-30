@@ -106,7 +106,7 @@ export default function CircularProgress({
         />
       </svg>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+      <div className="absolute inset-0 flex flex-col items-center cursor-pointer justify-center text-white">
         <Heading
           text={number}
           size='text-[80px] lg:text-[120px]'
