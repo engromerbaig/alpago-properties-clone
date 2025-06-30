@@ -1,4 +1,3 @@
-// app/layout.jsx or app/layout.tsx
 import './globals.css';
 import { Roboto } from 'next/font/google';
 import Navbar from '@/components/Navbar';
@@ -10,7 +9,7 @@ const roboto = Roboto({
   subsets: ['latin'],
   variable: '--font-roboto',
   display: 'swap',
-  weight: ['variable'], // 🔥 loads full 100–900 range
+  weight: ['variable'], // 🔥 
 });
 
 export const metadata = {
