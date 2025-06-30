@@ -2,6 +2,8 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import { animateText } from './animations/animateText';
+import Image from 'next/image';
+import rightArrowLong from '../assets/icons/arrow-right-long.svg';
 
 export default function Heading({
   text = '',
@@ -16,13 +18,11 @@ export default function Heading({
   breakSpan = false,
   className = '',
   isAnimate = false,
+  hasArrow = false, // ✅ new prop
 }) {
   const headingRef = useRef(null);
 
-  // Use Tailwind responsive classes instead of useMediaQuery hooks
   const responsiveSize = 'text-[48px] sm:text-[60px] md:text-[75px] 2xl:text-[102px]';
-
-  // Split text into parts around spanText
   const parts = spanText ? text.split(spanText) : [text];
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Heading({
       const cleanup = animateText(headingRef.current);
       return cleanup;
     }
-  }, [isAnimate, text]); // Add text dependency to re-animate when text changes
+  }, [isAnimate, text]);
 
   const renderHeadingContent = () => {
     if (!spanText) {
@@ -43,10 +43,14 @@ export default function Heading({
         {breakSpan ? (
           <>
             <br />
-            <span className={`${spanColor} ${spanSize} ${spanFontWeight} block`}>{spanText}</span>
+            <span className={`${spanColor} ${spanSize} ${spanFontWeight} block`}>
+              {spanText}
+            </span>
           </>
         ) : (
-          <span className={`${spanColor} ${spanSize} ${spanFontWeight}`}>{spanText}</span>
+          <span className={`${spanColor} ${spanSize} ${spanFontWeight}`}>
+            {spanText}
+          </span>
         )}
         {parts[1] && <span className={color}>{parts[1]}</span>}
       </>
@@ -54,17 +58,29 @@ export default function Heading({
   };
 
   return (
-    <h1
-      ref={headingRef}
-      className={`${centered ? 'text-center' : ''} ${size || responsiveSize} ${fontWeight} ${className}`}
-      style={{
-        wordBreak: 'normal',
-        overflowWrap: 'break-word',
-        whiteSpace: 'normal',
-      }}
-    >
-      {renderHeadingContent()}
-    </h1>
+    <div className="relative w-full">
+      {hasArrow && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+          <Image
+            src={rightArrowLong}
+            alt="Arrow"
+            className=""
+          />
+        </div>
+      )}
+
+      <h1
+        ref={headingRef}
+        className={`relative z-20 ${centered ? 'text-center' : ''} ${size || responsiveSize} ${fontWeight} ${className}`}
+        style={{
+          wordBreak: 'normal',
+          overflowWrap: 'break-word',
+          whiteSpace: 'normal',
+        }}
+      >
+        {renderHeadingContent()}
+      </h1>
+    </div>
   );
 }
 
@@ -75,10 +91,15 @@ Heading.propTypes = {
   spanSize: PropTypes.string,
   spanFontWeight: PropTypes.string,
   color: PropTypes.string,
-  size: PropTypes.string, // can override responsive sizing
+  size: PropTypes.string,
   centered: PropTypes.bool,
   fontWeight: PropTypes.string,
   breakSpan: PropTypes.bool,
   className: PropTypes.string,
   isAnimate: PropTypes.bool,
+  hasArrow: PropTypes.bool, // ✅ new prop type
+};
+
+Heading.defaultProps = {
+  hasArrow: false,
 };

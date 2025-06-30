@@ -109,8 +109,10 @@ export default function CircularProgress({
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
         <Heading
           text={number}
-          size='text-[100px]'
+          size='text-[80px] lg:text-[120px]'
           className='leading-none'
+          fontWeight='font-light'
+          hasArrow
         />  
         <BodyText
         text={`/ ${totalCount}`}
