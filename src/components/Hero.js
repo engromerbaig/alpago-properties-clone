@@ -163,22 +163,18 @@ export default function Hero() {
           style={{ transform: 'translateX(100%)' }}
         />
 
-        {/* Content overlay */}
+        {/* Content overlay - Single instance that updates props */}
         <div className={`relative z-20 w-full h-full flex flex-col ${theme.paddingHorizontal}`}>
-          {OVERLAY_DATA.map((item, index) =>
-            index === currentIndex ? (
-              <Overlay
-                key={index}
-                {...item}
-                index={index}
-                currentIndex={currentIndex}
-                duration={videoDurations[index]}
-                onNext={handleNext}
-                onPrev={handlePrev}
-                onProgressComplete={handleProgressComplete}
-              />
-            ) : null
-          )}
+          <Overlay
+            key={`overlay-${currentIndex}`} // Dynamic key triggers animation on slide change
+            {...OVERLAY_DATA[currentIndex]}
+            index={currentIndex}
+            currentIndex={currentIndex}
+            duration={videoDurations[currentIndex]}
+            onNext={handleNext}
+            onPrev={handlePrev}
+            onProgressComplete={handleProgressComplete}
+          />
         </div>
       </Container>
     </div>
