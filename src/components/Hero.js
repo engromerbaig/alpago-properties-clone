@@ -1,3 +1,4 @@
+// components/Hero.jsx
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
@@ -6,17 +7,19 @@ import { OVERLAY_DATA } from '@/constants/overlays';
 import { theme } from '@/theme';
 import Container from './Container';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Loader from './utils/Loader';
+
+gsap.registerPlugin(ScrollTrigger); // Register ScrollTrigger plugin
 
 export default function Hero() {
   const videoRefs = useRef([]);
   const overlayRef = useRef(null);
-
+  const heroRef = useRef(null); // Ref for the Hero container
   const [currentIndex, setCurrentIndex] = useState(0);
   const [videoDurations, setVideoDurations] = useState({});
   const [videoLoaded, setVideoLoaded] = useState({});
   const [isTransitioning, setIsTransitioning] = useState(false);
-
   const [showLoader, setShowLoader] = useState(true);
   const [showVideoFallback, setShowVideoFallback] = useState(false);
   const [hasFirstVideoStarted, setHasFirstVideoStarted] = useState(false);
@@ -28,12 +31,12 @@ export default function Hero() {
     }));
 
     if (index === 0 && showLoader) {
-      setShowVideoFallback(true); // Show fallback image during gap
+      setShowVideoFallback(true);
       const boxes = document.querySelectorAll('.loader-box');
       gsap.timeline({
         defaults: { ease: 'power2.out' },
         onComplete: () => {
-          setShowLoader(false); // Remove loader after animation
+          setShowLoader(false);
         },
       }).to(boxes, {
         y: '-100%',
@@ -106,14 +109,31 @@ export default function Hero() {
     if (overlayRef.current) {
       gsap.set(overlayRef.current, { x: '100%' });
     }
+
+    // GSAP ScrollTrigger to fade out Hero when footer is reached
+    const footer = document.querySelector('footer'); // Select the footer
+    if (heroRef.current && footer) {
+      gsap.to(heroRef.current, {
+        opacity: 0,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: footer,
+          start: 'top bottom', // Start when footer top hits viewport bottom
+          end: 'top 75%', // End when footer top is 75% up the viewport
+          scrub: true, // Smoothly animate with scroll
+        },
+      });
+    }
+
+    return () => {
+      // Clean up ScrollTrigger on component unmount
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
   }, []);
 
   return (
-    <div className="relative h-screen w-full">
-      {/* Loader on top initially */}
+    <div ref={heroRef} className="relative h-screen w-full">
       {showLoader && <Loader />}
-
-      {/* Fallback image only during gap after loader and before first video */}
       {showVideoFallback && !hasFirstVideoStarted && (
         <div className="absolute inset-0 z-30 bg-black">
           <img
@@ -123,12 +143,9 @@ export default function Hero() {
           />
         </div>
       )}
-
-      {/* Main hero container */}
       <Container
         className={`relative z-10 h-screen flex flex-col overflow-hidden w-full ${theme.paddingVerticalMenu}`}
       >
-        {/* Video background layer */}
         <div className="absolute inset-0 w-full h-full pointer-events-none">
           {[1, 2, 3].map((id, index) => (
             <video
@@ -149,24 +166,20 @@ export default function Hero() {
               onPlaying={() => {
                 if (index === 0 && !hasFirstVideoStarted) {
                   setHasFirstVideoStarted(true);
-                  setShowVideoFallback(false); // Hide fallback image
+                  setShowVideoFallback(false);
                 }
               }}
             />
           ))}
         </div>
-
-        {/* Black overlay for transition slides */}
         <div
           ref={overlayRef}
           className="absolute inset-0 w-full h-full bg-black z-15 pointer-events-none"
           style={{ transform: 'translateX(100%)' }}
         />
-
-        {/* Content overlay - Single instance that updates props */}
         <div className={`relative z-20 w-full h-full flex flex-col ${theme.paddingHorizontal}`}>
           <Overlay
-            key={`overlay-${currentIndex}`} // Dynamic key triggers animation on slide change
+            key={`overlay-${currentIndex}`}
             {...OVERLAY_DATA[currentIndex]}
             index={currentIndex}
             currentIndex={currentIndex}

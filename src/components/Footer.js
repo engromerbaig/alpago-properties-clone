@@ -24,7 +24,7 @@ export default function Footer() {
   );
 
   return (
-    <Container className={`bg-black text-white z-100 ${theme.paddingVertical}`}>
+    <Container className={`bg-black text-white footer z-100 ${theme.paddingVertical}`}>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
         {/* Left: Company Info */}
         <div className="col-span-12 md:col-span-4 space-y-4">
