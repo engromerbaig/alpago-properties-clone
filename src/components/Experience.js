@@ -139,7 +139,7 @@ export default function Experience() {
 
         {/* Desktop layout */}
         {isDesktop && (
-          <div className="flex flex-col lg:flex-row-reverse gap-10 xl:gap-20 items-stretch h-full">
+          <div className="flex flex-col lg:flex-row-reverse gap-10 xl:gap-20 items-stretch h-screen">
             <div className="w-full lg:w-1/2 flex flex-col justify-between py-6">
               <div className="w-full">
                 <Heading
