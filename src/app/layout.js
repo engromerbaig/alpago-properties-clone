@@ -1,8 +1,17 @@
+// app/layout.jsx or app/layout.tsx
+import './globals.css';
+import { Roboto } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HamburgerMenu from '@/components/HamburgerMenu';
-import './globals.css';
 import VhUpdater from '@/components/utils/VhUpdater';
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  variable: '--font-roboto',
+  display: 'swap',
+  weight: ['variable'], // 🔥 loads full 100–900 range
+});
 
 export const metadata = {
   title: 'The Leading Dubai Leading Real Estate Developer | Alpago Properties Clone',
@@ -13,32 +22,16 @@ export const metadata = {
   },
 };
 
-function LayoutStructure({ children }) {
-  return (
-    <body className="flex flex-col min-h-screen relative">
-      <VhUpdater />
-      <Navbar />
-      <HamburgerMenu />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-    </body>
-  );
-}
-
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={roboto.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="preload" href="/logo.png" as="image" type="image/png" />
         <link rel="preload" href="/offcanvas.webp" as="image" type="image/webp" />
         <link rel="preload" href="/videos/1.mp4" as="video" type="video/mp4" />
-
-        {/* preload font */}
-          <link rel="preload" href="/fonts/Roboto-VariableFont_wdth,wght.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-
       </head>
-      <body className="flex flex-col min-h-screen relative">
+      <body className="flex flex-col min-h-screen relative font-roboto">
         <VhUpdater />
         <Navbar />
         <HamburgerMenu />

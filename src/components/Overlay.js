@@ -21,7 +21,7 @@ export default function Overlay({
       {/* Mobile Layout */}
       <div className="flex flex-col items-center w-full md:hidden gap-2">
         {console.log("Mobile Overlay rendering, currentIndex:", currentIndex)}
-        <Heading text={title} size="text-90px" isAnimate />
+        <Heading text={title} size="text-90px" fontWeight='font-normal' isAnimate />
         <div className="w-full flex justify-end z-50"> {/* High z-index for arrows */}
           <NavigationArrows onNext={onNext} onPrev={onPrev} currentIndex={currentIndex} totalCount={OVERLAY_DATA.length} />
         </div>
@@ -29,7 +29,7 @@ export default function Overlay({
 
       {/* Desktop Layout */}
       <div className="hidden md:flex items-end justify-between w-full">
-        <Heading text={title} size="text-90px" isAnimate />
+        <Heading text={title} size="text-90px" fontWeight='font-normal' isAnimate />
         <CircularProgress
           isActive={isActive}
           duration={duration || 20}

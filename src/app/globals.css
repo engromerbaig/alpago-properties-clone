@@ -1,14 +1,5 @@
 @import "tailwindcss";
 
-/* Font face */
-@font-face {
-  font-family: 'Roboto';
-  src: url('/fonts/Roboto-VariableFont_wdth,wght.woff2') format('woff2-variations');
-  font-weight: 100 900;       /* Full weight range */
-  font-stretch: 75% 100%;     /* Optional: allows width variation */
-  font-style: normal;
-  font-display: swap;
-}
 
 
 /* CSS Reset */
@@ -49,6 +40,7 @@ html {
 body {
   font-family: var(--font-roboto);
 }
+
 
 /* turn off horizontal scrolling */
 html, body {
@@ -112,6 +104,12 @@ html, body {
   .text-120px {
     font-size: clamp(3rem, 6.25vw, 7.5rem); /* 120px */
   }
+
+
+  .text-102px {
+  font-size: clamp(2.5rem, 6.25vw, 6.375rem); /* 102px */
+}
+
 
   .text-90px {
     font-size: clamp(2.25rem, 4.6875vw, 5.625rem); /* 90px */
